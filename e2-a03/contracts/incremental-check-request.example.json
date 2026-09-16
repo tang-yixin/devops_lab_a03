@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "job_type": "INCREMENTAL_CHECK",
+  "idempotency_key": "pair01-inc-001",
+  "trace_id": "trace-e2-a01-b01-002",
+  "input": {
+    "repository": {
+      "url": "https://github.com/example/project.git",
+      "commit": "<C1-full-sha>"
+    },
+    "base_commit": "<C0-full-sha>",
+    "baseline": {
+      "actual_graph_uri": "artifact://pair01/full01/actual.json",
+      "commit": "<C0-full-sha>",
+      "configuration_id": "cc-MODE0"
+    },
+    "environment": {
+      "image": "registry.example.edu/project-build:latest",
+      "configuration_id": "cc-MODE0"
+    },
+    "build": {
+      "clean_build_command": "make clean && make -j2",
+      "project_root": "/workspace/project"
+    }
+  },
+  "execution": {
+    "timeout_seconds": 600
+  }
+}

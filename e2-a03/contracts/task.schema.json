@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.edu/devops/e2/task.schema.json",
+  "title": "DevOps E2 Unified Job",
+  "type": "object",
+  "required": ["schema_version", "job_id", "trace_id", "job_type", "status"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "job_id": { "type": "string" },
+    "trace_id": { "type": "string" },
+    "job_type": {
+      "type": "string",
+      "enum": ["DRAFT", "FULL_CHECK", "INCREMENTAL_CHECK", "REPAIR"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["QUEUED", "RUNNING", "SUCCEEDED", "FAILED", "TIMED_OUT", "CANCELLED"]
+    },
+    "execution": { "$ref": "#/$defs/Execution" },
+    "input": { "type": "object" },
+    "output": { "type": "object" },
+    "error": {
+      "oneOf": [
+        { "$ref": "#/$defs/JobError" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "$defs": {
+    "Execution": {
+      "type": "object",
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time" },
+        "started_at": { "type": "string", "format": "date-time" },
+        "finished_at": { "type": "string", "format": "date-time" },
+        "timeout_seconds": { "type": "integer", "minimum": 1 },
+        "max_iterations": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "JobError": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": ["ENV_3002", "EXEC_4002", "ANALYSIS_5001", "REQUEST_4001"]
+        },
+        "message": { "type": "string" },
+        "detail": { "type": "string" }
+      }
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "required": ["artifact_id", "type", "uri", "media_type", "producer_job_id"],
+      "properties": {
+        "artifact_id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "ACTUAL_GRAPH",
+            "DECLARED_GRAPH",
+            "ERROR_REPORT",
+            "PATCH",
+            "DOCKERFILE",
+            "IMAGE",
+            "LOG",
+            "UPDATED_ACTUAL_GRAPH"
+          ]
+        },
+        "uri": { "type": "string", "pattern": "^artifact://" },
+        "media_type": { "type": "string" },
+        "producer_job_id": { "type": "string" },
+        "sha256": { "type": "string" },
+        "commit": { "type": "string" },
+        "configuration_id": { "type": "string" },
+        "read_method": { "$ref": "#/$defs/ReadMethod" }
+      }
+    },
+    "ReadMethod": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["HTTP", "SHARED_VOLUME"] },
+        "endpoint": { "type": "string" },
+        "path": { "type": "string" }
+      }
+    },
+    "Finding": {
+      "type": "object",
+      "required": ["type", "target", "dependency", "commit", "detector"],
+      "properties": {
+        "type": { "type": "string", "enum": ["MISSING", "REDUNDANT"] },
+        "target": { "type": "string" },
+        "dependency": { "type": "string" },
+        "commit": { "type": "string" },
+        "detector": { "type": "string" },
+        "location": { "type": "string" },
+        "evidence": { "type": "string" },
+        "source_uri": { "type": "string" }
+      }
+    }
+  }
+}

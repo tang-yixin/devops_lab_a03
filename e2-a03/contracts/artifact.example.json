@@ -1,0 +1,14 @@
+{
+  "artifact_id": "graph-001",
+  "type": "ACTUAL_GRAPH",
+  "uri": "artifact://pair01/full01/actual.json",
+  "media_type": "application/json",
+  "producer_job_id": "job-full01",
+  "sha256": "<sha256>",
+  "commit": "<full-sha>",
+  "configuration_id": "cc-MODE0",
+  "read_method": {
+    "kind": "HTTP",
+    "endpoint": "GET /v1/artifacts/graph-001"
+  }
+}

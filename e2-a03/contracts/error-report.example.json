@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "report_id": "report-md-001",
+  "producer_job_id": "job-full01",
+  "commit": "<full-sha>",
+  "configuration_id": "cc-MODE0",
+  "findings": [
+    {
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "config.h",
+      "commit": "<full-sha>",
+      "detector": "BuildChecker",
+      "location": "Makefile:42",
+      "evidence": "ptrace: 构建 main.o 时读取 config.h；make -p: 未声明该依赖",
+      "source_uri": "artifact://pair01/full01/actual.json"
+    }
+  ]
+}

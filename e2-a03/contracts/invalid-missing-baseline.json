@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "job_type": "INCREMENTAL_CHECK",
+  "idempotency_key": "pair01-inc-bad-001",
+  "trace_id": "trace-e2-a01-b01-bad",
+  "input": {
+    "repository": {
+      "url": "https://github.com/example/project.git",
+      "commit": "<C1-full-sha>"
+    },
+    "environment": {
+      "image": "registry.example.edu/project-build:latest",
+      "configuration_id": "cc-MODE0"
+    },
+    "build": {
+      "clean_build_command": "make clean && make -j2",
+      "project_root": "/workspace/project"
+    }
+  }
+}
