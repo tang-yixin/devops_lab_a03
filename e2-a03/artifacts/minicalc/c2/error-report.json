@@ -2,17 +2,17 @@
   "schema_version": "1.0",
   "repository": {
     "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
-    "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
   },
   "configuration_id": "cc-default",
-  "producer_job_id": "job-full-minicalc-c0",
+  "producer_job_id": "job-full-minicalc-c2",
   "findings": [
     {
       "finding_id": "finding-f132bd5f91cf4198ca003b7b8b542c0deefe2d2d81934bf5220f9666f28c18e9",
       "type": "MISSING",
       "target": "main.o",
       "dependency": "util.h",
-      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe",
       "detector": "BuildChecker",
       "location": {
         "file": "Makefile",
@@ -22,7 +22,7 @@
         "actual_dependency": true,
         "declared_dependency": false,
         "description": "main.c #include \"util.h\"，但 main.o 规则未声明该依赖",
-        "uri": "artifact://minicalc/c0/evidence.json"
+        "uri": "artifact://minicalc/c2/evidence.json"
       }
     },
     {
@@ -30,7 +30,7 @@
       "type": "MISSING",
       "target": "main.o",
       "dependency": "token.h",
-      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe",
       "detector": "BuildChecker",
       "location": {
         "file": "Makefile",
@@ -40,7 +40,7 @@
         "actual_dependency": true,
         "declared_dependency": false,
         "description": "main.c 经 parser.h 间接包含 token.h（传递依赖），但 main.o 规则未声明",
-        "uri": "artifact://minicalc/c0/evidence.json"
+        "uri": "artifact://minicalc/c2/evidence.json"
       }
     },
     {
@@ -48,7 +48,7 @@
       "type": "MISSING",
       "target": "parser.o",
       "dependency": "token.h",
-      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe",
       "detector": "BuildChecker",
       "location": {
         "file": "Makefile",
@@ -58,7 +58,25 @@
         "actual_dependency": true,
         "declared_dependency": false,
         "description": "parser.c 经 parser.h 传递包含 token.h，但 parser.o 规则未声明",
-        "uri": "artifact://minicalc/c0/evidence.json"
+        "uri": "artifact://minicalc/c2/evidence.json"
+      }
+    },
+    {
+      "finding_id": "finding-04faffb6fbcbadc30e53bf5c8af15d0b363517df35a8a22295b72ad4afe3dbb3",
+      "type": "MISSING",
+      "target": "parser.o",
+      "dependency": "config.h",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe",
+      "detector": "BuildChecker",
+      "location": {
+        "file": "Makefile",
+        "line": 34
+      },
+      "evidence": {
+        "actual_dependency": true,
+        "declared_dependency": false,
+        "description": "C1 中 parser.c 新增 #include \"config.h\" 并使用 TOKEN_CAPACITY，但 parser.o 规则未声明",
+        "uri": "artifact://minicalc/c2/evidence.json"
       }
     }
   ]

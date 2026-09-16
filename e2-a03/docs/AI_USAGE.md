@@ -148,9 +148,35 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - **采纳/修改/拒绝**：**采纳**。生成 `contracts/examples/minicalc/` 下 7 个样例
   （full/incremental 请求与响应、error-report、md-only-report、repair-request）。
 - **关联文件**：`contracts/examples/minicalc/*.json`
-- **验证方式与结果**：4 个不涉及 artifact 解析的样例通过完整校验；
-  3 个涉及 artifact 解析的样例通过 `--structure-only` 结构校验
-  （真实产物留到 E3 生成）。
+- **验证方式与结果**：7 个样例全部通过完整校验（含 artifact 解析），见记录 8。
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
+
+---
+
+## 记录 8：对齐图格式与 finding_id 算法，生成真实产物
+
+- **工具/模型**：GitHub Copilot（辅助实现 B 组规范）
+- **任务**：按 B 组正式答复中的 `graph.schema.json` 与 `finding-id-v1.json`
+  生成 Minicalc 的 C0/C1/C2 真实产物，并把样例里的临时 ID 换成正式 ID
+- **AI 建议**：直接复制 B 组的 `graph.schema.json`、`finding-id-v1.json`，
+  用 `gcc -MM` 实测数据生成 `actual.json`/`declared.json`，按
+  `[repository.url, configuration_id, type, target, dependency]` 的紧凑
+  JSON 数组做完整 SHA-256 生成 finding_id。
+- **人工判断**：
+  1. 用 B 组 `finding-id-v1.json` 的测试向量验证了算法，结果完全吻合
+     （`finding-4a7595...9d7f`）；
+  2. 发现 Windows 下 `write_text` 会把 `\n` 转成 `\r\n`，导致写盘字节与
+     SHA-256 计算字节不一致，改为 `write_bytes` 修复；
+  3. 增量变化核对：C0→C1 added 仅 1 条（`parser.o→config.h`），
+     C1→C2 resolved 仅 1 条（`util.o→legacy.h`），与 Minicalc README 一致。
+- **采纳/修改/拒绝**：**采纳**，并按实测修正了换行符问题。
+- **关联文件**：`contracts/graph.schema.json`、`contracts/finding-id-v1.json`、
+  `artifacts/minicalc/{c0,c1,c2}/*.json`、`artifacts/index.json`、
+  `contracts/examples/minicalc/*.json`
+- **验证方式与结果**：`python validate.py` 返回
+  `27 examples (19 valid, 8 expected rejections)`；7 个 Minicalc 样例
+  全部通过完整校验（含 artifact 解析与 SHA-256 校验），不再需要
+  `--structure-only`。
 - **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
@@ -163,9 +189,8 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - [ ] B 组 MDFixer 是否只消费 `type=MISSING` 的 finding
 - [ ] `configuration_id` 的最终取值（当前用 `cc-default`，待 B 组确认）
 - [ ] 构建镜像的最终取值（当前占位 `e2-fixture:contract-example-only`，
-      待 B 组提供可运行镜像）
+      待 B 组构建 `minicalc-devops:c2` 后提供 digest）
 - [ ] 课堂三轮配对练习的实际结论
-- [ ] Minicalc 真实产物（`artifacts/minicalc/`）的图、证据、报告生成（E3）
 
 > 注：记录 1~4 中的 `tools/validate.py`、`artifact.example.json` 等路径是
 > 当时中间状态的名称，现已统一为根目录 `validate.py` 与 B 组共享样例

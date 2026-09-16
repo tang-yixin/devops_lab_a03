@@ -37,7 +37,7 @@
     "error_report_uri": "artifact://minicalc/c1/error-report.json",
     "evidence_uri": "artifact://minicalc/c1/evidence.json",
     "added_finding_ids": [
-      "md-parser-config"
+      "finding-04faffb6fbcbadc30e53bf5c8af15d0b363517df35a8a22295b72ad4afe3dbb3"
     ],
     "resolved_finding_ids": []
   },

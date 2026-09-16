@@ -1,0 +1,30 @@
+{
+  "status": "PROPOSED_A_B_REVIEW_REQUIRED",
+  "version": "minicalc-finding-id-v1",
+  "field_order": [
+    "repository.url",
+    "configuration_id",
+    "type",
+    "target",
+    "dependency"
+  ],
+  "serialization": "JSON array, UTF-8, ensure_ascii=false, compact separators, no trailing newline",
+  "hash": "full SHA-256 lowercase hex",
+  "prefix": "finding-",
+  "excludes": [
+    "commit",
+    "location",
+    "timestamp"
+  ],
+  "test_vector": {
+    "fields": [
+      "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "cc-default",
+      "MISSING",
+      "main.o",
+      "include/token.h"
+    ],
+    "canonical_utf8_text": "[\"https://github.com/hardtosleep/Minicalc-DevOps-Test.git\",\"cc-default\",\"MISSING\",\"main.o\",\"include/token.h\"]",
+    "finding_id": "finding-4a7595ca26e9e7666102f337dfd726da30ed2e10b4b6dffd0f0fccf495899d7f"
+  }
+}

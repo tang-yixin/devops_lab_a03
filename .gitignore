@@ -41,6 +41,8 @@ desktop.ini
 *.tmp
 _tmp_*
 ~$*
+# artifacts 下的 .log 是契约交付物（index.json 注册并校验 SHA-256）
+!e2-a03/artifacts/**/*.log
 
 # ---- 本地环境变量（可能含密钥） ----
 .env
@@ -51,4 +53,7 @@ _tmp_*
 *.tar
 *.tar.gz
 out/
-artifacts/
+# 注意：e2-a03/artifacts/ 是契约交付物（含 index.json 与产物 SHA-256），
+# 必须纳入版本控制，不要忽略。Minicalc 的编译发生在它自己的仓库，
+# 不在本仓库内，因此这里不写 *.o / *.exe / minicalc 等规则。
+

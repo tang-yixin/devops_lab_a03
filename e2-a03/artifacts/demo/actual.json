@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc",
+  "configuration_id": "cc-default",
+  "edges": [
+    [
+      "main.o",
+      "main.c"
+    ],
+    [
+      "main.o",
+      "config.h"
+    ]
+  ]
+}

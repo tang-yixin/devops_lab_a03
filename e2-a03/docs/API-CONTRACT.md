@@ -119,6 +119,14 @@
 `finding`：`finding_id`、`type`（MISSING/REDUNDANT）、`target`、`dependency`、
 `commit`、`detector`、`location`（`{file, line}`）、`evidence`。
 
+### finding_id 生成规则（见 `contracts/finding-id-v1.json`）
+
+- 输入字段顺序：`[repository.url, configuration_id, type, target, dependency]`
+- 序列化：紧凑 UTF-8 JSON 数组（`ensure_ascii=false`，无空格，无尾换行）
+- 哈希：完整 SHA-256 小写十六进制，前缀 `finding-`
+- **不含** commit、行号、时间戳，保证同一发现跨提交身份稳定
+- 测试向量见 `finding-id-v1.json` 的 `test_vector`
+
 `evidence`：
 
 | 字段 | 说明 |
@@ -135,7 +143,22 @@ MISSING 对应 `actual=true, declared=false`；REDUNDANT 对应
 `producer_job_id`、`findings[]`。给 MDFixer 的 REPAIR 请求只消费
 非空的 MD-only 报告（`type=MISSING`），RD 从不提交给修复器。
 
-## 9. 错误码
+## 9. 图格式（见 `contracts/graph.schema.json`）
+
+`actual.json` 与 `declared.json` 使用相同结构：
+
+| 字段 | 说明 |
+|---|---|
+| `schema_version` | 固定 `"1.0"` |
+| `commit` | 40 位小写十六进制 SHA |
+| `configuration_id` | 配置标识，如 `cc-default` |
+| `edges` | `[target, dependency]` 二维数组，去重 |
+
+- 边方向统一为"目标依赖于文件"；路径用仓库相对路径和 `/`。
+- 只覆盖项目内对象编译依赖（含传递头文件包含）。
+- 完整结构见 `contracts/graph.schema.json`。
+
+## 10. 错误码
 
 | code | 含义 | 使用位置 |
 |---|---|---|
@@ -149,13 +172,13 @@ MISSING 对应 `actual=true, declared=false`；REDUNDANT 对应
 | ANALYSIS_5001 | 分析器失败 | job.error |
 | REPAIR_6001 | 修复验收结果自相矛盾 | 校验拒绝 |
 
-## 10. 产物读取
+## 11. 产物读取
 
 `artifact://<dir>/<name>` 映射到仓库内 `artifacts/<dir>/<name>`，文件在
 `artifacts/index.json` 注册。解析器验证目录边界、存在性和 SHA-256，拒绝
 联网 URI 和未注册产物。产物元数据必填 `sha256`（64 位十六进制）以便离线校验。
 
-## 11. 版本兼容
+## 12. 版本兼容
 
 - 可兼容：新增可选字段、共享 Schema 同步更新、保留已有字段含义。
 - 可能破坏：删除/改名/改语义、状态枚举改变、严格 Schema（

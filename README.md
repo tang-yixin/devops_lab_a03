@@ -24,13 +24,16 @@ devops_lab_a03/
     │   ├── task.schema.json                # 统一任务模型 Schema（与 B 组一致）
     │   ├── openapi.json                    # 四个创建接口 + 查询接口（与 B 组一致）
     │   ├── shared-lock.json                # 共享文件 SHA-256 锁（与 B 组一致）
+    │   ├── graph.schema.json               # Minicalc 编译图格式（与 B 组一致）
+    │   ├── finding-id-v1.json              # finding_id 算法与测试向量（与 B 组一致）
     │   └── examples/
     │       ├── manifest.json               # 27 个共享样例清单（与 B 组一致）
     │       ├── *.json                      # 共享正反样例（与 B 组一致）
     │       └── minicalc/                   # A 组独有：Minicalc 真实数据样例
-    ├── artifacts/              # 产物与哈希索引（demo 来自 B 组）
-    │   ├── index.json
-    │   └── demo/
+    ├── artifacts/              # 产物与哈希索引
+    │   ├── index.json                      # 全部产物注册（demo 来自 B 组，minicalc 为本组生成）
+    │   ├── demo/                           # B 组共享演示产物
+    │   └── minicalc/                       # A 组生成：c0/c1/c2 的图、报告、证据
     └── docs/                   # 设计文档（大写命名）
         ├── API-CONTRACT.md                 # A/B 组接口总约定
         ├── ADR-001-async-job.md            # ADR：耗时任务用异步 Job
@@ -69,15 +72,14 @@ $env:PYTHONUTF8 = 1    # Windows 下避免 GBK 解码问题
 # 共享样例 + 产物哈希（27 examples，19 valid + 8 expected rejections）
 python validate.py
 
-# A 组 Minicalc 真实数据样例
+# A 组 Minicalc 真实数据样例（完整校验，含 artifact 解析）
 python validate.py contracts/examples/minicalc/full-request.json
 python validate.py contracts/examples/minicalc/full-response.json
 python validate.py contracts/examples/minicalc/error-report-c0.json
 python validate.py contracts/examples/minicalc/md-only-report-c0.json
-# 涉及 artifact 解析的样例，产物未生成前用结构校验：
-python validate.py contracts/examples/minicalc/incremental-request.json --structure-only
-python validate.py contracts/examples/minicalc/incremental-response.json --structure-only
-python validate.py contracts/examples/minicalc/repair-request.json --structure-only
+python validate.py contracts/examples/minicalc/incremental-request.json
+python validate.py contracts/examples/minicalc/incremental-response.json
+python validate.py contracts/examples/minicalc/repair-request.json
 ```
 
 校验脚本与 B 组一致：结构校验（Draft 2020-12 子集）+ 跨文件语义
