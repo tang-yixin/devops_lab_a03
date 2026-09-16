@@ -1,0 +1,118 @@
+[
+  {
+    "path": "contracts/examples/draft-request.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-response.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/full-request.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/full-response.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/incremental-request.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/incremental-response.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/repair-request.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/repair-response.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/accepted.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-queued.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-running.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-failed.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-timed_out.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/draft-cancelled.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/repair-rejected-response.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/api-error.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/md-report.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/rd-report.json",
+    "valid": true
+  },
+  {
+    "path": "contracts/examples/invalid-job-type.json",
+    "valid": false,
+    "error_code": "INPUT_1001"
+  },
+  {
+    "path": "contracts/examples/invalid-incremental-no-baseline.json",
+    "valid": false,
+    "error_code": "INPUT_1001"
+  },
+  {
+    "path": "contracts/examples/invalid-repair-rd.json",
+    "valid": false,
+    "error_code": "INPUT_1001"
+  },
+  {
+    "path": "contracts/examples/invalid-short-sha.json",
+    "valid": false,
+    "error_code": "INPUT_1001"
+  },
+  {
+    "path": "contracts/examples/invalid-baseline-commit.json",
+    "valid": false,
+    "error_code": "INPUT_1002"
+  },
+  {
+    "path": "contracts/examples/invalid-baseline-config.json",
+    "valid": false,
+    "error_code": "INPUT_1003"
+  },
+  {
+    "path": "contracts/examples/invalid-repair-report-commit.json",
+    "valid": false,
+    "error_code": "INPUT_1002"
+  },
+  {
+    "path": "contracts/examples/invalid-repair-accepted.json",
+    "valid": false,
+    "error_code": "REPAIR_6001"
+  },
+  {
+    "path": "contracts/examples/artifact.json",
+    "valid": true
+  }
+]

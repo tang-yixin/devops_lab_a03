@@ -10,7 +10,12 @@
 ## Decision
 选择异步 Job。创建接口返回 202 和 job_id，查询接口返回状态与产物引用。
 
+创建请求携带 `idempotency_key`。幂等范围是"创建端点 + 调用方身份 +
+idempotency_key"：相同 key、相同规范化请求返回同一 job_id；相同 key、
+不同内容返回 409/INPUT_1001。规范化指对象键排序后 JSON 序列化，数组顺序保留。
+
 ## Consequences
 - 需要任务存储与查询。
 - 需要定义 QUEUED / RUNNING / SUCCEEDED / FAILED / TIMED_OUT / CANCELLED。
 - 用契约样例验证行为。
+- 幂等键保留期暂定 24 小时；鉴权、存储、并发锁留待服务实现。

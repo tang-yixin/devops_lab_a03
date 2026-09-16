@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "trace-minicalc-inc-c0-c1",
+  "job_type": "INCREMENTAL_CHECK",
+  "execution": {
+    "timeout_seconds": 600
+  },
+  "input": {
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "build": {
+      "command": "make",
+      "clean_command": "make clean && make",
+      "verify_command": "make test",
+      "working_directory": "/workspace/minicalc"
+    },
+    "environment": {
+      "image": "e2-fixture:contract-example-only",
+      "configuration_id": "cc-default",
+      "project_root": "/workspace/minicalc"
+    },
+    "base_commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+    "baseline": {
+      "actual_graph_uri": "artifact://minicalc/c0/actual.json",
+      "declared_graph_uri": "artifact://minicalc/c0/declared.json",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "configuration_id": "cc-default"
+    }
+  },
+  "idempotency_key": "minicalc-inc-c0-c1-001"
+}

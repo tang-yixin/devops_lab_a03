@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "trace-demo-001",
+  "job_type": "REPAIR",
+  "execution": {
+    "timeout_seconds": 600
+  },
+  "input": {
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "build": {
+      "command": "make",
+      "clean_command": "make clean && make",
+      "verify_command": "make test EXPECTED=1",
+      "working_directory": "/workspace/project"
+    },
+    "environment": {
+      "image": "e2-fixture:contract-example-only",
+      "configuration_id": "cc-default",
+      "project_root": "/workspace/project"
+    },
+    "md_report_uri": "artifact://demo/md-report.json",
+    "makefiles": [
+      "Makefile"
+    ],
+    "finding_types": [
+      "MISSING"
+    ],
+    "recheck": {
+      "job_type": "FULL_CHECK",
+      "required": true
+    }
+  },
+  "job_id": "job-repair-001",
+  "status": "SUCCEEDED",
+  "output": {
+    "patch_uri": "artifact://demo/fix.patch",
+    "declaration_style": "EXPLICIT",
+    "accepted": false,
+    "rejection_reason": "候选测试失败，因此拒绝补丁。",
+    "build_result": {
+      "passed": true,
+      "exit_code": 0,
+      "log_uri": "artifact://demo/build.log"
+    },
+    "test_result": {
+      "passed": false,
+      "exit_code": 1,
+      "log_uri": "artifact://demo/failed-test.log"
+    },
+    "recheck_result": {
+      "passed": true,
+      "error_report_uri": "artifact://demo/recheck-report.json",
+      "remaining_missing_count": 0
+    }
+  },
+  "error": null
+}

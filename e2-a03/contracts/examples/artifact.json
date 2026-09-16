@@ -1,0 +1,13 @@
+{
+  "artifact_id": "demo-Dockerfile",
+  "type": "DOCKERFILE",
+  "uri": "artifact://demo/Dockerfile",
+  "media_type": "text/plain",
+  "producer_job_id": "job-draft-001",
+  "repository": {
+    "url": "fixture://draft-project",
+    "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+  },
+  "configuration_id": "cc-default",
+  "sha256": "dd27c4cb24db940e2a55a440fcbf5ffdc2073427cda495486b47cbd2b1534560"
+}

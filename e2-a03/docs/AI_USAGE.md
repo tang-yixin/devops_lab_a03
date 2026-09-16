@@ -88,24 +88,70 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 
 ---
 
-## 记录 5：产物引用方式（待与 B 组确认）
+## 记录 5：产物引用方式
 
-- **工具/模型**：DeepSeek
+- **工具/模型**：DeepSeek（初版）、GitHub Copilot（对齐 B 组后复审）
 - **任务**：决定依赖图等大产物如何在 A、B 组之间交接
-- **AI 建议**：把依赖图 JSON 直接内联进 `Job.output`
-- **人工判断**：不采纳。依赖图、日志体积大，内联会让每个 Job 响应膨胀，
-  且无法单独下载或校验完整性。PPT 第 24 页要求"Job 保存元数据，
-  大文件通过引用交接"。
-- **采纳/修改/拒绝**：**修改**。改为 `ArtifactRef` 引用，
-  含 `artifact_id` / `type` / `uri` / `media_type` / `producer_job_id` /
-  `sha256` / `commit` / `configuration_id`，并新增 `read_method` 字段
-  说明下游读取方式。
-- **关联文件**：`contracts/artifact.example.json`、`contracts/task.schema.json`
-  （`$defs.ArtifactRef`、`$defs.ReadMethod`）、`docs/adr-003-artifact-by-reference.md`
-- **验证方式与结果**：`artifact.example.json` 通过 `ArtifactRef` 的
-  JSON Schema 校验。**`read_method` 的具体取值（HTTP 端点还是共享卷路径）
-  尚未与 B 组确认，待课堂配对练习后回填。**
-- **版本**：见 `personal-contribution.md` 中对应提交 SHA
+- **AI 建议**：初版把依赖图 JSON 直接内联进 `Job.output`；后改为
+  `ArtifactRef` 对象（含 `read_method` 字段）。
+- **人工判断**：内联会让每个 Job 响应膨胀，且无法单独下载或校验完整性；
+  `read_method` 是 A 组自定义字段，B 组草案没有，属于"契约外字段"。
+  B 组草案采用 `artifact://<dir>/<name>` → `artifacts/<dir>/<name>` 目录映射 +
+  `index.json` 注册 SHA-256 的方案，更可离线校验，且是双方共同契约。
+- **采纳/修改/拒绝**：**修改**。对齐 B 组方案：`output` 只返回 URI 字符串，
+  产物元数据（`artifact`）必填 `sha256`，解析器只访问 `artifacts/` 目录内
+  已注册文件。
+- **关联文件**：`docs/ADR-003-artifact-by-reference.md`、
+  `contracts/task.schema.json`（`$defs.artifact`）、`artifacts/index.json`
+- **验证方式与结果**：`python validate.py`（无参数）返回
+  `27 examples ... artifact references and SHA-256 verified`，证明
+  `artifact://demo/*` 引用与哈希校验通过。A 组独有 Minicalc 产物
+  （`artifacts/minicalc/`）尚未生成，留到 E3。
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
+
+---
+
+## 记录 6：A 组初版契约与 B 组草案的字段冲突
+
+- **工具/模型**：GitHub Copilot（辅助比对 B 组 `a-group-project`）
+- **任务**：核对 A 组初版契约与 B 组草案的差异，决定是否对齐
+- **AI 建议**：初版与 B 组在 `build`、`environment`、`output`、`error`、
+  `Finding` 结构上存在多处冲突（如 `clean_build_command` vs
+  `command/clean_command/verify_command`，内联 `ArtifactRef` vs URI 字符串，
+  4 个错误码 vs 9 个错误码，`location` 字符串 vs 对象）。
+- **人工判断**：B 组是下游消费者，且提供了 `shared-lock.json` 做逐字节
+  一致性校验，说明双方应共享同一份契约文件。自行保留差异会增加对接摩擦，
+  且无法通过 B 组的哈希校验。
+- **采纳/修改/拒绝**：**采纳对齐**。直接采用 B 组的 `task.schema.json`、
+  `openapi.json`、`validate.py`、27 个共享样例（逐字节一致），
+  保留 A 组自己的 ADR 论证与 Minicalc 真实数据样例。
+- **关联文件**：`contracts/task.schema.json`、`contracts/openapi.json`、
+  `contracts/shared-lock.json`、`contracts/examples/`、`validate.py`
+- **验证方式与结果**：`python validate.py` 返回
+  `PASS: 27 examples (19 valid, 8 expected rejections)`；A 组 Minicalc
+  样例单独校验通过（见 BACKLOG E2-A02~A05）。
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
+
+---
+
+## 记录 7：用 Minicalc 真实数据替换占位符
+
+- **工具/模型**：GitHub Copilot（辅助编写样例）
+- **任务**：把 A 组样例中的 `<full-sha>`、`<C0-full-sha>`、`<C1-full-sha>`
+  等占位符替换为真实目标项目 Minicalc 的数据
+- **AI 建议**：直接使用 Minicalc 仓库的 C0/C1/C2 三个 tag 的完整 SHA，
+  并用 `gcc -MM` 核对了 README 声称的依赖缺陷。
+- **人工判断**：人工复核了 Makefile 规则行号（C0：main.o 在第 30 行、
+  parser.o 在第 34 行、util.o 在第 41 行），确认 C0 的 3 MISSING + 1 REDUNDANT
+  与 README 一致；`main.o→token.h` 是传递依赖（main.c → parser.h → token.h），
+  按"编译器实际读取"口径应计入 MISSING。
+- **采纳/修改/拒绝**：**采纳**。生成 `contracts/examples/minicalc/` 下 7 个样例
+  （full/incremental 请求与响应、error-report、md-only-report、repair-request）。
+- **关联文件**：`contracts/examples/minicalc/*.json`
+- **验证方式与结果**：4 个不涉及 artifact 解析的样例通过完整校验；
+  3 个涉及 artifact 解析的样例通过 `--structure-only` 结构校验
+  （真实产物留到 E3 生成）。
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
 
@@ -115,6 +161,12 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 
 - [ ] B 组能否实际读取 `artifact://` 引用的文件（PPT 第 24 页要求 E12 证明）
 - [ ] B 组 MDFixer 是否只消费 `type=MISSING` 的 finding
-- [ ] `configuration_id` 的最终取值（当前占位 `cc-MODE0`）
-- [ ] 构建镜像与 `clean_build_command` 的最终约定
+- [ ] `configuration_id` 的最终取值（当前用 `cc-default`，待 B 组确认）
+- [ ] 构建镜像的最终取值（当前占位 `e2-fixture:contract-example-only`，
+      待 B 组提供可运行镜像）
 - [ ] 课堂三轮配对练习的实际结论
+- [ ] Minicalc 真实产物（`artifacts/minicalc/`）的图、证据、报告生成（E3）
+
+> 注：记录 1~4 中的 `tools/validate.py`、`artifact.example.json` 等路径是
+> 当时中间状态的名称，现已统一为根目录 `validate.py` 与 B 组共享样例
+> `contracts/examples/`，见记录 6。
