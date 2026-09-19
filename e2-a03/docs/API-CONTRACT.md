@@ -21,6 +21,7 @@
 | 增量 C1 | `f863c2deff1bd95e56f1578b872ae6aa26e3bfc8` |
 | 增量 C2 | `e103bcb3726a3fd7253deb0d791ac74fac77cafe` |
 | configuration_id | `cc-default` |
+| 构建镜像（C2） | `ghcr.io/wangyuhan29/minicalc-devops@sha256:c4e233...`（私有 GHCR，仅含 C2 源码） |
 
 ## 3. 统一任务模型
 
@@ -71,7 +72,7 @@
 
 | 字段 | 说明 |
 |---|---|
-| `image` | 构建镜像（当前为占位值，待 B 组提供可运行镜像） |
+| `image` | 构建镜像。B 组已提供 C2 固定 digest（私有 GHCR，需 `read:packages` 权限）；C0/C1 需对应版本源码另行验证 |
 | `configuration_id` | 配置标识，本组用 `cc-default` |
 | `project_root` | 项目根目录，必须以 `/` 开头，且等于 `build.working_directory` |
 

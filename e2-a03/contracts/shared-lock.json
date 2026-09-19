@@ -31,6 +31,8 @@
     "contracts/examples/rd-report.json": "4026b6a34e4bf061540e4458bc352194b14a526e9582261a36fde1cf830ea2b4",
     "contracts/examples/repair-rejected-response.json": "814d551cd09c3d3b31ae487194f644921a5488ce79fcee2bb71b840e7ba7f6bd",
     "contracts/examples/repair-request.json": "7e0ae55c03b5db97ce54bbd40507b155b5076d53daad7683ae5867f7b874b22a",
-    "contracts/examples/repair-response.json": "57fe905fbfd8af3b9cafca9dd9c7064c0fbfa30920590a704c8b0801c916bb15"
+    "contracts/examples/repair-response.json": "57fe905fbfd8af3b9cafca9dd9c7064c0fbfa30920590a704c8b0801c916bb15",
+    "contracts/graph.schema.json": "18820800b1f9e38ec040c81fdbf8d002a42f2353b66de5088c667bc533bb7b60",
+    "contracts/finding-id-v1.json": "dc2f196d3fb3f7c89db6b6d31743960c970c10e92aae3bb02cf05c6ceb505347"
   }
 }

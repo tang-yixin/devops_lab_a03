@@ -188,8 +188,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - [ ] B 组能否实际读取 `artifact://` 引用的文件（PPT 第 24 页要求 E12 证明）
 - [ ] B 组 MDFixer 是否只消费 `type=MISSING` 的 finding
 - [ ] `configuration_id` 的最终取值（当前用 `cc-default`，待 B 组确认）
-- [ ] 构建镜像的最终取值（当前占位 `e2-fixture:contract-example-only`，
-      待 B 组构建 `minicalc-devops:c2` 后提供 digest）
+- [ ] 构建镜像：B 组已提供 C2 digest（私有 GHCR），A 组需 `docker login ghcr.io` 并实际拉取验证；C0/C1 环境待补
 - [ ] 课堂三轮配对练习的实际结论
 
 > 注：记录 1~4 中的 `tools/validate.py`、`artifact.example.json` 等路径是

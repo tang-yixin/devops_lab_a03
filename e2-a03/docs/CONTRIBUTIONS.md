@@ -28,7 +28,7 @@ python validate.py contracts/examples/minicalc/repair-request.json
 
 ## 未完成项
 
-- 构建镜像仍为占位值 `e2-fixture:contract-example-only`，待 B 组提供可运行镜像（`minicalc-devops:c2`）。
+- B 组已提供 C2 镜像固定 digest（私有 GHCR，需 `read:packages` 权限），A 组尚未实际拉取验证；C0/C1 环境待补。
 - `configuration_id` 用 `cc-default`，待与 B 组最终确认。
 - 真实检测器（BuildChecker/EChecker 算法）未实现，当前产物由 `gcc -MM` 辅助生成。
 - 课堂三轮配对练习记录待开展后回填。

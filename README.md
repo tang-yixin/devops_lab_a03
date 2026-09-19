@@ -96,9 +96,9 @@ python validate.py contracts/examples/minicalc/repair-request.json
 
 **待完成**（需与 B 组对接或留到 E3）：
 
-- [ ] 与 B 组确认 `configuration_id`（当前 `cc-default`）与构建镜像（当前为占位值）
+- [ ] 与 B 组确认 `configuration_id`（当前 `cc-default`）；镜像已提供 C2 digest，待 A 组拉取验证
 - [ ] 确认配对组编号与成员信息，填写 `CONTRIBUTIONS.md`
 - [ ] 记录课堂三轮配对练习结论
-- [ ] 生成 Minicalc 真实产物（`artifacts/minicalc/`），实现真实检测器（E3）
+- [ ] 实现真实检测器（BuildChecker/EChecker），在镜像内完成联调（E3）
 
 详见 `e2-a03/docs/BACKLOG.md` 与 `e2-a03/docs/AI_USAGE.md` 末尾的待办清单。
