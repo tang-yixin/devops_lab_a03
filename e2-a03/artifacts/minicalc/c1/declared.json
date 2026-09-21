@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8",
+  "configuration_id": "cc-default",
+  "edges": [
+    [
+      "main.o",
+      "include/config.h"
+    ],
+    [
+      "main.o",
+      "include/parser.h"
+    ],
+    [
+      "main.o",
+      "src/main.c"
+    ],
+    [
+      "parser.o",
+      "include/parser.h"
+    ],
+    [
+      "parser.o",
+      "src/parser.c"
+    ],
+    [
+      "token.o",
+      "include/token.h"
+    ],
+    [
+      "token.o",
+      "src/token.c"
+    ],
+    [
+      "util.o",
+      "include/legacy.h"
+    ],
+    [
+      "util.o",
+      "include/util.h"
+    ],
+    [
+      "util.o",
+      "src/util.c"
+    ]
+  ]
+}

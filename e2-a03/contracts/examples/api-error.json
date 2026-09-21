@@ -1,0 +1,8 @@
+{
+  "trace_id": "trace-demo-001",
+  "error": {
+    "code": "INPUT_1001",
+    "message": "请求不符合契约",
+    "retryable": false
+  }
+}

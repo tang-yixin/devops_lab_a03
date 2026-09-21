@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+    "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+  },
+  "configuration_id": "cc-default",
+  "producer_job_id": "job-full-minicalc-c0",
+  "findings": [
+    {
+      "finding_id": "finding-f132bd5f91cf4198ca003b7b8b542c0deefe2d2d81934bf5220f9666f28c18e9",
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "util.h",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "detector": "BuildChecker",
+      "location": {
+        "file": "Makefile",
+        "line": 30
+      },
+      "evidence": {
+        "actual_dependency": true,
+        "declared_dependency": false,
+        "description": "main.c #include \"util.h\"，但 main.o 规则未声明该依赖",
+        "uri": "artifact://minicalc/c0/evidence.json"
+      }
+    },
+    {
+      "finding_id": "finding-0deec338a196cc81be93097b656af818fd0f9567228bce234f31d561cf65ae2d",
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "token.h",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "detector": "BuildChecker",
+      "location": {
+        "file": "Makefile",
+        "line": 30
+      },
+      "evidence": {
+        "actual_dependency": true,
+        "declared_dependency": false,
+        "description": "main.c 经 parser.h 间接包含 token.h（传递依赖），但 main.o 规则未声明",
+        "uri": "artifact://minicalc/c0/evidence.json"
+      }
+    },
+    {
+      "finding_id": "finding-65975fba2f0c431a6f10e09b7b4672b8e8a25e1b65883655c2086c18d50e35ce",
+      "type": "MISSING",
+      "target": "parser.o",
+      "dependency": "token.h",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "detector": "BuildChecker",
+      "location": {
+        "file": "Makefile",
+        "line": 34
+      },
+      "evidence": {
+        "actual_dependency": true,
+        "declared_dependency": false,
+        "description": "parser.c 经 parser.h 传递包含 token.h，但 parser.o 规则未声明",
+        "uri": "artifact://minicalc/c0/evidence.json"
+      }
+    },
+    {
+      "finding_id": "finding-620792365acbff512314e41acad79c937c5dc9c3d33aa31fca0a6485e9292822",
+      "type": "REDUNDANT",
+      "target": "util.o",
+      "dependency": "legacy.h",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac",
+      "detector": "BuildChecker",
+      "location": {
+        "file": "Makefile",
+        "line": 41
+      },
+      "evidence": {
+        "actual_dependency": false,
+        "declared_dependency": true,
+        "description": "util.o 规则声明了 legacy.h，但编译 util.o 时从未读取",
+        "uri": "artifact://minicalc/c0/evidence.json"
+      }
+    }
+  ]
+}

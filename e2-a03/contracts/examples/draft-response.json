@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "trace-demo-001",
+  "job_type": "DRAFT",
+  "execution": {
+    "timeout_seconds": 600
+  },
+  "input": {
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "build": {
+      "command": "make",
+      "clean_command": "make clean && make",
+      "verify_command": "make test EXPECTED=1",
+      "working_directory": "/workspace/project"
+    },
+    "max_iterations": 5
+  },
+  "job_id": "job-draft-001",
+  "status": "SUCCEEDED",
+  "output": {
+    "dockerfile_uri": "artifact://demo/Dockerfile",
+    "environment": {
+      "image": "e2-fixture:contract-example-only",
+      "configuration_id": "cc-default",
+      "project_root": "/workspace/project"
+    },
+    "iterations": [
+      {
+        "index": 1,
+        "log_uri": "artifact://demo/build.log",
+        "changes": "示例：安装 cc 和 make，复制项目。",
+        "selection_reason": "契约样例，不代表实际 Docker 构建。"
+      }
+    ],
+    "build_result": {
+      "passed": true,
+      "exit_code": 0,
+      "log_uri": "artifact://demo/build.log"
+    },
+    "verify_result": {
+      "passed": true,
+      "exit_code": 0,
+      "log_uri": "artifact://demo/test.log"
+    }
+  },
+  "error": null
+}

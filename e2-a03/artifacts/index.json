@@ -1,0 +1,327 @@
+[
+  {
+    "artifact_id": "demo-Dockerfile",
+    "type": "DOCKERFILE",
+    "uri": "artifact://demo/Dockerfile",
+    "media_type": "text/plain",
+    "producer_job_id": "job-draft-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "dd27c4cb24db940e2a55a440fcbf5ffdc2073427cda495486b47cbd2b1534560"
+  },
+  {
+    "artifact_id": "demo-actual-json",
+    "type": "ACTUAL_GRAPH",
+    "uri": "artifact://demo/actual.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "e4437b49831f147aec680778d83c7655dff063c3feb42184c2ccfe67a85c128b"
+  },
+  {
+    "artifact_id": "demo-build-log",
+    "type": "BUILD_LOG",
+    "uri": "artifact://demo/build.log",
+    "media_type": "text/plain",
+    "producer_job_id": "job-draft-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "07e556df85fba56885112074834f70b3d29046b674da7db705be17e42151e0fb"
+  },
+  {
+    "artifact_id": "demo-declared-json",
+    "type": "DECLARED_GRAPH",
+    "uri": "artifact://demo/declared.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "bd8b034852f1110bf953873bb43ce698e0ca5ea27efd73e531a1d812b7267d86"
+  },
+  {
+    "artifact_id": "demo-evidence-json",
+    "type": "EVIDENCE",
+    "uri": "artifact://demo/evidence.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "24acb133ee305b087b068b1162d0d49f082785297d457d4a9f62340b065872e1"
+  },
+  {
+    "artifact_id": "demo-failed-test-log",
+    "type": "BUILD_LOG",
+    "uri": "artifact://demo/failed-test.log",
+    "media_type": "text/plain",
+    "producer_job_id": "job-draft-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "07e556df85fba56885112074834f70b3d29046b674da7db705be17e42151e0fb"
+  },
+  {
+    "artifact_id": "demo-fix-patch",
+    "type": "PATCH",
+    "uri": "artifact://demo/fix.patch",
+    "media_type": "text/plain",
+    "producer_job_id": "job-repair-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "ac7aa6f4c05bce7477c98e9afd8a64f304f17baf47bc50d605919d89ac94ef04"
+  },
+  {
+    "artifact_id": "demo-md-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://demo/md-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "97d5e82c6120246d822018b7d38cb06c2192cf31625c28b6cd894575be938cdb"
+  },
+  {
+    "artifact_id": "demo-recheck-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://demo/recheck-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-recheck-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "57d98c1064e68b6ae0c7ce4dc80d84a4eb98554113998f7cf38ca0a6c0a9f090"
+  },
+  {
+    "artifact_id": "demo-test-log",
+    "type": "BUILD_LOG",
+    "uri": "artifact://demo/test.log",
+    "media_type": "text/plain",
+    "producer_job_id": "job-draft-001",
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "07e556df85fba56885112074834f70b3d29046b674da7db705be17e42151e0fb"
+  },
+  {
+    "artifact_id": "minicalc-c0-actual-json",
+    "type": "ACTUAL_GRAPH",
+    "uri": "artifact://minicalc/c0/actual.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c0",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "ba2dca8a53e916313500322dd83fb4972d149f4fa6d3d3436f81d4ab39bafe8c"
+  },
+  {
+    "artifact_id": "minicalc-c0-declared-json",
+    "type": "DECLARED_GRAPH",
+    "uri": "artifact://minicalc/c0/declared.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c0",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "1c5641385d4eb7a0dd83e5c092e4d175ae8906174c4e5694c741c39d1906bfe1"
+  },
+  {
+    "artifact_id": "minicalc-c0-error-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c0/error-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c0",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "6b1400476abee21c5b6fd80576148e0b1387a6e85e66df54c4d0a0aaea7551b1"
+  },
+  {
+    "artifact_id": "minicalc-c0-md-only-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c0/md-only-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c0",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "b32367ab2d2c8d3239b4b1da3ec5737d8215228a5d1e36bca93239d87ac8891c"
+  },
+  {
+    "artifact_id": "minicalc-c0-evidence-json",
+    "type": "EVIDENCE",
+    "uri": "artifact://minicalc/c0/evidence.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c0",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e3a1eda0965e545d96467d275bccaf78c890fcac"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "783a6885fb0e4cf3a76172ab31b8a7aec2db329e54099fe5c4e87fe533ab35cd"
+  },
+  {
+    "artifact_id": "minicalc-c1-actual-json",
+    "type": "ACTUAL_GRAPH",
+    "uri": "artifact://minicalc/c1/actual.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c1",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "76da1edae03d1202d4abacda249db33c6fabc0801fb411fc73851d3c43859ec9"
+  },
+  {
+    "artifact_id": "minicalc-c1-declared-json",
+    "type": "DECLARED_GRAPH",
+    "uri": "artifact://minicalc/c1/declared.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c1",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "d5b725fdcca6d458768de3cd6478cf7194363830d0fa5564a264d6a84c01441c"
+  },
+  {
+    "artifact_id": "minicalc-c1-error-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c1/error-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c1",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "a9096a7438a62eb41fac0f36d9cdf1c399dc19d6c74d7531449cc98cb0a26efe"
+  },
+  {
+    "artifact_id": "minicalc-c1-md-only-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c1/md-only-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c1",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "725081d949c425a0d96cee7c2e1546188fc1fefdc4d59545a6f48e915eebb7a9"
+  },
+  {
+    "artifact_id": "minicalc-c1-evidence-json",
+    "type": "EVIDENCE",
+    "uri": "artifact://minicalc/c1/evidence.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c1",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "f863c2deff1bd95e56f1578b872ae6aa26e3bfc8"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "1d05e69c04a188111d3f0234fe41aa745015bebbc25d4142f9317b7e31d689d7"
+  },
+  {
+    "artifact_id": "minicalc-c2-actual-json",
+    "type": "ACTUAL_GRAPH",
+    "uri": "artifact://minicalc/c2/actual.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c2",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "f6953e33b016df2d7b0bd7ad2aa385896e7b43087ecf85c8f9838833b733611c"
+  },
+  {
+    "artifact_id": "minicalc-c2-declared-json",
+    "type": "DECLARED_GRAPH",
+    "uri": "artifact://minicalc/c2/declared.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c2",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "75bd6246a987fbc2882442aca4b9915f0ddb8cc42445268f8da2f6bc8ea5a485"
+  },
+  {
+    "artifact_id": "minicalc-c2-error-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c2/error-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c2",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "d8aaf59c159a13f3e9b87c180cdfff5b3cb4a2314c4bfc27aaa19d1eedef6705"
+  },
+  {
+    "artifact_id": "minicalc-c2-md-only-report-json",
+    "type": "ERROR_REPORT",
+    "uri": "artifact://minicalc/c2/md-only-report.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c2",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "d8aaf59c159a13f3e9b87c180cdfff5b3cb4a2314c4bfc27aaa19d1eedef6705"
+  },
+  {
+    "artifact_id": "minicalc-c2-evidence-json",
+    "type": "EVIDENCE",
+    "uri": "artifact://minicalc/c2/evidence.json",
+    "media_type": "application/json",
+    "producer_job_id": "job-full-minicalc-c2",
+    "repository": {
+      "url": "https://github.com/hardtosleep/Minicalc-DevOps-Test.git",
+      "commit": "e103bcb3726a3fd7253deb0d791ac74fac77cafe"
+    },
+    "configuration_id": "cc-default",
+    "sha256": "cc503d5ed8fc2c31afc31ee84d7e0ee1f70247efa0a2e7a8a17d36337fe1307c"
+  }
+]

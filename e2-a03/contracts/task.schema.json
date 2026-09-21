@@ -1,0 +1,1971 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/b-group/task.schema.json",
+  "title": "E2 A/B 配对组契约草案 1.0",
+  "$defs": {
+    "repository": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      },
+      "required": [
+        "url",
+        "commit"
+      ],
+      "additionalProperties": false
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clean_command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verify_command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "working_directory": {
+          "type": "string",
+          "pattern": "^/"
+        }
+      },
+      "required": [
+        "command",
+        "clean_command",
+        "verify_command",
+        "working_directory"
+      ],
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configuration_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "project_root": {
+          "type": "string",
+          "pattern": "^/"
+        }
+      },
+      "required": [
+        "image",
+        "configuration_id",
+        "project_root"
+      ],
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "timeout_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "INPUT_1001",
+            "INPUT_1002",
+            "INPUT_1003",
+            "INPUT_1004",
+            "ARTIFACT_2001",
+            "ENV_3002",
+            "EXEC_4002",
+            "ANALYSIS_5001",
+            "REPAIR_6001"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "log_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "passed",
+        "exit_code",
+        "log_uri"
+      ],
+      "additionalProperties": false
+    },
+    "baseline": {
+      "type": "object",
+      "properties": {
+        "actual_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "declared_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "configuration_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "actual_graph_uri",
+        "declared_graph_uri",
+        "commit",
+        "configuration_id"
+      ],
+      "additionalProperties": false
+    },
+    "draftInput": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "build": {
+          "$ref": "#/$defs/build"
+        },
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "repository",
+        "build",
+        "max_iterations"
+      ],
+      "additionalProperties": false
+    },
+    "fullInput": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        },
+        "build": {
+          "$ref": "#/$defs/build"
+        }
+      },
+      "required": [
+        "repository",
+        "environment",
+        "build"
+      ],
+      "additionalProperties": false
+    },
+    "incrementalInput": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        },
+        "build": {
+          "$ref": "#/$defs/build"
+        },
+        "base_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "baseline": {
+          "$ref": "#/$defs/baseline"
+        }
+      },
+      "required": [
+        "repository",
+        "environment",
+        "build",
+        "base_commit",
+        "baseline"
+      ],
+      "additionalProperties": false
+    },
+    "repairInput": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        },
+        "build": {
+          "$ref": "#/$defs/build"
+        },
+        "md_report_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "makefiles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "finding_types": {
+          "const": [
+            "MISSING"
+          ]
+        },
+        "recheck": {
+          "type": "object",
+          "properties": {
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "required": {
+              "const": true
+            }
+          },
+          "required": [
+            "job_type",
+            "required"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "repository",
+        "environment",
+        "build",
+        "md_report_uri",
+        "makefiles",
+        "finding_types",
+        "recheck"
+      ],
+      "additionalProperties": false
+    },
+    "iteration": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "log_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "changes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selection_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "index",
+        "log_uri",
+        "changes",
+        "selection_reason"
+      ],
+      "additionalProperties": false
+    },
+    "draftOutput": {
+      "type": "object",
+      "properties": {
+        "dockerfile_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        },
+        "iterations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/iteration"
+          },
+          "minItems": 1
+        },
+        "build_result": {
+          "$ref": "#/$defs/result"
+        },
+        "verify_result": {
+          "$ref": "#/$defs/result"
+        }
+      },
+      "required": [
+        "dockerfile_uri",
+        "environment",
+        "iterations",
+        "build_result",
+        "verify_result"
+      ],
+      "additionalProperties": false
+    },
+    "fullOutput": {
+      "type": "object",
+      "properties": {
+        "actual_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "declared_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "error_report_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "evidence_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "actual_graph_uri",
+        "declared_graph_uri",
+        "error_report_uri",
+        "evidence_uri"
+      ],
+      "additionalProperties": false
+    },
+    "incrementalOutput": {
+      "type": "object",
+      "properties": {
+        "actual_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "declared_graph_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "error_report_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "evidence_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "added_finding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "resolved_finding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "actual_graph_uri",
+        "declared_graph_uri",
+        "error_report_uri",
+        "evidence_uri",
+        "added_finding_ids",
+        "resolved_finding_ids"
+      ],
+      "additionalProperties": false
+    },
+    "repairOutput": {
+      "type": "object",
+      "properties": {
+        "patch_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "declaration_style": {
+          "enum": [
+            "EXPLICIT",
+            "MACRO",
+            "IMPLICIT",
+            "HYBRID"
+          ]
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "rejection_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "build_result": {
+          "$ref": "#/$defs/result"
+        },
+        "test_result": {
+          "$ref": "#/$defs/result"
+        },
+        "recheck_result": {
+          "type": "object",
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "error_report_uri": {
+              "type": "string",
+              "format": "uri"
+            },
+            "remaining_missing_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "passed",
+            "error_report_uri",
+            "remaining_missing_count"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "patch_uri",
+        "declaration_style",
+        "accepted",
+        "rejection_reason",
+        "build_result",
+        "test_result",
+        "recheck_result"
+      ],
+      "additionalProperties": false
+    },
+    "createRequest": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "idempotency_key"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "idempotency_key"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "idempotency_key"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "idempotency_key"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "job": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "QUEUED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "RUNNING"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "SUCCEEDED"
+            },
+            "output": {
+              "$ref": "#/$defs/draftOutput"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "FAILED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "TIMED_OUT"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "DRAFT"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/draftInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "CANCELLED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "QUEUED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "RUNNING"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "SUCCEEDED"
+            },
+            "output": {
+              "$ref": "#/$defs/fullOutput"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "FAILED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "TIMED_OUT"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "FULL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/fullInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "CANCELLED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "QUEUED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "RUNNING"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "SUCCEEDED"
+            },
+            "output": {
+              "$ref": "#/$defs/incrementalOutput"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "FAILED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "TIMED_OUT"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "INCREMENTAL_CHECK"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/incrementalInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "CANCELLED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "QUEUED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "RUNNING"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "SUCCEEDED"
+            },
+            "output": {
+              "$ref": "#/$defs/repairOutput"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "FAILED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "TIMED_OUT"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "$ref": "#/$defs/error"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1.0"
+            },
+            "trace_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "job_type": {
+              "const": "REPAIR"
+            },
+            "execution": {
+              "$ref": "#/$defs/execution"
+            },
+            "input": {
+              "$ref": "#/$defs/repairInput"
+            },
+            "job_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "const": "CANCELLED"
+            },
+            "output": {
+              "type": "null"
+            },
+            "error": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "schema_version",
+            "trace_id",
+            "job_type",
+            "execution",
+            "input",
+            "job_id",
+            "status",
+            "output",
+            "error"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "MISSING",
+            "REDUNDANT"
+          ]
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "detector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "minLength": 1
+            },
+            "line": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "file",
+            "line"
+          ],
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "actual_dependency": {
+              "type": "boolean"
+            },
+            "declared_dependency": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "actual_dependency",
+            "declared_dependency",
+            "description",
+            "uri"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "finding_id",
+        "type",
+        "target",
+        "dependency",
+        "commit",
+        "detector",
+        "location",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "errorReport": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "configuration_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "producer_job_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "repository",
+        "configuration_id",
+        "producer_job_id",
+        "findings"
+      ],
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "DOCKERFILE",
+            "BUILD_LOG",
+            "PATCH",
+            "ACTUAL_GRAPH",
+            "DECLARED_GRAPH",
+            "ERROR_REPORT",
+            "EVIDENCE"
+          ]
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "producer_job_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "$ref": "#/$defs/repository"
+        },
+        "configuration_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "type",
+        "uri",
+        "media_type",
+        "producer_job_id",
+        "repository",
+        "configuration_id",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "accepted": {
+      "type": "object",
+      "properties": {
+        "job_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "QUEUED"
+        }
+      },
+      "required": [
+        "job_id",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "apiError": {
+      "type": "object",
+      "properties": {
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "error": {
+          "$ref": "#/$defs/error"
+        }
+      },
+      "required": [
+        "trace_id",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/createRequest"
+    },
+    {
+      "$ref": "#/$defs/job"
+    },
+    {
+      "$ref": "#/$defs/errorReport"
+    },
+    {
+      "$ref": "#/$defs/artifact"
+    },
+    {
+      "$ref": "#/$defs/accepted"
+    },
+    {
+      "$ref": "#/$defs/apiError"
+    }
+  ]
+}

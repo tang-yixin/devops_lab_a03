@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposed minicalc project-local compile graph v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "commit",
+    "configuration_id",
+    "edges"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "configuration_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "edges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+        }
+      }
+    }
+  }
+}

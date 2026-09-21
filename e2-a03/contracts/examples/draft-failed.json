@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "trace-demo-001",
+  "job_type": "DRAFT",
+  "execution": {
+    "timeout_seconds": 600
+  },
+  "input": {
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "build": {
+      "command": "make",
+      "clean_command": "make clean && make",
+      "verify_command": "make test EXPECTED=1",
+      "working_directory": "/workspace/project"
+    },
+    "max_iterations": 5
+  },
+  "job_id": "job-draft-001",
+  "status": "FAILED",
+  "output": null,
+  "error": {
+    "code": "ENV_3002",
+    "message": "模拟镜像构建失败",
+    "retryable": true
+  }
+}

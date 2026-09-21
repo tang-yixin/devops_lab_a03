@@ -1,0 +1,11 @@
+{
+  "method": "gcc -MM",
+  "command": "gcc -std=c11 -Wall -Wextra -Iinclude -g -MM src/<target>.c",
+  "note": "Minicalc c1 提交的编译器依赖输出，用于推导 ACTUAL_GRAPH（含传递包含）",
+  "raw": {
+    "main.o": "src/main.c include/config.h include/parser.h include/token.h include/util.h",
+    "parser.o": "src/parser.c include/parser.h include/token.h include/config.h",
+    "token.o": "src/token.c include/token.h",
+    "util.o": "src/util.c include/util.h"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "url": "fixture://draft-project",
+    "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+  },
+  "configuration_id": "cc-default",
+  "producer_job_id": "job-full-001",
+  "findings": [
+    {
+      "finding_id": "md-001",
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "config.h",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc",
+      "detector": "MANUAL_FIXTURE",
+      "location": {
+        "file": "Makefile",
+        "line": 5
+      },
+      "evidence": {
+        "actual_dependency": true,
+        "declared_dependency": false,
+        "description": "人工教学样本：main.c 包含 config.h，而 main.o 的声明只包含 main.c；并非真实 BuildChecker 执行结果。",
+        "uri": "artifact://demo/evidence.json"
+      }
+    }
+  ]
+}

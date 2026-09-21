@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "trace_id": "trace-demo-001",
+  "job_type": "REPAIR",
+  "execution": {
+    "timeout_seconds": 600
+  },
+  "input": {
+    "repository": {
+      "url": "fixture://draft-project",
+      "commit": "ce757e4434393acf8ff55c089c54cdd6c70e70cc"
+    },
+    "build": {
+      "command": "make",
+      "clean_command": "make clean && make",
+      "verify_command": "make test EXPECTED=1",
+      "working_directory": "/workspace/project"
+    },
+    "environment": {
+      "image": "e2-fixture:contract-example-only",
+      "configuration_id": "cc-default",
+      "project_root": "/workspace/project"
+    },
+    "md_report_uri": "artifact://demo/md-report.json",
+    "makefiles": [
+      "Makefile"
+    ],
+    "finding_types": [
+      "MISSING"
+    ],
+    "recheck": {
+      "job_type": "FULL_CHECK",
+      "required": true
+    }
+  },
+  "idempotency_key": "repair-demo-001"
+}
