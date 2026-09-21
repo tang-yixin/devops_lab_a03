@@ -7,7 +7,7 @@
 
 | ID | 责任方 | 产物 | 验收条件 | 状态 |
 |---|---|---|---|---|
-| E2-A01 | A/B 共同 | `contracts/task.schema.json` + `shared-lock.json` | 四类任务可表达，共享文件与 B 组逐字节一致 | 完成 |
+| E2-A01 | A/B 共同 | `contracts/task.schema.json` + `shared-lock.json` | 四类任务可表达，共享文件 SHA-256 与 `shared-lock.json` 记录一致 | 完成 |
 | E2-A02 | A | `contracts/examples/minicalc/full-request.json` / `full-response.json` | 真实仓库与 C0 完整 SHA，输出四个 URI | 完成 |
 | E2-A03 | A | `contracts/examples/minicalc/incremental-request.json` / `incremental-response.json` | baseline 必填，版本/配置匹配，输出新增/消除 finding ID | 完成 |
 | E2-A04 | A | `contracts/examples/minicalc/md-only-report-c0.json` / `repair-request.json` | REPAIR 只消费非空 MD-only 报告 | 完成 |
@@ -17,7 +17,7 @@
 | E2-A08 | A/B 共同 | `contracts/graph.schema.json` + `contracts/finding-id-v1.json` | 图格式与 finding_id 算法双方一致 | 完成 |
 | E2-A09 | A | `artifacts/minicalc/{c0,c1,c2}/` | C0/C1/C2 图、报告、证据可被解析，SHA-256 注册 | 完成 |
 | E2-A10 | 全体 | `docs/TEAM`、`CONTRIBUTIONS.md`、`AI_USAGE.md` | 真实身份、AI 采纳判断、提交 SHA 可追溯 | 完成 |
-| E2-A11 | A/B 共同 | 课堂三轮练习记录 | 第一轮环境、第二轮 MD、第三轮失败输入 | 完成（A 组已填，待 B 组最终确认） |
+| E2-A11 | A/B 共同 | 课堂三轮练习记录 | 第一轮环境、第二轮 MD、第三轮失败输入 | 完成 |
 
 ## E3 边界任务（本次不实现）
 

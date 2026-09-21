@@ -2,7 +2,7 @@
 
 ## 已提供
 
-- [x] 四类公共任务契约、接口和正反样例（与 B 组逐字节一致，33 个共享文件）。
+- [x] 四类公共任务契约、接口和正反样例（33 个共享文件，SHA-256 与 `shared-lock.json` 一致）。
 - [x] FULL_CHECK 和 INCREMENTAL_CHECK 的请求、输出、错误与基线校验。
 - [x] MD/RD 发现样例及给 B 的 MD-only 交接请求。
 - [x] 产物记录、可读取文件与 SHA-256 校验（`artifacts/index.json`）。

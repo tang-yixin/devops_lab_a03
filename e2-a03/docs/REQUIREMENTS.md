@@ -4,7 +4,7 @@
 
 | PPT 页 | 要求 | 对应文件/状态 |
 |---|---|---|
-| 2、3 | A 做 BuildChecker/EChecker，同号配对 | TEAM（待真实身份） |
+| 2、3 | A 做 BuildChecker/EChecker，同号配对 | `TEAM.md`（成员已填） |
 | 5、19 | 公共任务单，环境/基线/修复/验证交接 | `contracts/task.schema.json`、`API-CONTRACT.md` |
 | 7、27 | 四创建接口和查询，E2 不要求部署 | `contracts/openapi.json`，未部署 |
 | 8、9 | MD/RD 不等于系统失败 | `ADR-002`，C0/C1 返回 SUCCEEDED 且带发现 |

@@ -22,7 +22,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - **关联文件**：`contracts/task.schema.json`（`status` 字段）
 - **验证方式与结果**：在 `tools/validate.py` 中加入 `ALLOWED_STATUS` 白名单，
   构造 `status=PENDING` 的非法样例，校验器正确拒绝（`[FAIL] Job 非法 status`）。
-- **版本**：见 `personal-contribution.md` 中对应提交 SHA
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
 
@@ -44,7 +44,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - **验证方式与结果**：用 `jsonschema` 的 `Draft202012Validator` 校验，
   两个 Job 样例由「报错」变为 `VALID`；同时新增负向用例
   "SUCCEEDED 却带 error"，校验器正确拒绝。
-- **版本**：见 `personal-contribution.md` 中对应提交 SHA
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
 
@@ -69,7 +69,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
   `baseline.commit` 不匹配、`baseline.configuration_id` 不匹配、
   非法 `status`、`SUCCEEDED` 却带 `error`、非法 `finding.type`），
   **10/10 全部被正确拒绝**；4 个有效样例全部 `[PASS]`。
-- **版本**：见 `personal-contribution.md` 中对应提交 SHA
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
 
@@ -84,7 +84,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - **采纳/修改/拒绝**：**修改**。重命名为 `artifact.example.json`。
 - **关联文件**：`contracts/artifact.example.json`
 - **验证方式与结果**：重命名后 `contracts/` 目录清单与 Backlog 约定一致。
-- **版本**：见 `personal-contribution.md` 中对应提交 SHA
+- **版本**：见 `CONTRIBUTIONS.md` 中对应提交 SHA
 
 ---
 
@@ -119,11 +119,11 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
   `Finding` 结构上存在多处冲突（如 `clean_build_command` vs
   `command/clean_command/verify_command`，内联 `ArtifactRef` vs URI 字符串，
   4 个错误码 vs 9 个错误码，`location` 字符串 vs 对象）。
-- **人工判断**：B 组是下游消费者，且提供了 `shared-lock.json` 做逐字节
-  一致性校验，说明双方应共享同一份契约文件。自行保留差异会增加对接摩擦，
+- **人工判断**：B 组是下游消费者，且提供了 `shared-lock.json` 做 SHA-256
+  哈希一致性校验，说明双方应共享同一份契约文件。自行保留差异会增加对接摩擦，
   且无法通过 B 组的哈希校验。
 - **采纳/修改/拒绝**：**采纳对齐**。直接采用 B 组的 `task.schema.json`、
-  `openapi.json`、`validate.py`、27 个共享样例（逐字节一致），
+  `openapi.json`、`validate.py`、27 个共享样例（SHA-256 与 `shared-lock.json` 一致），
   保留 A 组自己的 ADR 论证与 Minicalc 真实数据样例。
 - **关联文件**：`contracts/task.schema.json`、`contracts/openapi.json`、
   `contracts/shared-lock.json`、`contracts/examples/`、`validate.py`
@@ -188,8 +188,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
 - [ ] B 组能否实际读取 `artifact://` 引用的文件（PPT 第 24 页要求 E12 证明）
 - [ ] B 组 MDFixer 是否只消费 `type=MISSING` 的 finding
 - [ ] `configuration_id` 的最终取值（当前用 `cc-default`，待 B 组确认）
-- [ ] 构建镜像：B 组已提供 C2 digest（私有 GHCR），A 组需 `docker login ghcr.io` 并实际拉取验证；C0/C1 环境待补
-- [ ] 课堂三轮配对练习的实际结论
+- [ ] 构建镜像：C2 已拉取并 `docker run` 4 断言 PASS；C0/C1 环境待 B 组补充
 
 > 注：记录 1~4 中的 `tools/validate.py`、`artifact.example.json` 等路径是
 > 当时中间状态的名称，现已统一为根目录 `validate.py` 与 B 组共享样例

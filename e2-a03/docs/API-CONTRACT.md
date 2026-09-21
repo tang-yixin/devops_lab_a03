@@ -1,8 +1,8 @@
 # E2 A 组接口契约：BuildChecker / EChecker
 
-> 本契约已与 B 组 `a-group-project` 草案对齐。共享文件
+> 本契约已与 B 组 `b-group-project` 草案对齐。共享文件
 > （`task.schema.json`、`openapi.json`、`validate.py`、`contracts/examples/`）
-> 与 B 组逐字节一致，哈希见 `contracts/shared-lock.json`。
+> 以 `contracts/shared-lock.json` 记录的 SHA-256 为准，双方一致。
 > A 组独有样例（真实目标项目 Minicalc）在 `contracts/examples/minicalc/`。
 
 ## 1. 角色
@@ -120,6 +120,10 @@
 `finding`：`finding_id`、`type`（MISSING/REDUNDANT）、`target`、`dependency`、
 `commit`、`detector`、`location`（`{file, line}`）、`evidence`。
 
+> 来源说明：`detector` 表示目标服务角色（BuildChecker / EChecker）。当前仓库内的
+> Minicalc 样例与产物由 `gcc -MM` 辅助生成并人工整理，**不是**真实动态追踪
+> 检测器的运行输出；真实检测器实现见 E3。
+
 ### finding_id 生成规则（见 `contracts/finding-id-v1.json`）
 
 - 输入字段顺序：`[repository.url, configuration_id, type, target, dependency]`
@@ -181,8 +185,8 @@ MISSING 对应 `actual=true, declared=false`；REDUNDANT 对应
 
 ## 12. 版本兼容
 
-- 可兼容：新增可选字段、共享 Schema 同步更新、保留已有字段含义。
+- 可兼容（需接收方允许）：新增可选字段、共享 Schema 同步更新、保留已有字段含义。
 - 可能破坏：删除/改名/改语义、状态枚举改变、严格 Schema（
-  `additionalProperties: false`）拒绝新增字段。
+  `additionalProperties: false`）拒绝新增字段——即使新字段可选，旧校验器仍可能拒绝。
 - 变更共享字段必须双方评审，并同步更新 Schema、OpenAPI、样例和
-  `shared-lock.json`。
+  `shared-lock.json`。详见 `ADR-004`。

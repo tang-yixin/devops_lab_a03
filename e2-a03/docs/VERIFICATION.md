@@ -11,7 +11,8 @@
 | finding_id 测试向量 | 与 `finding-id-v1.json` 完全吻合（`finding-4a7595ca26e9e7666102f337dfd726da30ed2e10b4b6dffd0f0fccf495899d7f`） |
 | C2 镜像 `docker run` | 三个算术用例 + 版本断言全 PASS |
 | 真实检测器（BuildChecker/EChecker） | 未实现（E3） |
-| 跨机器产物下载、A/B 评审 | 未开展 |
+| A/B 配对评审 | 已完成（见 `PAIR_REVIEW.md`） |
+| 跨机器产物下载 | 未开展（E12） |
 
 ## 结论
 
