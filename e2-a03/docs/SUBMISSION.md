@@ -11,18 +11,14 @@
 - [x] Minicalc 目标项目及三个真实 C0/C1/C2 提交的图、报告、证据。
 - [x] 契约校验通过（27 共享样例 + 7 个 Minicalc 样例）。
 
-## 正式提交前
-
-- [ ] 填写 A/B 组号、成员、真实仓库地址（`TEAM.md`）。
-- [ ] 记录课堂三轮配对练习（`PAIR_REVIEW.md`）。
-- [ ] 每位同学记录真实贡献、AI 采纳判断、提交 SHA 和 Issue/PR。
-- [ ] 填写提交分支与完整 SHA（`git rev-parse HEAD`），并记录验证结果。
 
 | 字段 | 实际值 |
 |---|---|
-| A 项目远端 URL | 待填写 |
-| B 配对项目 URL | 待填写 |
-| 分支和完整提交 SHA | 待填写 |
-| 作者、提交说明、Issue/PR | 待实际贡献后填写 |
+| A 项目远端 URL | https://github.com/tang-yixin/devops_lab_a03.git |
+| B 配对项目 URL | https://github.com/Wangyuhan29/b-group-project.git |
+| 提交分支 | main（e2 已完成，将合并至 main） |
+| 提交 SHA | 见 `CONTRIBUTIONS.md`（devops_lab_a03 各提交 + Minicalc C0/C1/C2） |
+| 作者与提交说明 | devops_lab_a03 由 29699 统一提交；Minicalc 由 hardtosleep 提交 |
+| Issue/PR | 无（未使用 Issue/PR 流程） |
 | 结果 | 见 `VERIFICATION.md` |
 | 未完成与下一步 | 见 `BACKLOG.md`：真实检测器、镜像联调、C0/C1 环境仍待完成 |

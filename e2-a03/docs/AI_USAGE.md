@@ -164,7 +164,7 @@ AI 建议摘要、人工判断与理由、采纳/修改/拒绝、关联文件与
   JSON 数组做完整 SHA-256 生成 finding_id。
 - **人工判断**：
   1. 用 B 组 `finding-id-v1.json` 的测试向量验证了算法，结果完全吻合
-     （`finding-4a7595...9d7f`）；
+     （`finding-4a7595ca26e9e7666102f337dfd726da30ed2e10b4b6dffd0f0fccf495899d7f`）；
   2. 发现 Windows 下 `write_text` 会把 `\n` 转成 `\r\n`，导致写盘字节与
      SHA-256 计算字节不一致，改为 `write_bytes` 修复；
   3. 增量变化核对：C0→C1 added 仅 1 条（`parser.o→config.h`），

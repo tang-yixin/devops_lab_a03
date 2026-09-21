@@ -1,13 +1,17 @@
-# 个人贡献
+# 个人贡献记录
 
-> 姓名、学号、Git SHA 待真实成员填写。填写后替换下表中的占位符。
+> 说明：`devops_lab_a03` 仓库的提交由唐一心统一提交（git 作者 `29699`）；
+> 目标项目 `Minicalc-DevOps-Test` 仓库由李翔宇独立提交（作者 `hardtosleep`）。
+> 未使用 Issue/PR 流程，以 Git 提交记录为准。下表是成员的大致分工，表中 SHA 仅标注该成员主要参与的提交，不代表该提交仅含其一人工作。
 
-| 姓名 | 学号 | Git SHA | 负责内容 | 验证结果 |
+| 姓名/学号 | 工作和文件 | commit SHA | 提交说明 | 验证结果 |
 |---|---|---|---|---|
-| 成员1 | ... | ... | `contracts/task.schema.json`、`shared-lock.json`、`validate.py` | `python validate.py` 返回 27 examples（19 valid + 8 rejections） |
-| 成员2 | ... | ... | `contracts/examples/minicalc/full-*`、`error-report-c0.json` | FULL_CHECK 与报告样例通过校验 |
-| 成员3 | ... | ... | `contracts/examples/minicalc/incremental-*`、`md-only-report-c0.json`、`repair-request.json` | 增量与修复样例通过完整校验（含 artifact 解析） |
-| 成员4 | ... | ... | `docs/ADR-*`、`BACKLOG.md`、`API-CONTRACT.md`、`AI_USAGE.md` | 契约对齐 B 组、Minicalc 数据真实、AI 过程可追溯 |
+| 唐一心（241250061） | A/B 契约对齐与协调：`contracts/shared-lock.json`（31→33 同步）、`graph.schema.json`、`finding-id-v1.json`、`docs/API-CONTRACT.md`、`TEAM.md`、`SUBMISSION.md` | `1208549`、`b1f5fe2`（devops_lab_a03） | 同步共享锁至 33 文件；补全文档与 ADR | 33 个共享文件哈希与 B 组一致 |
+| 李翔宇（241250093） | 目标项目 `Minicalc-DevOps-Test` 创建，埋入依赖缺陷并产出 C0/C1/C2 三个提交 | `e3a1eda`（C0）、`f863c2d`（C1）、`e103bcb`（C2） | minicalc baseline / configurable token capacity / restore legacy hook | 三版本构建与测试通过，MD/RD 分布 3/1、4/1、4/0 |
+| 王子贤（241250106） | EChecker 增量检测：`incremental-request.json`、`incremental-response.json`、`md-only-report-c0.json`、`repair-request.json`、`artifacts/minicalc/{c1,c2}/` | `b75b40f`（devops_lab_a03，统一提交） | 生成 Minicalc 产物与增量样例 | 增量样例通过完整校验（含 artifact 解析） |
+| 刘馨蔓（241250107） | 契约校验与质量：`validate.py` 回归、`artifacts/index.json` 哈希、`docs/VERIFICATION.md`、`docs/AI_USAGE.md` | `4e74f03`（devops_lab_a03，统一提交） | 校验脚本与产物哈希验证 | `python validate.py` 27 样例通过，Minicalc 7 样例通过 |
+
+可用 `git log --format="%H %an <%ae> %s"` 获取真实版本、作者和说明。
 
 ## 验证命令
 
@@ -28,7 +32,5 @@ python validate.py contracts/examples/minicalc/repair-request.json
 
 ## 未完成项
 
-- B 组已提供 C2 镜像固定 digest（私有 GHCR，需 `read:packages` 权限），A 组尚未实际拉取验证；C0/C1 环境待补。
-- `configuration_id` 用 `cc-default`，待与 B 组最终确认。
-- 真实检测器（BuildChecker/EChecker 算法）未实现，当前产物由 `gcc -MM` 辅助生成。
-- 课堂三轮配对练习记录待开展后回填。
+- C2 镜像已拉取并 `docker run` 冒烟验证通过（4 个断言 PASS）；C0/C1 环境待 B 组补充。
+- 真实检测器（BuildChecker/EChecker 算法）未实现，当前产物由 `gcc -MM` 辅助生成；Checker 联调留到 E3。

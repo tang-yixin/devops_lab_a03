@@ -12,7 +12,7 @@
 | 12、22 | 历史图、base commit、配置匹配和变化 | `incremental-*`、C0→C1 added/resolved |
 | 12、23 | B 修复只消费 MD | `md-only-report-c0.json`、`repair-request.json` |
 | 13–15 | ADR、AI 使用、个人贡献与版本 | `ADR-001~005`、`AI_USAGE.md`、`CONTRIBUTIONS.md` |
-| 16、17 | 配对练习、接口一致、当堂检查 | `PAIR_REVIEW.md`（待开展） |
+| 16、17 | 配对练习、接口一致、当堂检查 | `PAIR_REVIEW.md` |
 | 17 | A 准备 MD/RD 项目与 C0/C1/C2 | Minicalc 三提交 + `artifacts/minicalc/` |
 | 24 | 产物读取及追溯，E12 跨组读取证据 | `artifacts/index.json` 哈希注册；跨机器待验证 |
 | 25、26 | 正反校验和版本变化 | `validate.py`、`shared-lock.json`、`ADR-004` |

@@ -21,7 +21,7 @@
 | 增量 C1 | `f863c2deff1bd95e56f1578b872ae6aa26e3bfc8` |
 | 增量 C2 | `e103bcb3726a3fd7253deb0d791ac74fac77cafe` |
 | configuration_id | `cc-default` |
-| 构建镜像（C2） | `ghcr.io/wangyuhan29/minicalc-devops@sha256:c4e233...`（私有 GHCR，仅含 C2 源码） |
+| 构建镜像（C2） | `ghcr.io/wangyuhan29/minicalc-devops@sha256:c4e23321b6f51c9382d2c3b12eef8c9594d8aa9aab01daf8d52928b41f27dc6d`（私有 GHCR，仅含 C2 源码） |
 
 ## 3. 统一任务模型
 
