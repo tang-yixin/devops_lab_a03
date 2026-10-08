@@ -1,0 +1,60 @@
+{
+  "e2_root": "../e2-a03",
+  "e2_validate": "validate.py",
+  "e2_contracts": "contracts",
+  "e2_artifacts": "artifacts",
+  "e2_schemas": {
+    "task": "contracts/task.schema.json",
+    "graph": "contracts/graph.schema.json",
+    "openapi": "contracts/openapi.json",
+    "finding_id": "contracts/finding-id-v1.json",
+    "shared_lock": "contracts/shared-lock.json"
+  },
+  "minicalc_samples": "contracts/examples/minicalc",
+  "minicalc_artifacts": "artifacts/minicalc",
+  "minicalc_c0": "artifacts/minicalc/c0",
+  "minicalc_c1": "artifacts/minicalc/c1",
+  "minicalc_c2": "artifacts/minicalc/c2",
+  "group_a": {
+    "name": "BuildChecker / EChecker",
+    "project": "minicalc",
+    "build_cmd": ["make"],
+    "run_cmd": ["./minicalc"],
+    "clean_cmd": ["make", "clean"],
+    "source_root": "artifacts/minicalc/c0/src",
+    "makefile": "artifacts/minicalc/c0/Makefile",
+    "oracle_report": "contracts/examples/minicalc/md-only-report-c0.json",
+    "graph_schema": "contracts/graph.schema.json",
+    "finding_id": "contracts/finding-id-v1.json"
+  },
+  "group_b": {
+    "name": "DRAFT / MDFixer",
+    "project": "minicalc",
+    "build_cmd": ["make"],
+    "run_cmd": ["./minicalc"],
+    "error_report": "contracts/examples/minicalc/error-report-c0.json",
+    "full_request": "contracts/examples/minicalc/full-request.json",
+    "full_response": "contracts/examples/minicalc/full-response.json",
+    "incremental_request": "contracts/examples/minicalc/incremental-request.json",
+    "incremental_response": "contracts/examples/minicalc/incremental-response.json",
+    "repair_request": "contracts/examples/minicalc/repair-request.json"
+  },
+  "commits": {
+    "C0": {
+      "artifact_dir": "artifacts/minicalc/c0",
+      "expected_clean": 10,
+      "expected_findings": []
+    },
+    "C1": {
+      "artifact_dir": "artifacts/minicalc/c1",
+      "expected_clean": 12,
+      "expected_findings": ["MD: minicalc -> feature.h"]
+    },
+    "C2": {
+      "artifact_dir": "artifacts/minicalc/c2",
+      "expected_incremental": 12,
+      "expected_clean": 19,
+      "expected_findings": ["MD: minicalc -> feature.h"]
+    }
+  }
+}
