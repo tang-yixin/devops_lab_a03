@@ -21,7 +21,7 @@
 |---|---|---|---|---|
 | E3-A04 | A | `fixtures/commits/` C0/C1/C2 演示（含「只改编译命令」） | 增量 vs clean 输出符合预期（10/12/19） | 完成 |
 | E3-A05 | A | `work/` 真实 Minicalc 运行记录 | 真实 make 退出码/输出、增量 vs clean 对照、失败日志 | 完成 |
-| E3-A06 | A | `evidence/linux-verified/` strace | `strace -ff` + `make -pn` 原始跟踪可定位依赖读取 | 未开始 |
+| E3-A06 | A | `evidence/linux-verified/` strace | `strace -ff` + `make -pn` 原始跟踪可定位依赖读取 | 完成 |
 
 ## 阶段 4：汇总与互查
 
