@@ -29,3 +29,9 @@ Windows 本机仅用于 git 与脚本。
 
 - 与 B03 交叉检查（需对方按 README 复现）与平台统一（x86_64 vs arm64）。
 - 本轮文档补全的最终提交（见 `CONTRIBUTIONS.md` 未完成项）。
+
+## 与 B03 交叉复核（A03 侧已复核 B03）
+
+A03 已运行 B03 的 `verify_baselines.py`，DRAFT、四种 MDFixer 风格、无效候选拒绝全部
+PASS（详见 `evidence/b03-cross-check.md`）。真实 Docker 构建因平台差异（arm64 vs x86_64）
+留待统一平台后验证。

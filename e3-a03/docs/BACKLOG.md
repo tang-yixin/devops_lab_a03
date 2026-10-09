@@ -27,7 +27,7 @@
 
 | ID | 责任方 | 产物 | 验收条件 | 状态 |
 |---|---|---|---|---|
-| E3-A07 | A 全体 | `docs/CONTRIBUTIONS.md`、`VERIFICATION.md`、README 完善 | 每人 commit SHA + 验证结果；与 B 组交叉检查通过 | 完成（待 B 组交叉检查） |
+| E3-A07 | A 全体 | `docs/CONTRIBUTIONS.md`、`VERIFICATION.md`、README 完善 | 每人 commit SHA + 验证结果；与 B 组交叉检查通过 | 完成（A03 已复核 B03；待 B03 复核 A03） |
 
 ## 边界（不属于 E3）
 

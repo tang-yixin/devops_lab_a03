@@ -53,6 +53,7 @@ e3-a03/
 │   ├── md-rd-manual-check.md
 │   ├── commits-manual-check.md
 │   ├── minicalc-real-run.md
+│   ├── b03-cross-check.md
 │   └── linux-verified/  # strace-evidence.md + 分析 README
 ├── scripts/             # md_rd_check.sh / commits_check.sh / minicalc_check.sh / strace_check.sh
 └── docs/                # BACKLOG、CONTRIBUTIONS、VERIFICATION
@@ -93,12 +94,13 @@ bash e3-a03/scripts/strace_check.sh      # strace 原始跟踪 + make -pn
 | 1. 环境与脚手架 | 记录 git/make/cc/python3/strace 版本、OS/CPU；搭 e3 分支与目录 | 完成 |
 | 2. MD/RD 人工样例手动对照 | config.h/unused.h 实际构建 + 改头文件，产出 INSTRUCTOR_ORACLE 标签报告 | 完成 |
 | 3. 真实 C0/C1/C2 固化 + Linux 跟踪 | fixtures 演示、真实运行、strace 均完成 | 完成 |
-| 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 完成（待 B 组交叉检查） |
+| 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 完成（A03 已复核 B03；待 B03 复核 A03） |
 
 详见 `docs/BACKLOG.md`。
 
 ## 与 B 组对接
 
 B03 已推送 E3 基线（SHA `9f39cc8`，`e3-b03/`），包含 DRAFT 失败/成功 Docker 样本、
-固定 MD 报告、四种 Makefile 修复参考补丁。A03 已完成基线，待回发仓库地址、提交 SHA、
-验证结果，并与 B 组完成交叉检查（含平台统一：本组 x86_64 vs B 组 arm64）。
+固定 MD 报告、四种 Makefile 修复参考补丁。A03 已复核 B03 基线（本地模拟全 PASS，见
+`evidence/b03-cross-check.md`），并已完成自身基线，待回发仓库地址与验证结果，双方完成
+交叉检查（含平台统一：本组 x86_64 vs B 组 arm64）。
