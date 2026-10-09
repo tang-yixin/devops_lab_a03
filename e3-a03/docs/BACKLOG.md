@@ -6,8 +6,8 @@
 
 | ID | 责任方 | 产物 | 验收条件 | 状态 |
 |---|---|---|---|---|
-| E3-A01 | A 全体 | `e3-a03/` 目录骨架 + README | 目录结构与 PPT 第 12 页一致，README 含已确定信息 | 进行中 |
-| E3-A02 | A 全体 | 环境版本记录 | 记录 OS/CPU、git/make/cc/python3/strace 版本 | 未开始 |
+| E3-A01 | A 全体 | `e3-a03/` 目录骨架 + README | 目录结构与 PPT 第 12 页一致，README 含已确定信息 | 完成 |
+| E3-A02 | A 全体 | 环境版本记录 | 记录 OS/CPU、git/make/cc/python3/strace 版本 | 完成 |
 
 ## 阶段 2：MD/RD 人工样例手动对照
 

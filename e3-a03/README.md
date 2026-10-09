@@ -54,11 +54,16 @@ e3-a03/
 └── docs/                # E3 文档（BACKLOG、CONTRIBUTIONS、VERIFICATION 等）
 ```
 
+## 环境与版本
+
+正式证据统一在 **WSL Ubuntu 22.04.5 (x86_64)** 采集（gcc 11.4.0、GNU Make 4.3、
+strace 5.16）。Windows 本机仅用于 git 与脚本。完整对照见 `evidence/environment.md`。
+
 ## E3 任务阶段
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
-| 1. 环境与脚手架 | 记录 git/make/cc/python3/strace 版本、OS/CPU；搭 e3 分支与目录 | 进行中 |
+| 1. 环境与脚手架 | 记录 git/make/cc/python3/strace 版本、OS/CPU；搭 e3 分支与目录 | 完成 |
 | 2. MD/RD 人工样例手动对照 | config.h/unused.h 实际构建 + 改头文件，产出 INSTRUCTOR_ORACLE 标签报告 | 未开始 |
 | 3. 真实 C0/C1/C2 固化 + Linux 跟踪 | Minicalc 真实 make 命令/退出码、增量 vs clean 对照、strace 证据 | 未开始 |
 | 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 未开始 |
