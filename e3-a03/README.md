@@ -45,19 +45,36 @@ A 组重点：MD/RD 项目与判断依据、C0/C1/C2 真实提交及预期变化
 e3-a03/
 ├── README.md
 ├── fixtures/            # 课程人工样例
-│   ├── md-rd/           # config.h / unused.h 的 MD/RD 演示
-│   └── commits/         # C0/C1/C2 演示（声明正确→新增include→只改编译命令）
-├── work/                # 真实 Git 提交与参考修复（Minicalc）
+│   ├── md-rd/           # config.h / unused.h 的 MD/RD 演示 + ORACLE 报告
+│   └── commits/         # C0/C1/C2 演示（声明正确→新增include→只改编译命令）+ ORACLE 报告
+├── work/                # 真实 Git 提交引用（Minicalc c0/c1/c2 SHA）
 ├── evidence/            # 实际命令、输出、失败记录、strace 原始跟踪
-│   └── linux-verified/
-├── scripts/             # run_lab.py 等一键脚本
-└── docs/                # E3 文档（BACKLOG、CONTRIBUTIONS、VERIFICATION 等）
+│   ├── environment.md
+│   ├── md-rd-manual-check.md
+│   ├── commits-manual-check.md
+│   ├── minicalc-real-run.md
+│   └── linux-verified/  # strace-evidence.md + 分析 README
+├── scripts/             # md_rd_check.sh / commits_check.sh / minicalc_check.sh / strace_check.sh
+└── docs/                # BACKLOG、CONTRIBUTIONS、VERIFICATION
 ```
 
 ## 环境与版本
 
 正式证据统一在 **WSL Ubuntu 22.04.5 (x86_64)** 采集（gcc 11.4.0、GNU Make 4.3、
 strace 5.16）。Windows 本机仅用于 git 与脚本。完整对照见 `evidence/environment.md`。
+
+## 如何复现
+
+在 WSL Ubuntu 中执行（脚本均复制到 /tmp，不污染本目录源文件）：
+
+```bash
+bash e3-a03/scripts/md_rd_check.sh       # MD/RD 手动对照（增量不重建 / 多余编译）
+bash e3-a03/scripts/commits_check.sh     # C0/C1/C2 演示（10/12/19）
+bash e3-a03/scripts/minicalc_check.sh    # Minicalc 三 commit 真实构建与功能测试
+bash e3-a03/scripts/strace_check.sh      # strace 原始跟踪 + make -pn
+```
+
+预期结果与判断依据见对应 `evidence/*.md`；人工参考答案（INSTRUCTOR_ORACLE）见各 `oracle-report.json`。
 
 ## E3 任务阶段
 
@@ -66,12 +83,12 @@ strace 5.16）。Windows 本机仅用于 git 与脚本。完整对照见 `eviden
 | 1. 环境与脚手架 | 记录 git/make/cc/python3/strace 版本、OS/CPU；搭 e3 分支与目录 | 完成 |
 | 2. MD/RD 人工样例手动对照 | config.h/unused.h 实际构建 + 改头文件，产出 INSTRUCTOR_ORACLE 标签报告 | 完成 |
 | 3. 真实 C0/C1/C2 固化 + Linux 跟踪 | fixtures 演示、真实运行、strace 均完成 | 完成 |
-| 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 未开始 |
+| 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 完成（待 B 组交叉检查） |
 
 详见 `docs/BACKLOG.md`。
 
 ## 与 B 组对接
 
 B03 已推送 E3 基线（SHA `9f39cc8`，`e3-b03/`），包含 DRAFT 失败/成功 Docker 样本、
-固定 MD 报告、四种 Makefile 修复参考补丁。A03 需在阶段 4 前完成基线并回发
-仓库地址、提交 SHA、验证结果，供双方交叉检查。
+固定 MD 报告、四种 Makefile 修复参考补丁。A03 已完成基线，待回发仓库地址、提交 SHA、
+验证结果，并与 B 组完成交叉检查（含平台统一：本组 x86_64 vs B 组 arm64）。
