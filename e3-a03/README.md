@@ -74,6 +74,16 @@ bash e3-a03/scripts/minicalc_check.sh    # Minicalc 三 commit 真实构建与�
 bash e3-a03/scripts/strace_check.sh      # strace 原始跟踪 + make -pn
 ```
 
+路径约定（脚本已参数化，不依赖本机绝对路径）：
+
+- fixtures 脚本用 `SCRIPT_DIR` 自动推导 `e3-a03/` 目录。
+- Minicalc 相关脚本用环境变量 `MINICALC_REPO` 指定目标仓库，未设置时默认
+  `devops_lab_a03` 同级目录下的 `Minicalc-DevOps-Test`。
+  ```bash
+  export MINICALC_REPO=/path/to/Minicalc-DevOps-Test
+  bash e3-a03/scripts/minicalc_check.sh
+  ```
+
 预期结果与判断依据见对应 `evidence/*.md`；人工参考答案（INSTRUCTOR_ORACLE）见各 `oracle-report.json`。
 
 ## E3 任务阶段

@@ -1,7 +1,12 @@
 #!/bin/bash
 set -u
-SRC=/mnt/d/DevOps/Minicalc-DevOps-Test
-EVID=/mnt/d/DevOps/devops_lab_a03/e3-a03/evidence/linux-verified
+# 可移植路径：脚本所在目录 → e3-a03 → 仓库根
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+E3_DIR="$(dirname "$SCRIPT_DIR")"
+REPO_DIR="$(dirname "$E3_DIR")"
+# Minicalc 仓库：优先环境变量 MINICALC_REPO，默认仓库同级目录
+SRC="${MINICALC_REPO:-$REPO_DIR/../Minicalc-DevOps-Test}"
+EVID="$E3_DIR/evidence/linux-verified"
 mkdir -p "$EVID"
 D=/tmp/e3-strace-a03
 rm -rf "$D"

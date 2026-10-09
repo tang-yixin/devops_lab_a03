@@ -1,6 +1,9 @@
 #!/bin/bash
 set -u
-SRC=/mnt/d/DevOps/devops_lab_a03/e3-a03/fixtures/md-rd
+# 可移植路径：脚本所在目录 → e3-a03 目录
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+E3_DIR="$(dirname "$SCRIPT_DIR")"
+SRC="$E3_DIR/fixtures/md-rd"
 D=/tmp/e3-md-rd-a03
 rm -rf "$D"
 mkdir -p "$D"
