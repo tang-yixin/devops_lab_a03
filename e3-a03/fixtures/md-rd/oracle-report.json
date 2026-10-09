@@ -1,0 +1,19 @@
+{
+  "provenance": "INSTRUCTOR_ORACLE",
+  "target": "main.o",
+  "configuration_id": "cc-default",
+  "findings": [
+    {
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "config.h",
+      "evidence": "main.c #include \"config.h\" 且使用 VALUE，但 Makefile 的 main.o 规则未声明 config.h；改 config.h 后增量构建输出旧值，clean build 才输出新值"
+    },
+    {
+      "type": "REDUNDANT",
+      "target": "main.o",
+      "dependency": "unused.h",
+      "evidence": "Makefile 声明 unused.h 为依赖，但 main.c 未包含且编译未读取；仅改 unused.h 注释即触发多余重编译"
+    }
+  ]
+}

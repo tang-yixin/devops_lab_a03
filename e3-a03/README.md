@@ -64,7 +64,7 @@ strace 5.16）。Windows 本机仅用于 git 与脚本。完整对照见 `eviden
 | 阶段 | 内容 | 状态 |
 |---|---|---|
 | 1. 环境与脚手架 | 记录 git/make/cc/python3/strace 版本、OS/CPU；搭 e3 分支与目录 | 完成 |
-| 2. MD/RD 人工样例手动对照 | config.h/unused.h 实际构建 + 改头文件，产出 INSTRUCTOR_ORACLE 标签报告 | 未开始 |
+| 2. MD/RD 人工样例手动对照 | config.h/unused.h 实际构建 + 改头文件，产出 INSTRUCTOR_ORACLE 标签报告 | 完成 |
 | 3. 真实 C0/C1/C2 固化 + Linux 跟踪 | Minicalc 真实 make 命令/退出码、增量 vs clean 对照、strace 证据 | 未开始 |
 | 4. 汇总与互查 | README/环境/命令/日志/SHA/个人贡献，与 B 组交叉检查 | 未开始 |
 
