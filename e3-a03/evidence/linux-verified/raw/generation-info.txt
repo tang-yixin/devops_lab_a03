@@ -1,0 +1,6 @@
+generated_at=2026-10-09T13:01:19Z
+arch=x86_64
+gcc=gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+make=GNU Make 4.3
+strace=strace -- version 5.16
+commit=e3a1eda0965e545d96467d275bccaf78c890fcac

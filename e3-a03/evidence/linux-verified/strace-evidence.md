@@ -1,6 +1,6 @@
 # strace 原始跟踪证据（Minicalc c0，WSL Ubuntu x86_64）
 
-生成时间：2026-10-09T08:24:53Z
+生成时间：2026-10-09T13:01:18Z
 
 ## 构建命令输出（make.stdout）
 ```
@@ -21,22 +21,22 @@ gcc -std=c11 -Wall -Wextra -Iinclude -g main.o parser.o token.o util.o -o minica
 
 ## 各 trace 文件对应进程
 ```
-trace.log.432 -> /usr/bin/make
-trace.log.433 -> /usr/bin/gcc
-trace.log.434 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
-trace.log.435 -> /usr/local/sbin/as
-trace.log.436 -> /usr/bin/gcc
-trace.log.437 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
-trace.log.438 -> /usr/local/sbin/as
-trace.log.439 -> /usr/bin/gcc
-trace.log.440 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
-trace.log.441 -> /usr/local/sbin/as
-trace.log.442 -> /usr/bin/gcc
-trace.log.443 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
-trace.log.444 -> /usr/local/sbin/as
-trace.log.445 -> /usr/bin/gcc
-trace.log.446 -> /usr/lib/gcc/x86_64-linux-gnu/11/collect2
-trace.log.447 -> /usr/bin/ld
+trace.log.442 -> /usr/bin/make
+trace.log.443 -> /usr/bin/gcc
+trace.log.444 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
+trace.log.445 -> /usr/local/sbin/as
+trace.log.446 -> /usr/bin/gcc
+trace.log.447 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
+trace.log.448 -> /usr/local/sbin/as
+trace.log.449 -> /usr/bin/gcc
+trace.log.450 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
+trace.log.451 -> /usr/local/sbin/as
+trace.log.452 -> /usr/bin/gcc
+trace.log.453 -> /usr/lib/gcc/x86_64-linux-gnu/11/cc1
+trace.log.454 -> /usr/local/sbin/as
+trace.log.455 -> /usr/bin/gcc
+trace.log.456 -> /usr/lib/gcc/x86_64-linux-gnu/11/collect2
+trace.log.457 -> /usr/bin/ld
 ```
 
 ## 头文件访问分类（newfstatat = make 检查状态；openat = 编译器实际读取）

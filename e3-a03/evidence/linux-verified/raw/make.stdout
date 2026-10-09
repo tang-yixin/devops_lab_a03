@@ -1,0 +1,5 @@
+gcc -std=c11 -Wall -Wextra -Iinclude -g -c src/main.c -o main.o
+gcc -std=c11 -Wall -Wextra -Iinclude -g -c src/parser.c -o parser.o
+gcc -std=c11 -Wall -Wextra -Iinclude -g -c src/token.c -o token.o
+gcc -std=c11 -Wall -Wextra -Iinclude -g -c src/util.c -o util.o
+gcc -std=c11 -Wall -Wextra -Iinclude -g main.o parser.o token.o util.o -o minicalc

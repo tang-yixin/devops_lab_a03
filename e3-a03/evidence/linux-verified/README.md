@@ -2,7 +2,22 @@
 
 > 依据 PPT 第 28 页。在 WSL Ubuntu 22.04.5 (x86_64) 对 Minicalc c0 执行
 > `strace -ff -e trace=%file,%process make`，用系统调用证据区分「构建器读取」与
-> 「编译器读取」。原始证据见同目录 `strace-evidence.md`。
+> 「编译器读取」。汇总见同目录 `strace-evidence.md`。
+
+## 原始证据目录 `raw/`
+
+为便于他人独立复核，逐进程原始 trace、`make.stdout`、`make-pn.txt` 全文已一并保存：
+
+| 文件 | 说明 |
+|---|---|
+| `raw/trace.log.<pid>` | 每个进程（make/gcc/cc1/as/ld）的原始系统调用日志 |
+| `raw/make.stdout` | `make` 的标准输出（构建命令） |
+| `raw/make-pn.txt` | `make -pn` 全文（Make 解析出的完整规则与变量） |
+| `raw/generation-info.txt` | 生成时的环境快照（arch/gcc/make/strace/commit） |
+
+> 说明：`trace.log.<pid>` 中的 PID 是某次运行快照，每次重跑会变化；原始 trace
+> 内含 `/tmp/e3-strace-a03/` 等本机路径，仅作追溯用，复现请重跑
+> `scripts/strace_check.sh`。
 
 ## 方法
 

@@ -7,7 +7,8 @@ REPO_DIR="$(dirname "$E3_DIR")"
 # Minicalc 仓库：优先环境变量 MINICALC_REPO，默认仓库同级目录
 SRC="${MINICALC_REPO:-$REPO_DIR/../Minicalc-DevOps-Test}"
 EVID="$E3_DIR/evidence/linux-verified"
-mkdir -p "$EVID"
+RAWDIR="$EVID/raw"
+mkdir -p "$EVID" "$RAWDIR"
 D=/tmp/e3-strace-a03
 rm -rf "$D"
 git clone -q "$SRC" "$D"
@@ -17,18 +18,18 @@ OUT=/tmp/e3-strace-a03-out
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
-echo "=== 环境 ==="
+echo "=== Environment ==="
 uname -m
 gcc --version | head -1
 make --version | head -1
 strace --version | head -1
 
-echo "=== make clean 后 strace 跟踪 make ==="
+echo "=== strace make after clean ==="
 make clean >/dev/null 2>&1
 strace -ff -o "$OUT/trace.log" -e trace=%file,%process make > "$OUT/make.stdout" 2>&1
 echo "strace exit=$?"
 
-echo "=== make -pn 抓声明依赖 ==="
+echo "=== make -pn (declared deps) ==="
 make -pn > "$OUT/make-pn.txt" 2>&1
 echo "make -pn exit=$?"
 
@@ -68,5 +69,20 @@ echo "make -pn exit=$?"
   echo '```'
 } > "$EVID/strace-evidence.md"
 
-echo "已写入 $EVID/strace-evidence.md"
-echo "trace 文件数: $(ls -1 "$OUT"/trace.log.* | wc -l)"
+# ---- 保存原始证据（逐进程 trace、make.stdout、make-pn.txt 全文）到仓库 raw/ ----
+cp "$OUT"/trace.log.* "$RAWDIR"/
+cp "$OUT/make.stdout" "$RAWDIR/make.stdout"
+cp "$OUT/make-pn.txt" "$RAWDIR/make-pn.txt"
+# 记录生成环境快照
+{
+  echo "generated_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "arch=$(uname -m)"
+  echo "gcc=$(gcc --version | head -1)"
+  echo "make=$(make --version | head -1)"
+  echo "strace=$(strace --version | head -1)"
+  echo "commit=$(git rev-parse HEAD)"
+} > "$RAWDIR/generation-info.txt"
+
+echo "wrote $EVID/strace-evidence.md"
+echo "raw evidence -> $RAWDIR/ (trace files: $(ls -1 "$RAWDIR"/trace.log.* | wc -l))"
+echo "trace file count: $(ls -1 "$OUT"/trace.log.* | wc -l)"

@@ -54,7 +54,7 @@ e3-a03/
 │   ├── commits-manual-check.md
 │   ├── minicalc-real-run.md
 │   ├── b03-cross-check.md
-│   └── linux-verified/  # strace-evidence.md + 分析 README
+│   └── linux-verified/  # strace-evidence.md + 分析 README + raw/（原始 trace/make-pn）
 ├── scripts/             # md_rd_check.sh / commits_check.sh / minicalc_check.sh / strace_check.sh
 └── docs/                # BACKLOG、CONTRIBUTIONS、VERIFICATION
 ```
