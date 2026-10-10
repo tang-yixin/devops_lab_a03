@@ -1,104 +1,35 @@
 # DevOps 实验 A 组仓库
 
-本仓库是 DevOps 教学实验 **A 组**的成果仓库，按实验轮次分分支管理。
+本仓库是 DevOps 教学实验 **A 组**（A03）的成果仓库，按实验轮次分分支管理。
+各轮次成果放在对应目录下，互不覆盖。
 
 ## 分支约定
 
 | 分支 | 内容 | 状态 |
 |---|---|---|
-| `main` | 实验成果主线（当前含 E2） | 默认分支 |
-| `e2` | 实验 E2 开发分支（已完成，并入 `main`） | 保留 |
-| `e3` | 实验 E3（待开始，从 `main` 分出） | 未创建 |
+| `main` | 实验成果主线 | 默认分支 |
+| `e2` | E2 需求与接口契约（已完成） | 保留 |
+| `e3` | E3 并行测试基线（进行中） | 开发分支 |
 
-> `main` 作为主线，E2 完成后将 `e2` 合并进来；后续 E3 从 `main` 开新分支开发。
+> 各轮次完成后合并回 `main`，新轮次从 `main` 分出新分支开发。
 
-## 目录结构
+## 组队信息
 
-```text
-devops_lab_a03/
-├── .gitignore
-├── README.md
-└── e2-a03/                     # E2 实验成果
-    ├── validate.py             # 契约校验脚本（与 B 组逐字节一致）
-    ├── contracts/              # 接口契约与样例
-    │   ├── task.schema.json                # 统一任务模型 Schema（与 B 组一致）
-    │   ├── openapi.json                    # 四个创建接口 + 查询接口（与 B 组一致）
-    │   ├── shared-lock.json                # 共享文件 SHA-256 锁（与 B 组一致）
-    │   ├── graph.schema.json               # Minicalc 编译图格式（与 B 组一致）
-    │   ├── finding-id-v1.json              # finding_id 算法与测试向量（与 B 组一致）
-    │   └── examples/
-    │       ├── manifest.json               # 27 个共享样例清单（与 B 组一致）
-    │       ├── *.json                      # 共享正反样例（与 B 组一致）
-    │       └── minicalc/                   # A 组独有：Minicalc 真实数据样例
-    ├── artifacts/              # 产物与哈希索引
-    │   ├── index.json                      # 全部产物注册（demo 来自 B 组，minicalc 为本组生成）
-    │   ├── demo/                           # B 组共享演示产物
-    │   └── minicalc/                       # A 组生成：c0/c1/c2 的图、报告、证据
-    └── docs/                   # 设计文档（大写命名）
-        ├── API-CONTRACT.md                 # A/B 组接口总约定
-        ├── ADR-001-async-job.md            # ADR：耗时任务用异步 Job
-        ├── ADR-002-error-vs-finding.md     # ADR：系统错误与检测发现分离
-        ├── ADR-003-artifact-by-reference.md # ADR：大产物按引用交接
-        ├── BACKLOG.md                      # 可验收任务清单
-        ├── AI_USAGE.md                     # AI 使用过程证据
-        └── CONTRIBUTIONS.md                # 个人贡献与版本追溯
-```
+| 字段 | 值 |
+|---|---|
+| A 组编号 | A03（配对 B03，鼓楼校区） |
+| A 组联系人 | 唐一心（241250061） |
+| B 组联系人 | 王宇晗（241250086） |
+| A 组仓库 | https://github.com/tang-yixin/devops_lab_a03.git |
+| B 组仓库 | https://github.com/Wangyuhan29/b-group-project.git |
+| 目标项目 | https://github.com/hardtosleep/Minicalc-DevOps-Test.git |
 
-## 实验 E2 简介
+成员分工详见 `e2-a03/docs/TEAM.md`（成员跨轮次不变，各轮次具体贡献见对应目录的
+`docs/CONTRIBUTIONS.md`）。
 
-**主题**：需求与接口契约。本阶段不实现服务，只约定 A/B 两组微服务之间的数据交接。
+## 各轮次成果
 
-**A 组职责**：
-
-| 工具 | 职责 | 交付给谁 |
-|---|---|---|
-| BuildChecker | 全量依赖检测 | EChecker / MDFixer |
-| EChecker | 跨提交增量检测 | MDFixer |
-
-**B 组职责**：DRAFT（生成可构建环境）、MDFixer（修复缺失依赖）。
-
-**核心设计决策**：
-
-1. **异步 Job 模型** — 耗时任务先受理再后台执行，`POST` 返回 `202` + `job_id`，`GET /v1/jobs/{job_id}` 查询状态与产物引用。见 `ADR-001`。
-2. **系统错误与检测发现分离** — 检测到缺失依赖（MD）是**正常分析结果**，`status=SUCCEEDED`，写入 `findings`；工具本身没跑完才是 `FAILED`/`TIMED_OUT`，写入 `error`。见 `ADR-002`。
-3. **大产物按引用交接** — 依赖图、日志等大文件不内联进 Job 响应，只返回 `artifact://` URI，产物按目录映射并用 `index.json` 注册 SHA-256。见 `ADR-003`。
-
-## 校验
-
-```powershell
-cd e2-a03
-$env:PYTHONUTF8 = 1    # Windows 下避免 GBK 解码问题
-
-# 共享样例 + 产物哈希（27 examples，19 valid + 8 expected rejections）
-python validate.py
-
-# A 组 Minicalc 真实数据样例（完整校验，含 artifact 解析）
-python validate.py contracts/examples/minicalc/full-request.json
-python validate.py contracts/examples/minicalc/full-response.json
-python validate.py contracts/examples/minicalc/error-report-c0.json
-python validate.py contracts/examples/minicalc/md-only-report-c0.json
-python validate.py contracts/examples/minicalc/incremental-request.json
-python validate.py contracts/examples/minicalc/incremental-response.json
-python validate.py contracts/examples/minicalc/repair-request.json
-```
-
-校验脚本与 B 组一致：结构校验（Draft 2020-12 子集）+ 跨文件语义
-（提交/配置匹配、MD-only、状态与 error 一致性）+ 产物哈希。
-
-## 当前状态
-
-**已完成**：
-
-- 契约与 B 组逐字节对齐（schema、openapi、validate.py、27 个共享样例、shared-lock）
-- 用真实目标项目 Minicalc 的 C0/C1/C2 完整 SHA 生成 A 组独有样例
-- 三份 ADR、Backlog、API-CONTRACT、AI_USAGE 记录
-- 校验脚本通过 27 个共享样例与 A 组 Minicalc 样例
-
-**待完成**（需与 B 组对接或留到 E3）：
-
-- [ ] 与 B 组确认 `configuration_id`（当前 `cc-default`）；镜像已提供 C2 digest，待 A 组拉取验证
-- [ ] 确认配对组编号与成员信息，填写 `CONTRIBUTIONS.md`
-- [ ] 记录课堂三轮配对练习结论
-- [ ] 实现真实检测器（BuildChecker/EChecker），在镜像内完成联调（E3）
-
-详见 `e2-a03/docs/BACKLOG.md` 与 `e2-a03/docs/AI_USAGE.md` 末尾的待办清单。
+| 轮次 | 主题 | 目录 | 入口 |
+|---|---|---|---|
+| E2 | 需求与接口契约 | `e2-a03/` | `e2-a03/README.md` |
+| E3 | 并行测试基线 | `e3-a03/` | `e3-a03/README.md` |

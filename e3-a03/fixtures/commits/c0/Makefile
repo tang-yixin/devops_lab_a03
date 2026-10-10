@@ -1,0 +1,10 @@
+CFLAGS = -O0
+
+app: main.o
+	cc $(CFLAGS) main.o -o app
+
+main.o: main.c config.h
+	cc $(CFLAGS) -c main.c -o main.o
+
+clean:
+	rm -f main.o app

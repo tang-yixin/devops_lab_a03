@@ -1,0 +1,35 @@
+{
+  "provenance": "INSTRUCTOR_ORACLE",
+  "configuration_id": "cc-default",
+  "baseline": "C0",
+  "commits": {
+    "c0": {"desc": "声明正确，程序输出 10"},
+    "c1": {"desc": "新增 feature.h 使用，未补 Makefile 依赖，输出 12"},
+    "c2": {"desc": "只改编译命令 -DMODE=7，源码保持 C1"}
+  },
+  "findings_by_commit": {
+    "c0": [],
+    "c1": [
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "feature.h",
+        "evidence": "main.c 新增 #include \"feature.h\" 并使用 FEATURE，但 Makefile main.o 规则未声明 feature.h；只改 feature.h 后 make 显示 up to date，输出仍为 12"
+      }
+    ],
+    "c2": [
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "feature.h",
+        "evidence": "C1 的 MISSING 在 C2 仍存在；C2 只改编译命令，增量 make 保留 C1 产物输出 12，clean 才输出 19"
+      }
+    ]
+  },
+  "expected_outputs": {
+    "c0_clean": 10,
+    "c1_clean": 12,
+    "c2_incremental": 12,
+    "c2_clean": 19
+  }
+}

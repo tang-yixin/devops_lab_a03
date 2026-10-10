@@ -1,0 +1,130 @@
+execve("/usr/bin/make", ["make"], 0x7fffd25b3368 /* 22 vars */) = 0
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=32264, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2996, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=258, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=27002, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=23, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=47, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=127, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=62, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=34, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=48, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=270, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=1406, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=3360, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=50, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=353616, ...}, AT_EMPTY_PATH) = 0
+getcwd("/tmp/e3-strace-a03", 4096)      = 19
+newfstatat(AT_FDCWD, "/usr/gnu/include", 0x7fff24e43570, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/include", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=12288, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=12288, ...}, 0) = 0
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "Makefile", O_RDONLY)  = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=1534, ...}, AT_EMPTY_PATH) = 0
+newfstatat(AT_FDCWD, "RCS", 0x7fff24e43500, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "SCCS", 0x7fff24e43500, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "Makefile", {st_mode=S_IFREG|0644, st_size=1534, ...}, 0) = 0
+newfstatat(AT_FDCWD, "minicalc", 0x7fff24e41320, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "main.o", 0x7fff24e41200, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/main.c", {st_mode=S_IFREG|0644, st_size=414, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+newfstatat(AT_FDCWD, "src/RCS", 0x7fff24e41ee0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/SCCS", 0x7fff24e41ed0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config.h", {st_mode=S_IFREG|0644, st_size=120, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+newfstatat(AT_FDCWD, "include/RCS", 0x7fff24e41eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/SCCS", 0x7fff24e41eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/parser.h", {st_mode=S_IFREG|0644, st_size=236, ...}, 0) = 0
+newfstatat(1, "", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_EMPTY_PATH) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/gcc", {st_mode=S_IFREG|0755, st_size=928584, ...}, 0) = 0
+access("/usr/bin/gcc", X_OK)            = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7fe41a91c000, stack_size=0x9000}, 88) = 443
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 443
+newfstatat(AT_FDCWD, "main.o", {st_mode=S_IFREG|0644, st_size=4800, ...}, 0) = 0
+newfstatat(AT_FDCWD, "parser.o", 0x7fff24e41200, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/parser.c", {st_mode=S_IFREG|0644, st_size=2011, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/gcc", {st_mode=S_IFREG|0755, st_size=928584, ...}, 0) = 0
+access("/usr/bin/gcc", X_OK)            = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7fe41a91c000, stack_size=0x9000}, 88) = 446
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 446
+newfstatat(AT_FDCWD, "parser.o", {st_mode=S_IFREG|0644, st_size=10184, ...}, 0) = 0
+newfstatat(AT_FDCWD, "token.o", 0x7fff24e41200, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/token.c", {st_mode=S_IFREG|0644, st_size=1376, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/token.h", {st_mode=S_IFREG|0644, st_size=562, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/gcc", {st_mode=S_IFREG|0755, st_size=928584, ...}, 0) = 0
+access("/usr/bin/gcc", X_OK)            = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7fe41a91c000, stack_size=0x9000}, 88) = 449
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 449
+newfstatat(AT_FDCWD, "token.o", {st_mode=S_IFREG|0644, st_size=6416, ...}, 0) = 0
+newfstatat(AT_FDCWD, "util.o", 0x7fff24e41200, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/util.c", {st_mode=S_IFREG|0644, st_size=136, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/util.h", {st_mode=S_IFREG|0644, st_size=147, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/legacy.h", {st_mode=S_IFREG|0644, st_size=243, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/gcc", 0x7fff24e42d90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/gcc", {st_mode=S_IFREG|0755, st_size=928584, ...}, 0) = 0
+access("/usr/bin/gcc", X_OK)            = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7fe41a91c000, stack_size=0x9000}, 88) = 452
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 452
+newfstatat(AT_FDCWD, "util.o", {st_mode=S_IFREG|0644, st_size=6344, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/gcc", 0x7fff24e42eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/gcc", 0x7fff24e42eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/gcc", 0x7fff24e42eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/gcc", {st_mode=S_IFREG|0755, st_size=928584, ...}, 0) = 0
+access("/usr/bin/gcc", X_OK)            = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7fe41a91c000, stack_size=0x9000}, 88) = 455
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 455
+newfstatat(AT_FDCWD, "minicalc", {st_mode=S_IFREG|0755, st_size=23632, ...}, 0) = 0
+chdir("/tmp/e3-strace-a03")             = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
