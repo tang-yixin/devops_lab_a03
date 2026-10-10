@@ -25,13 +25,17 @@ Windows 本机仅用于 git 与脚本。
   实验部分均已完成并留有可复现脚本与证据。
 - 真实检测器（BuildChecker/EChecker）、四服务联调不在 E3 范围（E5/E8/E12）。
 
-## 未完成项
+## 交叉检查闭环
 
-- 与 B03 交叉检查（需对方按 README 复现）与平台统一（x86_64 vs arm64）。
-- 本轮文档补全的最终提交（见 `CONTRIBUTIONS.md` 未完成项）。
+- A03 复核 B03：运行 `verify_baselines.py`，DRAFT、四种 MDFixer 风格、无效候选拒绝全部
+  PASS（详见 `evidence/b03-cross-check.md`）。
+- B03 复核 A03：B03 独立读取 A03 新增的 16 个原始 trace，解码正常，编译器读取头文件关系
+  与 C0 人工预期一致，确认通过（B03 复核记录见其 `e3-b03/evidence/a03-strace-retry-20261010/`）。
+- 平台统一：双方确认后续真实 Docker 构建统一到 linux/amd64（E12 前对齐）。
+- B03 跨架构（Apple Silicon 上跑 amd64 容器）重跑 strace 出现的解码异常，是跨架构系统调用
+  跟踪兼容问题，非本组脚本问题；留待原生 x86_64 环境重跑，不影响 E3 交付。
 
-## 与 B03 交叉复核（A03 侧已复核 B03）
+## 后续阶段（不属于 E3）
 
-A03 已运行 B03 的 `verify_baselines.py`，DRAFT、四种 MDFixer 风格、无效候选拒绝全部
-PASS（详见 `evidence/b03-cross-check.md`）。真实 Docker 构建因平台差异（arm64 vs x86_64）
-留待统一平台后验证。
+- 真实检测器（BuildChecker/EChecker）在 E5/E8 实现。
+- 四服务联调、真实 Docker 构建与跨机器产物读取在 E12。

@@ -8,6 +8,8 @@ REPO_DIR="$(dirname "$E3_DIR")"
 SRC="${MINICALC_REPO:-$REPO_DIR/../Minicalc-DevOps-Test}"
 EVID="$E3_DIR/evidence/linux-verified"
 RAWDIR="$EVID/raw"
+# 方案A：每次运行前清空 raw/，避免新旧 PID 文件累积混用
+rm -rf "$RAWDIR"
 mkdir -p "$EVID" "$RAWDIR"
 D=/tmp/e3-strace-a03
 rm -rf "$D"
