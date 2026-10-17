@@ -31,3 +31,16 @@
 - [ ] `secret-scan.txt` 显示未发现问题
 - [ ] 假 Key 能被扫描器检出，清理后扫描重新通过
 - [ ] 至少两名成员的 `toolchain.lock`、测试结论和冒烟结论完成对照
+
+## 公共检查克隆
+
+组长在服务器公共检查克隆中完成了一次基线运行，证据已复制到
+`evidence/group-setup-241250061-20261017/`：
+
+- 源码 SHA：`217bcf4a4e0a4456a32ed2231b1c3a227adc4373`
+- 证据目录：服务器 `work/20261017-203614/`
+- `make doctor`：通过，`problems` 为空
+- `make test`：`3 passed`
+- `make smoke`：`passed: true`，程序输出 `1`，打开 `config.h`
+- `make scan`：未发现问题，包含 Git 历史和镜像检查
+- 构建源：Debian 下载入口使用华为云镜像，基础镜像 digest 未改变
