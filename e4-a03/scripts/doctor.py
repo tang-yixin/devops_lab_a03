@@ -15,8 +15,9 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
-# A 组容器限制为 1 GiB；小规格云主机的 MemTotal 可能只报告约 3.5 GiB。
-MIN = {"cpus": 2, "mem_gib": 3.5, "disk_gib": 40}      # 最低可见资源
+# A 组容器限制为 1 GiB；课程当前 2 GiB 云主机在 Ubuntu 中通常只报告约 1.7 GiB。
+# 这里按课程最新资源要求设置最低可见内存，避免把系统保留空间误判为不合格。
+MIN = {"cpus": 2, "mem_gib": 1.5, "disk_gib": 40}      # 最低可见资源
 REC = {"cpus": 4, "mem_gib": 8, "disk_gib": 100}       # 建议（DRAFT 后续要构建真实项目）
 
 TOOLS = [  # (名称, 版本命令, 是否必需)
