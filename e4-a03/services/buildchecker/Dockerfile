@@ -7,12 +7,24 @@
 ARG BASE_IMAGE=m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74
 FROM ${BASE_IMAGE}
 
+# 华为云 ECS 访问 Debian 官方源较慢；镜像内容和包版本仍由当前 Debian
+# suite 与 requirements-dev.lock 决定，这里只替换下载入口。
+ARG DEBIAN_MIRROR=https://repo.huaweicloud.com/debian
+ARG DEBIAN_SECURITY_MIRROR=https://repo.huaweicloud.com/debian-security
+
 ENV LC_ALL=C.UTF-8 \
     TZ=UTC \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-RUN apt-get update \
+RUN for source in /etc/apt/sources.list /etc/apt/sources.list.d/*.sources; do \
+      [ -f "$source" ] || continue; \
+      sed -i \
+        -e "s|https\?://deb.debian.org/debian-security|${DEBIAN_SECURITY_MIRROR}|g" \
+        -e "s|https\?://deb.debian.org/debian|${DEBIAN_MIRROR}|g" \
+        "$source"; \
+    done \
+ && apt-get update \
  && apt-get install -y --no-install-recommends gcc make libc6-dev strace git \
  && rm -rf /var/lib/apt/lists/* \
  && dpkg-query -W -f='${Package}=${Version}\n' gcc make libc6-dev strace git > /opt/toolchain.lock \

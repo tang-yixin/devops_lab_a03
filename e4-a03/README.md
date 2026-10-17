@@ -15,6 +15,10 @@ Ubuntu 会为系统保留一部分内存，因此 `free -h` 中的 `MemTotal` �
 2 CPU 和 40 GiB 可用磁盘仍是最低要求。4 CPU、8 GiB 内存和 100 GiB 可用磁盘
 是后续真实项目运行的建议值，低于建议值只产生 warning。
 
+Dockerfile 会在构建时把 Debian 官方源替换为华为云 Debian 镜像，基础镜像
+digest、Debian suite 和 Python 依赖锁文件不变。若镜像站临时不可用，应保留
+完整 `build.log`，不要改动 digest 或删除锁文件来绕过构建。
+
 ## 服务器首次检查（组长）
 
 组长可额外建立一个公共检查克隆，确认远程 `e4` 分支中的模板能够运行。这个

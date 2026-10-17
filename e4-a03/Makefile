@@ -37,7 +37,7 @@ doctor: | $(RUN)
 	python3 scripts/doctor.py --out $(RUN)/env.json
 
 build: .env | $(RUN)
-	$(COMPOSE) build --progress=plain 2>&1 | tee $(RUN)/build.log; test $${PIPESTATUS[0]} -eq 0
+	$(COMPOSE) --progress=plain build 2>&1 | tee $(RUN)/build.log; test $${PIPESTATUS[0]} -eq 0
 	docker image inspect $(IMAGE) --format '{"image":"$(IMAGE)","id":"{{.Id}}","arch":"{{.Architecture}}","created":"{{.Created}}"}' | tee $(RUN)/image.json
 	$(COMPOSE) run --rm --no-deps $(SERVICE) cat /opt/toolchain.lock | tee $(RUN)/toolchain.lock
 
