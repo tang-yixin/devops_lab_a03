@@ -1,0 +1,57 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 624B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.40kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74
+#3 DONE 2.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 106B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 9.07kB done
+#5 DONE 0.0s
+
+#6 [1/8] FROM m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74
+#6 resolve m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74 0.0s done
+#6 DONE 0.0s
+
+#7 [7/8] COPY --chown=app:app services/buildchecker/ /app/
+#7 CACHED
+
+#8 [2/8] RUN for source in /etc/apt/sources.list /etc/apt/sources.list.d/*.sources; do       [ -f "$source" ] || continue;       sed -i         -e "s|https\?://deb.debian.org/debian-security|https://repo.huaweicloud.com/debian-security|g"         -e "s|https\?://deb.debian.org/debian|https://repo.huaweicloud.com/debian|g"         "$source";     done  && apt-get update  && apt-get install -y --no-install-recommends gcc make libc6-dev strace git  && rm -rf /var/lib/apt/lists/*  && dpkg-query -W -f='${Package}=${Version}\n' gcc make libc6-dev strace git > /opt/toolchain.lock  && echo "python3=$(python3 -c 'import platform; print(platform.python_version())')" >> /opt/toolchain.lock  && echo "arch=$(dpkg --print-architecture)" >> /opt/toolchain.lock
+#8 CACHED
+
+#9 [3/8] COPY requirements-dev.lock /tmp/requirements-dev.lock
+#9 CACHED
+
+#10 [4/8] RUN pip install --no-cache-dir --require-hashes -r /tmp/requirements-dev.lock  && pip freeze | sed 's/^/pip:/' >> /opt/toolchain.lock
+#10 CACHED
+
+#11 [6/8] WORKDIR /app
+#11 CACHED
+
+#12 [5/8] RUN useradd --create-home --uid 10001 app && install -d -o app -g app /app
+#12 CACHED
+
+#13 [8/8] COPY --chown=app:app fixtures/ /app/fixtures/
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:d8089f6e57afa63eb1146d5192a920136e4c4dfc0e168e10d777a5feed27759b done
+#14 exporting config sha256:f025e77a2f1ddb975efe652e4c562eaad72e7044946b91cf6618641da2db4caa done
+#14 exporting attestation manifest sha256:0287e6eb20ccb692328462d12b63feb8e1b52c8c3b40fb01e61482f9a399c164 0.0s done
+#14 exporting manifest list sha256:8250472477b7fdaf01ac717ed89bc0c5f0e74b933e6fb5c5151ee0673ee57c79 0.0s done
+#14 naming to docker.io/library/e4-buildchecker:241250061 done
+#14 unpacking to docker.io/library/e4-buildchecker:241250061 0.0s done
+#14 DONE 0.1s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s
+ e4-buildchecker:241250061  Built

@@ -40,14 +40,17 @@ git status --short
 ## 每名组员第一次使用
 
 ```sh
-mkdir -p ~/<学号> && cd ~/<学号>
-git clone --branch e4 --single-branch https://github.com/tang-yixin/devops_lab_a03.git
-cd devops_lab_a03/e4-a03
+mkdir -p ~/e4-members/<学号>
+cd ~/e4-members/<学号>
+git clone --branch e4 --single-branch https://github.com/tang-yixin/devops_lab_a03.git devops_lab_a03
+cd devops_lab_a03
+git switch e4
+cd e4-a03
 git config --local user.name  "<学号>"
 git config --local user.email "<学号>@localhost"
 git remote -v
 git rev-parse HEAD
-git status --short
+git status --short --branch
 make doctor
 make all
 ```
@@ -73,10 +76,13 @@ Makefile 还会用 `user.name` 生成带学号的镜像名和 Compose 项目名�
 预期：`make test` 全部通过；`make smoke` 输出 `"passed": true`，strace 记录中能看到 `config.h` 被打开，`app_output` 为 `1`；`make scan` 显示"未发现问题"。
 
 成功后记录以下信息交给组长：学号、`git rev-parse HEAD` 的完整输出、成功的
-`work/<时间>/` 路径、`make all` 结论，以及与另一名组员的对照结论。不要提交
+`work/<时间>/` 路径、`make all` 结论，以及与另一名组员的对照结论。组长统一归档
+服务器上的 `work/<时间>/`，成员不需要压缩或上传证据。不要提交
 `.env`，也不要把服务器密码或真实 Token 写入日志。
 
-小组汇总记录见 `docs/VERIFICATION.md` 和 `docs/CONTRIBUTIONS.md`。
+小组汇总记录见 `docs/VERIFICATION.md` 和 `docs/CONTRIBUTIONS.md`。四位成员的本地
+运行证据索引见 `evidence/README.md`；这些证据均对应本轮统一 SHA，压缩包不纳入仓库。
+假 Key 检出与清理复测记录见 `evidence/secret-scan-fixture-20261018/`。
 
 ## 约定
 
