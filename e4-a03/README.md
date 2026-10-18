@@ -7,6 +7,29 @@ E5 起再在 `services/buildchecker/` 中实现论文方法。
 所有命令都应在仓库的 `e4-a03/` 目录执行。组员测试时必须使用同一个完整
 commit SHA；`work/` 是个人运行证据，默认不提交。
 
+## 目录结构
+
+```text
+e4-a03/
+├── README.md                         E4 入口、命令、环境口径和目录说明
+├── Makefile                          doctor/build/test/smoke/scan/all
+├── compose.yaml                      BuildChecker 服务运行配置
+├── services/buildchecker/             服务 Dockerfile、CLI 和 3 项单元测试
+├── fixtures/md-rd/                   固定的 MD/RD 冒烟样例
+├── scripts/                           doctor.py、secret_scan.py
+├── requirements-dev.in                直接开发依赖
+├── requirements-dev.lock              带哈希的依赖锁
+├── .env.example                       不含真实密钥的运行配置模板
+├── docs/                              E4 验证、贡献和 B03 交叉验证说明
+├── evidence/                          已挑选归档的原始运行证据
+├── reports/                           课程报告或复核摘要
+└── work/                              本地运行时证据，默认不提交
+```
+
+本次 B03 交叉验证的索引和原始日志位于
+`evidence/b03-cross-validation-8701f70-20261018/`；面向 B03 的复核步骤见
+`docs/B03_CROSS_VALIDATION.md`。
+
 ## 服务器资源口径
 
 A03 按课程当前配置使用 2U、2 GiB 内存、2 CPU、80 GiB 磁盘的云服务器。

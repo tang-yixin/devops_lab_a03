@@ -1,0 +1,18 @@
+repo=/root/a03-cross-validation/b03-e4-8701f70-20261018/repo
+sha=8701f70d4a3f76592832eedde62b02bb59711ef4
+status=
+## HEAD (no branch)
+remote=
+origin	/root/b-group-project-validation.bundle (fetch)
+origin	/root/b-group-project-validation.bundle (push)
+commit=8701f70d4a3f76592832eedde62b02bb59711ef4 2026-10-15T19:37:35+08:00 fix: use hash-verified Python mirror for E4 build
+bundle_sha256=f12f4b41ed160cec4f51883766d78ce023d1e51b1d097e3aed83265b5ced55a2  /root/b-group-project-validation.bundle
+server=Linux ecs-653a-11e2 5.15.0-186-generic #196-Ubuntu SMP Sat Jun 20 16:09:34 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+work=/root/a03-cross-validation/b03-e4-8701f70-20261018/repo/work/20261018T080204939449Z
+build.log
+env.json
+image.json
+secret-scan.txt
+smoke.json
+test.log
+toolchain.lock

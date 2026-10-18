@@ -62,3 +62,16 @@
 - `make smoke`：`passed: true`，程序输出 `1`，打开 `config.h`
 - `make scan`：未发现问题，包含 Git 历史和镜像检查
 - 构建源：Debian 下载入口使用华为云镜像，基础镜像 digest 未改变
+
+## B03 相邻组交叉验证
+
+A03 已在自己的 Linux 云服务器上按 B03 提供的固定版本完成 E4 复核：
+
+- B03 仓库：`https://github.com/Wangyuhan29/b-group-project`
+- 固定 SHA：`8701f70d4a3f76592832eedde62b02bb59711ef4`
+- 实际结果：环境 `problems=[]`，构建通过，`6 passed`，smoke 为预期的
+  `build_exit_code=1` 且包含 `/bin/sh: 1: make: not found`、`passed=true`，密钥扫描未发现问题
+- 原始证据：`evidence/b03-cross-validation-8701f70-20261018/`
+- 操作和 B03 复核 A03 的步骤：`docs/B03_CROSS_VALIDATION.md`
+
+本次私有仓库使用已核对的 Git bundle 传入服务器，并在服务器按完整 SHA 检出；没有传入密码、Token 或 `.env` 内容。

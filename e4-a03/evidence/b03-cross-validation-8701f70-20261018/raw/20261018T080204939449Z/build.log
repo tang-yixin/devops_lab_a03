@@ -1,0 +1,409 @@
+--progress is a global compose flag, better use `docker compose --progress xx build ...
+#1 [internal] load local bake definitions
+#1 reading from stdin 590B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.59kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad
+#3 ...
+
+#4 [internal] load metadata for m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74
+#4 DONE 1.0s
+
+#3 [internal] load metadata for m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad
+#3 DONE 3.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 389B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 11.29kB done
+#6 DONE 0.0s
+
+#7 [stage-1  1/10] FROM m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74
+#7 resolve m.daocloud.io/docker.io/library/python@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74 0.0s done
+#7 CACHED
+
+#8 [docker-cli 1/1] FROM m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad
+#8 resolve m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad 0.0s done
+#8 DONE 0.2s
+
+#8 [docker-cli 1/1] FROM m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad
+#8 sha256:2d7ba3afdf47b5c4691580b6f2e2e6e3e2b3bc9bd6a7c60aeacb0d907f06c339 0B / 116B 0.2s
+#8 sha256:0a7ca70c232bfd9c484ad87453366b208174bdb0e87e457ce31db9b4511d07e7 0B / 1.01kB 0.2s
+#8 sha256:4ca5c7282971aeea368a994cfaadb48e02c3fd851ae30db56495310f53c981ee 0B / 540B 0.2s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 0B / 21.74MB 0.2s
+#8 sha256:2d7ba3afdf47b5c4691580b6f2e2e6e3e2b3bc9bd6a7c60aeacb0d907f06c339 116B / 116B 0.9s done
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 0B / 22.16MB 0.2s
+#8 sha256:4ca5c7282971aeea368a994cfaadb48e02c3fd851ae30db56495310f53c981ee 540B / 540B 1.3s done
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 0B / 20.43MB 0.2s
+#8 sha256:0a7ca70c232bfd9c484ad87453366b208174bdb0e87e457ce31db9b4511d07e7 1.01kB / 1.01kB 2.3s done
+#8 sha256:37009c416213bafe8d6e7c68aa4bc36688e1d7b2974ecd8118fa29dab8c9b0e0 0B / 457B 0.2s
+#8 sha256:37009c416213bafe8d6e7c68aa4bc36688e1d7b2974ecd8118fa29dab8c9b0e0 457B / 457B 1.0s done
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 0B / 8.23MB 0.2s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 1.05MB / 20.43MB 2.9s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 2.10MB / 20.43MB 3.0s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 0B / 21.74MB 5.3s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 3.15MB / 20.43MB 4.1s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 1.05MB / 22.16MB 5.3s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 4.19MB / 20.43MB 4.7s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 5.24MB / 20.43MB 6.9s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 0B / 8.23MB 5.3s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 6.29MB / 20.43MB 8.6s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 1.05MB / 21.74MB 10.4s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 2.10MB / 22.16MB 10.4s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 7.34MB / 20.43MB 9.9s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 8.39MB / 20.43MB 11.1s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 1.05MB / 8.23MB 9.2s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 9.44MB / 20.43MB 12.0s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 10.49MB / 20.43MB 13.2s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 3.15MB / 21.74MB 15.0s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 11.53MB / 20.43MB 14.7s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 3.15MB / 22.16MB 15.5s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 12.58MB / 20.43MB 16.1s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 1.05MB / 8.23MB 14.3s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 2.10MB / 8.23MB 15.0s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 13.63MB / 20.43MB 17.6s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 4.19MB / 21.74MB 20.1s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 5.24MB / 22.16MB 20.0s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 14.68MB / 20.43MB 19.4s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 15.73MB / 20.43MB 20.9s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 2.10MB / 8.23MB 20.1s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 16.78MB / 20.43MB 22.2s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 3.15MB / 8.23MB 21.6s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 5.24MB / 21.74MB 25.2s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 17.83MB / 20.43MB 23.9s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 6.29MB / 22.16MB 25.1s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 18.87MB / 20.43MB 25.4s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 19.92MB / 20.43MB 27.0s
+#8 sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 20.43MB / 20.43MB 27.9s done
+#8 sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 0B / 3.80MB 0.2s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 4.19MB / 8.23MB 26.6s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 6.29MB / 21.74MB 30.3s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 7.34MB / 22.16MB 30.2s
+#8 sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 1.05MB / 3.80MB 3.0s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 5.24MB / 8.23MB 30.3s
+#8 sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 2.10MB / 3.80MB 5.3s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 7.34MB / 21.74MB 35.4s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 8.39MB / 22.16MB 35.3s
+#8 sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 3.15MB / 3.80MB 6.8s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 6.29MB / 8.23MB 33.3s
+#8 sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 3.80MB / 3.80MB 7.7s done
+#8 extracting sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b
+#8 extracting sha256:2d35ebdb57d9971fea0cac1582aa78935adf8058b2cc32db163c98822e5dfa1b 0.1s done
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 7.34MB / 8.23MB 35.7s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 8.39MB / 21.74MB 40.5s
+#8 sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 8.23MB / 8.23MB 37.3s done
+#8 extracting sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a
+#8 extracting sha256:58bd06dfc6cd22322de7d4fca516b20c2b75730c5bc85c35e92c3f2056dbfe9a 0.2s done
+#8 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#8 extracting sha256:37009c416213bafe8d6e7c68aa4bc36688e1d7b2974ecd8118fa29dab8c9b0e0 0.0s done
+#8 extracting sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 9.44MB / 22.16MB 40.4s
+#8 extracting sha256:97fde3c329d3c913ca1405c177bffc2ecf02ddd298b32e4aa4489956fc2073e6 0.2s done
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 11.53MB / 22.16MB 43.4s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 9.44MB / 21.74MB 45.6s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 13.63MB / 22.16MB 47.9s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 10.49MB / 21.74MB 50.7s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 15.73MB / 22.16MB 50.7s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 17.83MB / 22.16MB 53.0s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 19.92MB / 22.16MB 54.9s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 11.53MB / 21.74MB 55.8s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 22.02MB / 22.16MB 56.7s
+#8 sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 22.16MB / 22.16MB 56.8s done
+#8 extracting sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8
+#8 extracting sha256:cf58801a4522ea7409a3502e3295034b91bdc972cff8ab4bbd5290b68bc215f8 0.3s done
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 12.58MB / 21.74MB 60.9s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 13.63MB / 21.74MB 66.0s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 14.68MB / 21.74MB 71.1s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 15.73MB / 21.74MB 76.2s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 16.78MB / 21.74MB 81.3s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 17.83MB / 21.74MB 86.4s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 18.87MB / 21.74MB 91.5s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 20.97MB / 21.74MB 96.5s
+#8 sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 21.74MB / 21.74MB 99.6s done
+#8 extracting sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38
+#8 extracting sha256:e12f523aba6af55cd482ed9070373420fd68a86a955abec7599b5be4a6da2a38 0.3s done
+#8 DONE 100.1s
+
+#8 [docker-cli 1/1] FROM m.daocloud.io/docker.io/library/docker@sha256:9190b0613792e658a7783cf14b2d5ace5941bb68ede7276922ea36ee457d76ad
+#8 extracting sha256:4ca5c7282971aeea368a994cfaadb48e02c3fd851ae30db56495310f53c981ee 0.0s done
+#8 extracting sha256:0a7ca70c232bfd9c484ad87453366b208174bdb0e87e457ce31db9b4511d07e7 0.0s done
+#8 extracting sha256:2d7ba3afdf47b5c4691580b6f2e2e6e3e2b3bc9bd6a7c60aeacb0d907f06c339 0.0s done
+#8 DONE 100.2s
+
+#9 [stage-1  2/10] COPY --from=docker-cli /usr/local/bin/docker /usr/local/bin/docker
+#9 DONE 0.1s
+
+#10 [stage-1  3/10] COPY --from=docker-cli /usr/local/libexec/docker/cli-plugins/docker-buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+#10 DONE 0.1s
+
+#11 [stage-1  4/10] RUN sed -i "s@http://deb.debian.org@https://mirrors.huaweicloud.com@g;s@https://deb.debian.org@https://mirrors.huaweicloud.com@g" /etc/apt/sources.list.d/debian.sources  && apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 update  && apt-get install -y --no-install-recommends git  && rm -rf /var/lib/apt/lists/*  && dpkg-query -W -f='${Package}=${Version}\n' git > /opt/toolchain.lock  && echo "docker-cli=$(docker --version)" >> /opt/toolchain.lock  && echo "python3=$(python3 -c 'import platform; print(platform.python_version())')" >> /opt/toolchain.lock  && echo "arch=$(dpkg --print-architecture)" >> /opt/toolchain.lock
+#11 0.628 Get:1 https://mirrors.huaweicloud.com/debian trixie InRelease [140 kB]
+#11 0.728 Get:2 https://mirrors.huaweicloud.com/debian trixie-updates InRelease [47.3 kB]
+#11 0.776 Get:3 https://mirrors.huaweicloud.com/debian-security trixie-security InRelease [43.4 kB]
+#11 0.830 Get:4 https://mirrors.huaweicloud.com/debian trixie/main amd64 Packages [9678 kB]
+#11 7.831 Get:5 https://mirrors.huaweicloud.com/debian trixie-updates/main amd64 Packages [4412 B]
+#11 7.877 Get:6 https://mirrors.huaweicloud.com/debian-security trixie-security/main amd64 Packages [269 kB]
+#11 8.523 Fetched 10.2 MB in 8s (1260 kB/s)
+#11 8.523 Reading package lists...
+#11 9.066 Reading package lists...
+#11 9.578 Building dependency tree...
+#11 9.683 Reading state information...
+#11 9.823 The following additional packages will be installed:
+#11 9.823   git-man libbrotli1 libcom-err2 libcurl3t64-gnutls liberror-perl libexpat1
+#11 9.823   libgdbm-compat4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0 libk5crypto3
+#11 9.823   libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libnghttp2-14 libnghttp3-9
+#11 9.823   libngtcp2-16 libngtcp2-crypto-gnutls8 libp11-kit0 libperl5.40 libpsl5t64
+#11 9.823   librtmp1 libsasl2-2 libsasl2-modules-db libssh2-1t64 libtasn1-6
+#11 9.824   libunistring5 perl perl-base perl-modules-5.40
+#11 9.825 Suggested packages:
+#11 9.825   gettext-base git-doc git-email git-gui gitk gitweb git-cvs git-mediawiki
+#11 9.825   git-svn gnutls-bin krb5-doc krb5-user sensible-utils perl-doc
+#11 9.825   libterm-readline-gnu-perl | libterm-readline-perl-perl make
+#11 9.825   libtap-harness-archive-perl
+#11 9.825 Recommended packages:
+#11 9.825   patch less ssh-client krb5-locales libldap-common publicsuffix
+#11 9.825   libsasl2-modules
+#11 9.990 The following NEW packages will be installed:
+#11 9.991   git git-man libbrotli1 libcom-err2 libcurl3t64-gnutls liberror-perl
+#11 9.991   libexpat1 libgdbm-compat4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0
+#11 9.991   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libnghttp2-14
+#11 9.991   libnghttp3-9 libngtcp2-16 libngtcp2-crypto-gnutls8 libp11-kit0 libperl5.40
+#11 9.991   libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db libssh2-1t64 libtasn1-6
+#11 9.991   libunistring5 perl perl-modules-5.40
+#11 9.992 The following packages will be upgraded:
+#11 9.992   perl-base
+#11 10.18 1 upgraded, 31 newly installed, 0 to remove and 24 not upgraded.
+#11 10.18 Need to get 25.3 MB of archives.
+#11 10.18 After this operation, 119 MB of additional disk space will be used.
+#11 10.18 Get:1 https://mirrors.huaweicloud.com/debian trixie/main amd64 perl-base amd64 5.40.1-6+deb13u1 [1666 kB]
+#11 11.23 Get:2 https://mirrors.huaweicloud.com/debian-security trixie-security/main amd64 libexpat1 amd64 2.9.0-1~deb13u1 [126 kB]
+#11 11.29 Get:3 https://mirrors.huaweicloud.com/debian trixie/main amd64 perl-modules-5.40 all 5.40.1-6+deb13u1 [3014 kB]
+#11 12.75 Get:4 https://mirrors.huaweicloud.com/debian trixie/main amd64 libgdbm-compat4t64 amd64 1.24-2 [50.3 kB]
+#11 12.76 Get:5 https://mirrors.huaweicloud.com/debian trixie/main amd64 libperl5.40 amd64 5.40.1-6+deb13u1 [4326 kB]
+#11 16.10 Get:6 https://mirrors.huaweicloud.com/debian trixie/main amd64 perl amd64 5.40.1-6+deb13u1 [268 kB]
+#11 16.29 Get:7 https://mirrors.huaweicloud.com/debian trixie/main amd64 libbrotli1 amd64 1.1.0-2+b7 [307 kB]
+#11 16.81 Get:8 https://mirrors.huaweicloud.com/debian trixie/main amd64 libunistring5 amd64 1.3-2 [477 kB]
+#11 17.38 Get:9 https://mirrors.huaweicloud.com/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]
+#11 17.49 Get:10 https://mirrors.huaweicloud.com/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]
+#11 17.79 Get:11 https://mirrors.huaweicloud.com/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2+deb13u1 [50.1 kB]
+#11 17.81 Get:12 https://mirrors.huaweicloud.com/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+#11 19.02 Get:13 https://mirrors.huaweicloud.com/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+#11 19.07 Get:14 https://mirrors.huaweicloud.com/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b12 [25.0 kB]
+#11 19.10 Get:15 https://mirrors.huaweicloud.com/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+#11 19.18 Get:16 https://mirrors.huaweicloud.com/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+#11 19.21 Get:17 https://mirrors.huaweicloud.com/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+#11 19.51 Get:18 https://mirrors.huaweicloud.com/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+#11 19.62 Get:19 https://mirrors.huaweicloud.com/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]
+#11 19.62 Get:20 https://mirrors.huaweicloud.com/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]
+#11 19.67 Get:21 https://mirrors.huaweicloud.com/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]
+#11 19.78 Get:22 https://mirrors.huaweicloud.com/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1+deb13u1 [76.2 kB]
+#11 19.83 Get:23 https://mirrors.huaweicloud.com/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]
+#11 19.89 Get:24 https://mirrors.huaweicloud.com/debian trixie/main amd64 libngtcp2-16 amd64 1.11.0-1+deb13u1 [132 kB]
+#11 19.97 Get:25 https://mirrors.huaweicloud.com/debian trixie/main amd64 libngtcp2-crypto-gnutls8 amd64 1.11.0-1+deb13u1 [29.5 kB]
+#11 19.97 Get:26 https://mirrors.huaweicloud.com/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]
+#11 20.02 Get:27 https://mirrors.huaweicloud.com/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5 [58.8 kB]
+#11 20.05 Get:28 https://mirrors.huaweicloud.com/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1+deb13u2 [245 kB]
+#11 20.19 Get:29 https://mirrors.huaweicloud.com/debian-security trixie-security/main amd64 libcurl3t64-gnutls amd64 8.14.1-2+deb13u7 [385 kB]
+#11 20.38 Get:30 https://mirrors.huaweicloud.com/debian trixie/main amd64 liberror-perl all 0.17030-1 [26.9 kB]
+#11 20.38 Get:31 https://mirrors.huaweicloud.com/debian trixie/main amd64 git-man all 1:2.47.3-0+deb13u1 [2205 kB]
+#11 22.20 Get:32 https://mirrors.huaweicloud.com/debian trixie/main amd64 git amd64 1:2.47.3-0+deb13u1 [8862 kB]
+#11 29.03 debconf: unable to initialize frontend: Dialog
+#11 29.03 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#11 29.03 debconf: falling back to frontend: Readline
+#11 29.03 debconf: unable to initialize frontend: Readline
+#11 29.03 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 32.)
+#11 29.03 debconf: falling back to frontend: Teletype
+#11 29.03 debconf: unable to initialize frontend: Teletype
+#11 29.03 debconf: (This frontend requires a controlling tty.)
+#11 29.03 debconf: falling back to frontend: Noninteractive
+#11 30.11 Fetched 25.3 MB in 19s (1343 kB/s)
+#11 30.14 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5645 files and directories currently installed.)
+#11 30.17 Preparing to unpack .../perl-base_5.40.1-6+deb13u1_amd64.deb ...
+#11 30.18 Unpacking perl-base (5.40.1-6+deb13u1) over (5.40.1-6) ...
+#11 31.75 Setting up perl-base (5.40.1-6+deb13u1) ...
+#11 31.78 Selecting previously unselected package libexpat1:amd64.
+#11 31.78 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5646 files and directories currently installed.)
+#11 31.78 Preparing to unpack .../00-libexpat1_2.9.0-1~deb13u1_amd64.deb ...
+#11 31.79 Unpacking libexpat1:amd64 (2.9.0-1~deb13u1) ...
+#11 31.82 Selecting previously unselected package perl-modules-5.40.
+#11 31.82 Preparing to unpack .../01-perl-modules-5.40_5.40.1-6+deb13u1_all.deb ...
+#11 31.82 Unpacking perl-modules-5.40 (5.40.1-6+deb13u1) ...
+#11 32.07 Selecting previously unselected package libgdbm-compat4t64:amd64.
+#11 32.07 Preparing to unpack .../02-libgdbm-compat4t64_1.24-2_amd64.deb ...
+#11 32.07 Unpacking libgdbm-compat4t64:amd64 (1.24-2) ...
+#11 32.10 Selecting previously unselected package libperl5.40:amd64.
+#11 32.10 Preparing to unpack .../03-libperl5.40_5.40.1-6+deb13u1_amd64.deb ...
+#11 32.11 Unpacking libperl5.40:amd64 (5.40.1-6+deb13u1) ...
+#11 32.34 Selecting previously unselected package perl.
+#11 32.34 Preparing to unpack .../04-perl_5.40.1-6+deb13u1_amd64.deb ...
+#11 32.34 Unpacking perl (5.40.1-6+deb13u1) ...
+#11 32.38 Selecting previously unselected package libbrotli1:amd64.
+#11 32.38 Preparing to unpack .../05-libbrotli1_1.1.0-2+b7_amd64.deb ...
+#11 32.38 Unpacking libbrotli1:amd64 (1.1.0-2+b7) ...
+#11 32.42 Selecting previously unselected package libunistring5:amd64.
+#11 32.42 Preparing to unpack .../06-libunistring5_1.3-2_amd64.deb ...
+#11 32.43 Unpacking libunistring5:amd64 (1.3-2) ...
+#11 32.47 Selecting previously unselected package libidn2-0:amd64.
+#11 32.48 Preparing to unpack .../07-libidn2-0_2.3.8-2_amd64.deb ...
+#11 32.48 Unpacking libidn2-0:amd64 (2.3.8-2) ...
+#11 32.51 Selecting previously unselected package libp11-kit0:amd64.
+#11 32.52 Preparing to unpack .../08-libp11-kit0_0.25.5-3_amd64.deb ...
+#11 32.52 Unpacking libp11-kit0:amd64 (0.25.5-3) ...
+#11 32.56 Selecting previously unselected package libtasn1-6:amd64.
+#11 32.56 Preparing to unpack .../09-libtasn1-6_4.20.0-2+deb13u1_amd64.deb ...
+#11 32.56 Unpacking libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#11 32.59 Selecting previously unselected package libgnutls30t64:amd64.
+#11 32.59 Preparing to unpack .../10-libgnutls30t64_3.8.9-3+deb13u4_amd64.deb ...
+#11 32.59 Unpacking libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#11 32.67 Selecting previously unselected package libkrb5support0:amd64.
+#11 32.67 Preparing to unpack .../11-libkrb5support0_1.21.3-5+deb13u1_amd64.deb ...
+#11 32.67 Unpacking libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#11 32.70 Selecting previously unselected package libcom-err2:amd64.
+#11 32.70 Preparing to unpack .../12-libcom-err2_1.47.2-3+b12_amd64.deb ...
+#11 32.70 Unpacking libcom-err2:amd64 (1.47.2-3+b12) ...
+#11 32.73 Selecting previously unselected package libk5crypto3:amd64.
+#11 32.73 Preparing to unpack .../13-libk5crypto3_1.21.3-5+deb13u1_amd64.deb ...
+#11 32.73 Unpacking libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#11 32.76 Selecting previously unselected package libkeyutils1:amd64.
+#11 32.76 Preparing to unpack .../14-libkeyutils1_1.6.3-6_amd64.deb ...
+#11 32.77 Unpacking libkeyutils1:amd64 (1.6.3-6) ...
+#11 32.79 Selecting previously unselected package libkrb5-3:amd64.
+#11 32.79 Preparing to unpack .../15-libkrb5-3_1.21.3-5+deb13u1_amd64.deb ...
+#11 32.79 Unpacking libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#11 32.84 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#11 32.84 Preparing to unpack .../16-libgssapi-krb5-2_1.21.3-5+deb13u1_amd64.deb ...
+#11 32.84 Unpacking libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#11 32.86 Selecting previously unselected package libsasl2-modules-db:amd64.
+#11 32.87 Preparing to unpack .../17-libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb ...
+#11 32.87 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#11 32.89 Selecting previously unselected package libsasl2-2:amd64.
+#11 32.89 Preparing to unpack .../18-libsasl2-2_2.1.28+dfsg1-9_amd64.deb ...
+#11 32.89 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#11 32.92 Selecting previously unselected package libldap2:amd64.
+#11 32.92 Preparing to unpack .../19-libldap2_2.6.10+dfsg-1_amd64.deb ...
+#11 32.93 Unpacking libldap2:amd64 (2.6.10+dfsg-1) ...
+#11 32.96 Selecting previously unselected package libnghttp2-14:amd64.
+#11 32.96 Preparing to unpack .../20-libnghttp2-14_1.64.0-1.1+deb13u1_amd64.deb ...
+#11 32.97 Unpacking libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#11 32.99 Selecting previously unselected package libnghttp3-9:amd64.
+#11 32.99 Preparing to unpack .../21-libnghttp3-9_1.8.0-1_amd64.deb ...
+#11 32.99 Unpacking libnghttp3-9:amd64 (1.8.0-1) ...
+#11 33.02 Selecting previously unselected package libngtcp2-16:amd64.
+#11 33.02 Preparing to unpack .../22-libngtcp2-16_1.11.0-1+deb13u1_amd64.deb ...
+#11 33.03 Unpacking libngtcp2-16:amd64 (1.11.0-1+deb13u1) ...
+#11 33.06 Selecting previously unselected package libngtcp2-crypto-gnutls8:amd64.
+#11 33.07 Preparing to unpack .../23-libngtcp2-crypto-gnutls8_1.11.0-1+deb13u1_amd64.deb ...
+#11 33.07 Unpacking libngtcp2-crypto-gnutls8:amd64 (1.11.0-1+deb13u1) ...
+#11 33.09 Selecting previously unselected package libpsl5t64:amd64.
+#11 33.09 Preparing to unpack .../24-libpsl5t64_0.21.2-1.1+b1_amd64.deb ...
+#11 33.10 Unpacking libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#11 33.12 Selecting previously unselected package librtmp1:amd64.
+#11 33.13 Preparing to unpack .../25-librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb ...
+#11 33.13 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#11 33.15 Selecting previously unselected package libssh2-1t64:amd64.
+#11 33.16 Preparing to unpack .../26-libssh2-1t64_1.11.1-1+deb13u2_amd64.deb ...
+#11 33.16 Unpacking libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#11 33.19 Selecting previously unselected package libcurl3t64-gnutls:amd64.
+#11 33.19 Preparing to unpack .../27-libcurl3t64-gnutls_8.14.1-2+deb13u7_amd64.deb ...
+#11 33.20 Unpacking libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u7) ...
+#11 33.24 Selecting previously unselected package liberror-perl.
+#11 33.24 Preparing to unpack .../28-liberror-perl_0.17030-1_all.deb ...
+#11 33.25 Unpacking liberror-perl (0.17030-1) ...
+#11 33.27 Selecting previously unselected package git-man.
+#11 33.27 Preparing to unpack .../29-git-man_1%3a2.47.3-0+deb13u1_all.deb ...
+#11 33.27 Unpacking git-man (1:2.47.3-0+deb13u1) ...
+#11 33.34 Selecting previously unselected package git.
+#11 33.34 Preparing to unpack .../30-git_1%3a2.47.3-0+deb13u1_amd64.deb ...
+#11 33.35 Unpacking git (1:2.47.3-0+deb13u1) ...
+#11 33.75 Setting up libexpat1:amd64 (2.9.0-1~deb13u1) ...
+#11 33.76 Setting up libkeyutils1:amd64 (1.6.3-6) ...
+#11 33.77 Setting up libgdbm-compat4t64:amd64 (1.24-2) ...
+#11 33.77 Setting up libbrotli1:amd64 (1.1.0-2+b7) ...
+#11 33.78 Setting up libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#11 33.79 Setting up libcom-err2:amd64 (1.47.2-3+b12) ...
+#11 33.80 Setting up libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#11 33.81 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#11 33.82 Setting up libp11-kit0:amd64 (0.25.5-3) ...
+#11 33.82 Setting up libunistring5:amd64 (1.3-2) ...
+#11 33.83 Setting up libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#11 33.84 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#11 33.85 Setting up libnghttp3-9:amd64 (1.8.0-1) ...
+#11 33.86 Setting up perl-modules-5.40 (5.40.1-6+deb13u1) ...
+#11 33.87 Setting up libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#11 33.87 Setting up git-man (1:2.47.3-0+deb13u1) ...
+#11 33.88 Setting up libngtcp2-16:amd64 (1.11.0-1+deb13u1) ...
+#11 33.89 Setting up libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#11 33.90 Setting up libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#11 33.90 Setting up libldap2:amd64 (2.6.10+dfsg-1) ...
+#11 33.91 Setting up libidn2-0:amd64 (2.3.8-2) ...
+#11 33.92 Setting up libperl5.40:amd64 (5.40.1-6+deb13u1) ...
+#11 33.93 Setting up perl (5.40.1-6+deb13u1) ...
+#11 33.96 Setting up libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#11 33.96 Setting up libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#11 33.98 Setting up libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#11 33.98 Setting up liberror-perl (0.17030-1) ...
+#11 33.99 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#11 34.00 Setting up libngtcp2-crypto-gnutls8:amd64 (1.11.0-1+deb13u1) ...
+#11 34.01 Setting up libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u7) ...
+#11 34.02 Setting up git (1:2.47.3-0+deb13u1) ...
+#11 34.03 Processing triggers for libc-bin (2.41-12+deb13u3) ...
+#11 DONE 34.4s
+
+#12 [stage-1  5/10] COPY requirements-dev.lock /tmp/requirements-dev.lock
+#12 DONE 0.1s
+
+#13 [stage-1  6/10] RUN pip install --no-cache-dir --index-url "https://mirrors.huaweicloud.com/repository/pypi/simple" --require-hashes -r /tmp/requirements-dev.lock  && pip freeze | sed 's/^/pip:/' >> /opt/toolchain.lock
+#13 1.771 Looking in indexes: https://mirrors.huaweicloud.com/repository/pypi/simple
+#13 1.920 Collecting iniconfig==2.3.0 (from -r /tmp/requirements-dev.lock (line 3))
+#13 1.965   Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+#13 2.015 Collecting packaging==26.3 (from -r /tmp/requirements-dev.lock (line 7))
+#13 2.060   Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#13 2.161 Collecting pluggy==1.6.0 (from -r /tmp/requirements-dev.lock (line 11))
+#13 2.213   Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+#13 2.278 Collecting pygments==2.21.0 (from -r /tmp/requirements-dev.lock (line 15))
+#13 2.325   Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+#13 2.403      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 19.6 MB/s  0:00:00
+#13 2.483 Collecting pytest==8.4.2 (from -r /tmp/requirements-dev.lock (line 19))
+#13 2.532   Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+#13 2.564 Installing collected packages: pygments, pluggy, packaging, iniconfig, pytest
+#13 3.474 
+#13 3.476 Successfully installed iniconfig-2.3.0 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-8.4.2
+#13 3.476 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#13 3.477 
+#13 3.477 [notice] A new release of pip is available: 26.1.2 -> 26.2.1
+#13 3.477 [notice] To update, run: pip install --upgrade pip
+#13 DONE 4.5s
+
+#14 [stage-1  7/10] RUN useradd --create-home --uid 10001 app && install -d -o app -g app /app
+#14 DONE 0.2s
+
+#15 [stage-1  8/10] WORKDIR /app
+#15 DONE 0.0s
+
+#16 [stage-1  9/10] COPY --chown=app:app services/draft/ /app/
+#16 DONE 0.0s
+
+#17 [stage-1 10/10] COPY --chown=app:app fixtures/draft/ /app/fixtures/draft/
+#17 DONE 0.0s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 5.4s done
+#18 exporting manifest sha256:d33b26bdcd6fc4992bca7001d379bf19782cd6947e43a15329c0772cfe034248 done
+#18 exporting config sha256:45dd8c332cf05eb9e154a6b9d234380e0ad5133ac31ab6364f76ab1ed9f4c87b done
+#18 exporting attestation manifest sha256:674fd777feb21b684bd3e68e02405a5ea65f91dfcf8d117cc9dd790436c8093b 0.0s done
+#18 exporting manifest list sha256:6d4cafda790af90927945ae2828eb74acfc5a93ad737a4b904d3a4ef27ee0477 0.0s done
+#18 naming to docker.io/library/e4-draft:241250061 done
+#18 unpacking to docker.io/library/e4-draft:241250061
+#18 unpacking to docker.io/library/e4-draft:241250061 1.7s done
+#18 DONE 7.1s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.1s
+ e4-draft:241250061  Built
