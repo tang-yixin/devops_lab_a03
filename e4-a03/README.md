@@ -7,6 +7,17 @@ E5 起再在 `services/buildchecker/` 中实现论文方法。
 所有命令都应在仓库的 `e4-a03/` 目录执行。组员测试时必须使用同一个完整
 commit SHA；`work/` 是个人运行证据，默认不提交。
 
+## 验收状态（2026-10-18）
+
+E4 实验验收已完成：四名组员同版本 `make all`、工具链/结果对照、假 Key
+检出与清理复测，以及与 B03 的双向互查均通过。最终文档提交和合并 `main`
+属于仓库收尾操作，其状态单独记录在 [BACKLOG](docs/BACKLOG.md)，不提前记为已完成。
+
+固定实测版本为 `6abc4d815b4a4baae7cc9d72fc221653a7897e19`。
+B03 已在该版本上完成反向复核；后续文档和证据归档提交不替代该 SHA，
+也不表示成员需要在每次文档提交后重跑。若修改 Dockerfile、依赖锁、脚本、
+Compose、服务代码或样例，则应建立新的实测版本并重新验证。
+
 ## 目录结构
 
 ```text
@@ -20,15 +31,19 @@ e4-a03/
 ├── requirements-dev.in                直接开发依赖
 ├── requirements-dev.lock              带哈希的依赖锁
 ├── .env.example                       不含真实密钥的运行配置模板
-├── docs/                              E4 验证、贡献和 B03 交叉验证说明
-├── evidence/                          已挑选归档的原始运行证据
-├── reports/                           课程报告或复核摘要
+├── docs/                              BACKLOG、验证、贡献与双向互查记录
+├── evidence/                          成员、假 Key 与双向互查原始证据
 └── work/                              本地运行时证据，默认不提交
 ```
 
-本次 B03 交叉验证的索引和原始日志位于
-`evidence/b03-cross-validation-8701f70-20261018/`；面向 B03 的复核步骤见
-`docs/B03_CROSS_VALIDATION.md`。
+文档与证据入口：
+
+- [BACKLOG](docs/BACKLOG.md)：阶段任务、完成状态、提交与合并清单。
+- [验证记录](docs/VERIFICATION.md)、[贡献记录](docs/CONTRIBUTIONS.md)。
+- [双向互查记录与重跑步骤](docs/B03_CROSS_VALIDATION.md)。
+- [证据总索引](evidence/README.md)：四位成员、假 Key 回归、A03 → B03 和 B03 → A03。
+- [A03 → B03 原始证据](evidence/b03-cross-validation-8701f70-20261018/README.md)。
+- [B03 → A03 回执与原始证据](evidence/b03-reviewed-a03-6abc4d8-20261018/README.md)。
 
 ## 服务器资源口径
 
@@ -68,6 +83,7 @@ cd ~/e4-members/<学号>
 git clone --branch e4 --single-branch https://github.com/tang-yixin/devops_lab_a03.git devops_lab_a03
 cd devops_lab_a03
 git switch e4
+git checkout --detach 6abc4d815b4a4baae7cc9d72fc221653a7897e19
 cd e4-a03
 git config --local user.name  "<学号>"
 git config --local user.email "<学号>@localhost"
@@ -77,6 +93,9 @@ git status --short --branch
 make doctor
 make all
 ```
+
+上面是本轮固定版本的重跑方式，应在新的独立克隆中执行；不要在含未提交修改的
+开发目录切换版本。固定版本下看到 detached HEAD 是正常的。
 
 `git remote -v` 应指向 A03 的真正远程仓库。服务器账号由组内共享，因此禁止
 设置全局 Git 身份。每个人拥有独立克隆后，本地 Git 身份会被 `make doctor` 记录，
