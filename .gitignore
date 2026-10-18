@@ -43,6 +43,8 @@ _tmp_*
 ~$*
 # artifacts 下的 .log 是契约交付物（index.json 注册并校验 SHA-256）
 !e2-a03/artifacts/**/*.log
+# E4 公共验证日志是交付证据；个人 work/ 仍保持忽略
+!e4-a03/evidence/**/*.log
 
 # ---- 本地环境变量（可能含密钥） ----
 .env
