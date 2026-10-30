@@ -59,3 +59,10 @@ out/
 # 必须纳入版本控制，不要忽略。Minicalc 的编译发生在它自己的仓库，
 # 不在本仓库内，因此这里不写 *.o / *.exe / minicalc 等规则。
 
+
+# ---- E5-E7 运行证据与密钥 ----
+work/
+.env.*
+!.env.example
+*.pem
+*.key
