@@ -14,6 +14,8 @@
 - E4 及更早阶段的 Makefile/Compose 命令属于旧阶段接口；E5 起优先使用 course.py，
   避免与 E4 镜像标签混用。
 - `.github/workflows/e7-quality-gate.yml` 供 E7 GitHub Actions 使用。
+- 阶段进度：**E5 已完成**（2026-10-31，四人均交付并合并）。阶段说明、成员成果索引与
+  事件记录见 [docs/e5/README.md](docs/e5/README.md)；个人成果在各 `docs/<学号>/` 目录。
 
 ## 分支约定
 
