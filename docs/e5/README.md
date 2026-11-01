@@ -28,7 +28,7 @@ t.14—t.20），同一进程文件内的行号稳定。因此真实性判据取
 | 个人结论文档 | `docs/<学号>/e5-a.md` | 进程树、行号证据、归属推理、MD/RD 表、与论文差异 |
 | 个人实验报告 | `docs/<学号>/实验报告.md` | 模板为 E5—E7 活文档：E5 节已填，E6/E7 阶段回来补写 |
 | 个人验收记录 | `docs/<学号>/验收记录.csv` | C01/C02 已 PASS；其余 PENDING 待 E6/E7 |
-| 原始证据 | 服务器各人克隆 `work/e5-01/`（不进 git） | trace/、make-db.txt、program-output.txt、runner/ 等 |
+| 原始证据 | 服务器各人克隆 `work/e5-01/`（不进 git）；组长本地镜像 `work/<学号>/` | trace/、make-db.txt、program-output.txt、runner/ 等；镜像同样不进 git，随整项目打包携带 |
 | 归档备份 | 服务器 `~/devops-submissions/<学号>/*.tar.gz` | tar 排除 .git/.env/密钥；各人可另存本地 |
 
 ## 3. 阶段时间线（PR 记录，均合并至 main）
@@ -65,7 +65,8 @@ t.14—t.20），同一进程文件内的行号稳定。因此真实性判据取
     │                                    每人三件套：e5-a.md / 实验报告.md / 验收记录.csv
     ├── scripts/ services/ fixtures/ tests/ course-support/ .github/
     │                                    E5—E7 课程工作区（入口 scripts/course.py）
-    ├── work/                            个人运行证据（不进 git，在各人服务器克隆内）
+    ├── work/                            个人运行证据（不进 git；服务器在各人克隆内，
+    │                                    组长本地 work/<学号>/ 存四人证据镜像）
     └── e2-a03/ e3-a03/ e4-a03/          E1—E4 历史成果（只读）
 
 ## 6. E6 开始前的准备（每人，同步 main 到个人分支）

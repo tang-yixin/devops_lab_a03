@@ -10,7 +10,8 @@
 - 可运行的教学参考实现（已含 E6/E7 代码），统一入口：`python3 scripts/course.py`
   （子命令 `doctor / build / e5 / e6 / gate`，镜像名 `course1027-buildchecker:<学号>`）。
 - 操作手册见课程包 `DevOps_E4_E7_GitHub`（03_E5论文复现 / 04_E6核心实现 / 05_E7验证与CI）。
-- `work/` 为个人运行证据，不提交；`course-support/` 内含 CI 配置与报告模板。
+- `work/` 为个人运行证据，不提交（服务器上在各人克隆内；组长本地 `work/<学号>/`
+  镜像四人证据，随整项目打包携带）；`course-support/` 内含 CI 配置与报告模板。
 - E4 及更早阶段的 Makefile/Compose 命令属于旧阶段接口；E5 起优先使用 course.py，
   避免与 E4 镜像标签混用。
 - `.github/workflows/e7-quality-gate.yml` 供 E7 GitHub Actions 使用。
