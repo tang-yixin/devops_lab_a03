@@ -7,6 +7,6 @@ C05,共同,CI,正常失败恢复及artifact,PENDING,,
 C06,共同,CI,必需检查与实际拒绝合并,PENDING,,
 A01,A,E6,MD/RD精确证据与修复,PASS,work/e6-before/evidence/trace/t.14:579；t.15:23；make-db.txt:1053,MISSING(main.o,config.h) 退出1（cc1 读 config.h 未声明）；REDUNDANT(main.o,unused.h) 退出1（t.13~t.18 无进程读取）；--fixed 后 findings=[] 退出0
 A02,A,E7,三次一致及故障场景,PENDING,,
-B01,B,E5,缺失make及候选来源,PENDING,,
-B02,B,E6,构建和同镜像运行验证,PENDING,,
-B03,B,E7,五场景与超时清理,PENDING,,
+B01,B,E5,缺失make及候选来源,N/A,,A轨道不适用
+B02,B,E6,构建和同镜像运行验证,N/A,,A轨道不适用
+B03,B,E7,五场景与超时清理,N/A,,A轨道不适用
