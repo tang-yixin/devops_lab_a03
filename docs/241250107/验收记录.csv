@@ -3,7 +3,7 @@ C01,共同,环境,云主机与Docker,PASS,work/build-e6-01,环境自检通过及
 C02,共同,E5,真实复现与差异,PASS,work/e5-01/evidence,包含 trace 与 make-db 证据
 C03,共同,E6,输入哈希报告日志,PASS,work/e6-before/evidence/findings.json,修复前后仅 Makefile 哈希变化
 C04,共同,E7,自主扩展测试,PASS,tests/e7/test_e7_241250107.py; work/e7-02,新增 trace_id 缺失判定测试并通过 gate 复跑
-C05,共同,CI,正常失败恢复及artifact,PASS,run 42157951461; run 42159043852; work/ci-pr/artifacts-[你的CI_ID],组长执行的共享 CI 闭环事实（失败拦截与恢复合并）
+C05,共同,CI,正常失败恢复及artifact,PASS,run 42157951461; run 42159043852; work/ci-pr/artifacts-42254192839,组长执行的共享 CI 闭环事实（失败拦截与恢复合并）
 C06,共同,CI,必需检查与实际拒绝合并,PASS,run 42157951461,组长执行的共享 CI 闭环事实（e7-a-quality-gate 保护规则拒绝合并）
 A01,A,E6,MD/RD精确证据与修复,PASS,work/e6-before/evidence,发现 config.h 缺失及 unused.h 冗余并成功修复
 A02,A,E7,三次一致及故障场景,PASS,work/e7-01/gate; work/e7-02/gate,两轮 gate 均 8 项全 True，三次 original 集合一致且故障按预期识别
