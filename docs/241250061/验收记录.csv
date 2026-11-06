@@ -2,11 +2,11 @@
 C01,共同,环境,云主机与Docker,PASS,work/build-01/unit-tests,doctor仅报内存门槛已知问题;docker 29.1.3构建运行正常
 C02,共同,E5,真实复现与差异,PASS,docs/e5-a.md;work/e5-01,MD=config.h RD=unused.h;与论文差异见e5-a.md第6节
 C03,共同,E6,输入哈希报告日志,PASS,work/e6-before;work/e6-after,仅Makefile哈希变化(fd1dcd76→128069c9);verify passed=true;修改后复跑(e6-before-02/e6-after-02)结论一致
-C04,共同,E7,自主扩展测试,PENDING,,
-C05,共同,CI,正常失败恢复及artifact,PENDING,,
-C06,共同,CI,必需检查与实际拒绝合并,PENDING,,
+C04,共同,E7,自主扩展测试,PASS,tests/e7/test_e7_241250061.py;work/e7-02,判定测试6→7;多出一条finding必须拒绝(含对照);两轮gate均8/8退出0
+C05,共同,CI,正常失败恢复及artifact,PASS,work/ci-normal;work/ci-rejection;work/ci-recovery,run 42157632198/42157951461/42159043852=success/failure/success;artifact均已下载
+C06,共同,CI,必需检查与实际拒绝合并,PASS,work/ci-setup;work/ci-rejection,e7-a-quality-gate(App15368)strict+enforce_admins=true;普通合并退出1且OPEN/BLOCKED
 A01,A,E6,MD/RD精确证据与修复,PASS,work/e6-before;work/e6-after,MISSING(main.o,config.h)+REDUNDANT(main.o,unused.h)退出1;修复后findings=[]退出0;行号证据t.14:579/t.15:23/make-db:1053
-A02,A,E7,三次一致及故障场景,PENDING,,
+A02,A,E7,三次一致及故障场景,PASS,work/e7-01/gate;work/e7-02/gate,三次original错误集合精确一致trace_id各异;fixed清零仅Makefile变;FAILED/UNSUPPORTED/TIMED_OUT按预期
 B01,B,E5,缺失make及候选来源,N/A,,A轨道不适用
 B02,B,E6,构建和同镜像运行验证,N/A,,A轨道不适用
 B03,B,E7,五场景与超时清理,N/A,,A轨道不适用
