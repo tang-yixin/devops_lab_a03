@@ -2,11 +2,11 @@
 C01,共同,环境,云主机与Docker,PASS,docs/241250106/e5-a.md#1-运行信息；work/build-01/,python3 scripts/course.py doctor 与 build 均通过；唯一 problem 为 mem_gib=1.7 低于最低要求 4（服务器已知配置问题）；docker 29.1.3 可用；build 15 passed in 0.06s 退出0
 C02,共同,E5,真实复现与差异,PASS,docs/241250106/e5-a.md；work/e5-01/evidence/make-db.txt:1061；work/e5-01/evidence/trace/t.16:580,python3 scripts/course.py e5 --out work/e5-01 退出0；MD(main.o)=config.h 由 t.16:580 证明；RD(main.o)=unused.h 由 t.15~t.20 计数为0证明
 C03,共同,E6,输入哈希报告日志,PASS,work/e6-before/evidence/findings.json；work/e6-after/evidence/findings.json,仅 Makefile 哈希变化（fd1dcd76→128069c9）；config.h/main.c/unused.h 前后相同；verify_e6_evidence passed=true；修改后复跑（e6-before-02/e6-after-02）结论一致
-C04,共同,E7,自主扩展测试,PENDING,,
-C05,共同,CI,正常失败恢复及artifact,PENDING,,
-C06,共同,CI,必需检查与实际拒绝合并,PENDING,,
+C04,共同,E7,自主扩展测试,PASS,tests/e7/test_e7_241250106.py；work/e7-01/gate/results.csv；work/e7-02/gate/results.csv,方向"有 findings 但 CLI 退出码为 0 必须拒"（CLI exit code does not enforce findings gate）；tests/e7 由 9 项增至 13 项 OK；两轮完整 gate 均 8/8 passed=true 且退出0，e7-02 的 7 个 trace_id 与 e7-01 全不同；重建镜像两次均 24 passed
+C05,共同,CI,正常失败恢复及artifact,PASS,docs/241250061/实验报告.md（work/ci-*，组长共享）；work/ci-pr/artifacts-42564296549/gate/unit-tests/stdout.log,正常 run 42157632198 success（fcc98d5）；故意失败 PR #15 的 run 42157951461 failure（head 0173a7d，assert 0 == 1）；修复提交 8cc1459 后 run 42159043852 success（24 passed）；本人 PR #19 的 pull_request run 42564296549 success（补填 CI ID 的后续提交 run 42564519846 亦 success）、artifact 已下载且 unit-tests 末行 24 passed
+C06,共同,CI,必需检查与实际拒绝合并,PASS,docs/241250061/实验报告.md（work/ci-setup/、work/ci-rejection/）；work/ci-pr/,必需检查名 e7-a-quality-gate、App ID 15368、strict=true、enforce_admins=true（审批 0 人）；普通合并被拒退出码 1（the base branch policy prohibits the merge），PR 停在 OPEN/BLOCKED；本人 PR #19 在 CI 绿且 OPEN/CLEAN 后自行合并为 MERGED（mergeCommit 与 mergedAt 见 PR 页面，另存 work/ci-pr/merge.json）
 A01,A,E6,MD/RD精确证据与修复,PASS,work/e6-before/evidence/trace/t.14:579；t.15:23；make-db.txt:1053,MISSING(main.o,config.h) 退出1（cc1 读 config.h 未声明）；REDUNDANT(main.o,unused.h) 退出1（t.13~t.18 无进程读取）；--fixed 后 findings=[] 退出0
-A02,A,E7,三次一致及故障场景,PENDING,,
+A02,A,E7,三次一致及故障场景,PASS,work/e7-01/gate/original-1/evidence/findings.json；work/e7-01/gate/results.csv；work/e7-02/gate/results.csv,三次 original 错误集合精确一致（MISSING(main.o,config.h)+REDUNDANT(main.o,unused.h)），仅 trace_id 互异；fixed 后 findings=[] 且 input_sha256 仅 Makefile 变化；build-failed→FAILED/CHECK_FAILED、unsupported→FAILED/UNSUPPORTED、timeout→TIMED_OUT/TIMEOUT，三者退出码1而场景 passed=true；复跑 e7-02 结论一致
 B01,B,E5,缺失make及候选来源,N/A,,A轨道不适用
 B02,B,E6,构建和同镜像运行验证,N/A,,A轨道不适用
 B03,B,E7,五场景与超时清理,N/A,,A轨道不适用
