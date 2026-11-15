@@ -179,4 +179,59 @@ class StudentE9A241250107(unittest.TestCase):
         self.assertEqual(old_scan['findings'], new_scan['findings'], "MD/RD 发现不应改变")
         self.assertIn('main.o', new_scan['refreshed'], "目标应因头文件内容变化而刷新")
         self.assertEqual(new_scan['added'], [], "不应产生新发现")
+class StudentE8A241250106(unittest.TestCase):
+    # E8 方向（241250106）：删除未被任何源文件包含的 extra.h 文件。
+    # 先写独立预期：extra.h 只是躺在项目里，从未被 #include，所以
+    #  1) 缓存指纹（key.directives 按文件名收录所有 .c/.h）必然变化，两个目标都不能复用；
+    #  2) 真实依赖集与声明依赖集都不含 extra.h，因此实际图、声明图、MD/RD 发现集合全部不变；
+    #  3) 增量结果应与一次全量 scan 完全一致（actual/declared/findings）。
+    def test_removing_unincluded_header_refreshes_without_new_findings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'sample';fixture(p);old=scan(p)
+            (p/'extra.h').unlink()
+            commit(p,'student: remove unincluded extra.h')
+            r=scan(p,old)
+            self.assertNotEqual(r['key'],old['key'])
+            self.assertNotIn('extra.h',r['key']['directives'])
+            self.assertIn('extra.h',old['key']['directives'])
+            self.assertEqual(r['reused'],[])
+            self.assertEqual(set(r['refreshed']),{'main.o','helper.o'})
+            self.assertEqual(r['actual'],old['actual'])
+            self.assertEqual(r['declared'],old['declared'])
+            self.assertEqual(r['findings'],old['findings'])
+            self.assertEqual(r['added'],[])
+            self.assertEqual(r['resolved'],[])
+            self.assertNotIn('extra.h',r['actual']['main.o'])
+            self.assertNotIn('extra.h',r['actual']['helper.o'])
+            full=scan(p)
+            self.assertEqual((r['actual'],r['declared'],r['findings']),(full['actual'],full['declared'],full['findings']))
+
+class StudentE9A241250106(unittest.TestCase):
+    # E9 方向（241250106）：Makefile 的 CFLAGS 由 -O0 改为 -O1。
+    # 先写独立预期：编译器选项属于依赖分析的配置身份，
+    #  1) key.flags 变化 -> 两个目标保守刷新、无一复用；
+    #  2) 编译选项不影响 #include 关系，实际图与声明图不变，MD/RD 发现集合与 added/resolved 都不变；
+    #  3) 增量与全量一致；把 CFLAGS 换成白名单外的值必须显式拒绝，不能静默复用旧图。
+    def test_cflags_change_refreshes_both_targets_keeping_findings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'sample';fixture(p);old=scan(p)
+            self.assertEqual(old['key']['flags'],'-O0')
+            f=p/'Makefile'
+            f.write_text(f.read_text().replace('CFLAGS = -O0','CFLAGS = -O1'))
+            commit(p,'student: switch CFLAGS to -O1')
+            r=scan(p,old)
+            self.assertEqual(r['key']['flags'],'-O1')
+            self.assertNotEqual(r['key'],old['key'])
+            self.assertEqual(r['reused'],[])
+            self.assertEqual(set(r['refreshed']),{'main.o','helper.o'})
+            self.assertEqual(r['actual'],old['actual'])
+            self.assertEqual(r['declared'],old['declared'])
+            self.assertEqual(r['findings'],old['findings'])
+            self.assertEqual(r['added'],[])
+            self.assertEqual(r['resolved'],[])
+            full=scan(p)
+            self.assertEqual((r['actual'],r['declared'],r['findings']),(full['actual'],full['declared'],full['findings']))
+            f.write_text(f.read_text().replace('CFLAGS = -O1','CFLAGS = -O7'))
+            with self.assertRaisesRegex(ValueError,'UNSUPPORTED_FLAGS'):
+                scan(p,r)
 if __name__=='__main__':unittest.main()
