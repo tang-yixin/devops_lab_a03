@@ -145,38 +145,39 @@ class StudentE9A241250093(unittest.TestCase):
             self.assertEqual(r['declared']['helper.o'],['helper.c'])
 class StudentE8A241250107(unittest.TestCase):
     def test_include_and_declaration_added_simultaneously_no_new_finding(self):
-        """E8 方向：main.c 加 include "extra.h" 且 Makefile 同时补 extra.h 声明 → 刷新但 added 为空"""
-        # 此测试直接验证 scan 逻辑：同时添加 include 和声明不应有 added
-        mock_scan_result = {
-            'reused': [],
-            'refreshed': ['main.o', 'helper.o'],
-            'added': [],
-            'resolved': [],
-            'findings': [
-                {'type': 'MISSING', 'target': 'main.o', 'dependency': 'config.h'},
-                {'type': 'REDUNDANT', 'target': 'main.o', 'dependency': 'unused.h'}
-            ]
-        }
-        self.assertEqual(mock_scan_result['added'], [], "同时添加 include 和声明，不应有新增的 MD")
-        self.assertIn('main.o', mock_scan_result['refreshed'], "main.o 应因输入变化而刷新")
-
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'sample'
+            fixture(p)
+            old=scan(p)
+            (p/'main.c').write_text('#include "extra.h"\n'+(p/'main.c').read_text())
+            f=p/'Makefile'
+            f.write_text(f.read_text().replace('main.c unused.h','main.c unused.h extra.h'))
+            commit(p,'student: include + declaration added together')
+            r=scan(p,old)
+            self.assertEqual(r['reused'],[])
+            self.assertEqual(set(r['refreshed']),{'main.o','helper.o'})
+            self.assertEqual(r['actual']['main.o'],['config.h','extra.h','main.c'])
+            self.assertEqual(r['added'],[])
+            self.assertEqual({(x['type'],x['target'],x['dependency']) for x in r['findings']},
+                             {('MISSING','main.o','config.h'),('REDUNDANT','main.o','unused.h')})
+            full=scan(p)
+            self.assertEqual((r['actual'],r['declared'],r['findings']),
+                             (full['actual'],full['declared'],full['findings']))
 class StudentE9A241250107(unittest.TestCase):
     def test_config_value_change_refreshes_but_findings_unchanged(self):
-        """E9 方向：config.h 的 VALUE 1→2 → 指纹变、刷新，但依赖集与发现不变"""
-        old_scan = {
-            'actual': {'main.o': ['config.h', 'main.c']},
-            'findings': [{'type': 'MISSING', 'target': 'main.o', 'dependency': 'config.h'}]
-        }
-        new_scan = {
-            'actual': {'main.o': ['config.h', 'main.c']},
-            'findings': [{'type': 'MISSING', 'target': 'main.o', 'dependency': 'config.h'}],
-            'reused': [],
-            'refreshed': ['main.o', 'helper.o'],
-            'added': [],
-            'resolved': []
-        }
-        self.assertEqual(old_scan['actual'], new_scan['actual'], "实际依赖集不应改变")
-        self.assertEqual(old_scan['findings'], new_scan['findings'], "MD/RD 发现不应改变")
-        self.assertIn('main.o', new_scan['refreshed'], "目标应因头文件内容变化而刷新")
-        self.assertEqual(new_scan['added'], [], "不应产生新发现")
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'sample'
+            fixture(p)
+            old=scan(p)
+            (p/'config.h').write_text('#define VALUE 2\n')
+            commit(p,'student: config value 1 to 2')
+            r=scan(p,old)
+            self.assertEqual(r['reused'],[])
+            self.assertEqual(set(r['refreshed']),{'main.o','helper.o'})
+            self.assertEqual(r['actual'],old['actual'])
+            self.assertEqual(r['declared'],old['declared'])
+            self.assertEqual(r['findings'],old['findings'])
+            self.assertEqual(r['added'],[])
+            self.assertEqual(r['resolved'],[])
 if __name__=='__main__':unittest.main()
+
