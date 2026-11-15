@@ -4,6 +4,9 @@
 归档；自 E5 起，仓库根目录是 A 轨道（BuildChecker）E5—E7 云主机实验的
 工作区：全组共用 main 上的课程参考实现，个人工作在 `student/<学号>/e5-e7`
 分支上进行，通过 PR 合并回 main。
+E8—E10 为论文2复现（EChecker，ISSTA 2024，增量构建依赖检查），教学代码在
+`labs/e8e10/`（lab.py + test_profile.py + environment/），统一入口 `run_lab.py`，
+个人工作在 `student/<学号>/e8-e10` 分支，报告在 `docs/students/<学号>/e8-e10/`。
 
 ## E5—E7 工作区（仓库根目录）
 
@@ -15,9 +18,10 @@
 - E4 及更早阶段的 Makefile/Compose 命令属于旧阶段接口；E5 起优先使用 course.py，
   避免与 E4 镜像标签混用。
 - `.github/workflows/e7-quality-gate.yml` 供 E7 GitHub Actions 使用。
-- 阶段进度：**E5、E6、E7 全部完成**（E5 2026-10-31、E6 2026-11-02、E7 2026-11-09，四人均交付并合并；服务测试 24 项、判定测试 13 项；main 自 E7 起受 e7-a-quality-gate 分支保护，变更一律走 PR）。
-  阶段说明与事件记录见 [docs/e5/README.md](docs/e5/README.md)、[docs/e6/README.md](docs/e6/README.md)；
-  个人成果在各 `docs/<学号>/` 目录。
+- 阶段进度：**E5、E6、E7 全部完成**（E5 2026-10-31、E6 2026-11-02、E7 2026-11-09，四人均交付并合并；服务测试 24 项、判定测试 13 项）。**E8、E9 完成**（2026-11-14/15，四人均交付；教学测试 17 项，详见 [docs/e8e10/README.md](docs/e8e10/README.md)）；E10 待进行（2026-11-20）。
+  main 自 E7 起受 e7-a-quality-gate 保护，自 E8 起同时受 e8e10-quality-gate 保护，变更一律走 PR。
+  阶段说明与事件记录见 [docs/e5/README.md](docs/e5/README.md)、[docs/e6/README.md](docs/e6/README.md)、[docs/e8e10/README.md](docs/e8e10/README.md)；
+  个人成果在各 `docs/<学号>/` 与 `docs/students/<学号>/e8-e10/` 目录。
 
 ## 分支约定
 
@@ -27,6 +31,8 @@
 | `e2` `e3` `e4` | E2—E4 阶段成果分支（已完成） | 保留 |
 | `e5-reference-import` | E5—E7 课程参考模板一次性导入 | 合并后保留 |
 | `student/<学号>/e5-e7` | 每位成员的 E5—E7 个人分支 | 长期使用 |
+| `teaching/e8-e10` | E8—E10 教学包一次性导入（PR #21） | 合并后保留 |
+| `student/<学号>/e8-e10` | 每位成员的 E8—E10 个人分支 | 长期使用 |
 
 > E1—E4 各轮成果同时保留在 main 对应目录（`e2-a03/ e3-a03/ e4-a03/`），互不覆盖。
 
