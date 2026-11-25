@@ -12,3 +12,5 @@ A（缓存何时失效、配置身份如何绑定）：预处理指令集合+配
 代价与覆盖范围：chr(10) 写法风格略异于常规字面量；参考实现保守刷新会在 helper.o 未受影响时也重扫（保守性换正确性）。
 
 验证命令与实际证据：python3 -m unittest discover -s labs/e8e10 -p test_profile.py -v → Ran 11 tests OK（work/unit-tests-20261114-162408.log）；E8/E9 手册全部 PASS 标志及 steps 日志见 work/e8-A-manual.7JGkNs、work/e9-A-manual.ENG44c。
+
+E10 增补（2026-11-25）：自主场景选"新增第 3 头 deep.h 经 config.h 链式包含"而非文件删除/配置变化——与 include/header 场景同源但多一层间接，可同时验证"新文件出现+既有头内容变化"双触发；预期先写定（reused=0/refreshed=2/added 恰为 MISSING deep.h/原项保留/与全量一致）后运行，实测一致（chain/results.csv 五行 equal=True，summary full/inc≈0.96 如实保留）。E10 计时口径为 scan() 内 Git/解析/gcc -MM，不含 clean build；刷新场景 full/inc<1 属小样例真实数据，不替换成论文加速倍数。
