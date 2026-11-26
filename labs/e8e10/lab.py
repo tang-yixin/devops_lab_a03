@@ -35,7 +35,8 @@ _DEFAULT_PROFILE={'targets':[('main.o','main.c'),('helper.o','helper.c')],
                   'flags_whitelist':['-O0','-O1','-O0 -DMODE=1'],
                   'key_globs':['*'],'ignore':['.git','*.o','app'],
                   'build':['make','app'],'run':['./app'],'expected':'1','fail_expected':'99',
-                  'header':'config.h','header_to':'#define VALUE 2\n','expected_after':'2'}
+                  'header':'config.h','header_to':'#define VALUE 2\n','expected_after':'2',
+                  'full_build':'make app','full_clean':'make clean'}
 _PROFILE=dict(_DEFAULT_PROFILE)
 _PROFILE_IS_DEFAULT=True
 
@@ -57,6 +58,10 @@ def current_targets():
 
 def current_target_pairs():
     return list(_PROFILE['targets'])
+
+def current_full_commands():
+    """BuildChecker full_check shell commands for the installed profile."""
+    return _PROFILE.get('full_build','make app'), _PROFILE.get('full_clean','make clean')
 
 def profile_is_default():
     return _PROFILE_IS_DEFAULT

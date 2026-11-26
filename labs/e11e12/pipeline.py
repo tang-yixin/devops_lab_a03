@@ -69,7 +69,8 @@ def snapshot(repo, revision, dest, logs):
 
 def full(project, folder):
     from buildchecker.fullcheck import full_check
-    report = full_check(project, folder)
+    build_command, clean_command = lab.current_full_commands()
+    report = full_check(project, folder, clean_command=clean_command, build_command=build_command)
     if report.get('status') != 'SUCCEEDED':
         raise Failure('FULL_CHECK_FAILED', str(report.get('error', report.get('error_code'))))
     return report
