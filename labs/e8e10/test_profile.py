@@ -265,4 +265,77 @@ class StudentE10A241250061(unittest.TestCase):
             full=scan(p)
             self.assertEqual((r['actual'],r['declared'],r['findings']),(full['actual'],full['declared'],full['findings']))
 
+
+
+class StudentRealProfile241250061(unittest.TestCase):
+    # E11-E12 real-project adaptation (241250061): profiles extend the
+    # declarations/scan target mapping to multi-directory C/Make projects.
+    # Independent expectations written BEFORE running:
+    #  1) A src/ + include/ profile drives gcc -MM per (target, source) pair with
+    #     the profile's own CFLAGS whitelist (":=" assignments now parsed);
+    #  2) the fingerprint covers the profile globs: a header edit refreshes both
+    #     targets, an unchanged rescan reuses both;
+    #  3) patch() still repairs the missing header on the right rule line;
+    #  4) set_profile(None) fully restores the default teaching profile.
+    def setUp(self):
+        import lab
+        self.addCleanup(lab.set_profile, None)
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.p = Path(self.tmp.name) / 'sample'
+        src = self.p/'src'; inc = self.p/'include'
+        src.mkdir(parents=True); inc.mkdir(parents=True)
+        (src/'calc.c').write_text('#include "cfg.h' + '"' + '\n#include "extra.h' + '"' + '\nint main(void){return CFG;}\n')
+        (src/'io.c').write_text('#include "io.h' + '"' + '\nint io(void){return 0;}\n')
+        (inc/'cfg.h').write_text('#define CFG 0\n')
+        (inc/'extra.h').write_text('#define EXTRA 1\n')
+        (inc/'io.h').write_text('int io(void);\n')
+        (self.p/'Makefile').write_text(
+            'CFLAGS := -std=c11 -Iinclude\n'
+            'calc: calc.o io.o\n\tgcc calc.o io.o -o calc\n'
+            'calc.o: src/calc.c include/cfg.h\n\tgcc $(CFLAGS) -c src/calc.c -o calc.o\n'
+            'io.o: src/io.c include/io.h\n\tgcc $(CFLAGS) -c src/io.c -o io.o\n'
+            '.PHONY: clean\nclean:\n\trm -f calc.o io.o calc\n')
+        lab.run(['git','init','-b','main'], self.p)
+        lab.run(['git','config','user.name','T'], self.p)
+        lab.run(['git','config','user.email','t@t'], self.p)
+        lab.commit(self.p, 'c0')
+        lab.set_profile({'targets': [['calc.o','src/calc.c'], ['io.o','src/io.c']],
+                         'flags_whitelist': ['-std=c11 -Iinclude'],
+                         'key_globs': ['src/*.c','include/*.h'],
+                         'ignore': ['.git','*.o','calc'],
+                         'build': ['make','all'], 'run': ['./calc'],
+                         'expected': '0', 'fail_expected': '0',
+                         'header': 'include/cfg.h', 'header_search': '#define CFG 0',
+                         'header_repl': '#define CFG 2', 'expected_after': '2'})
+
+    def test_profile_scan_multidir_targets_and_flags(self):
+        r = scan(self.p)
+        self.assertEqual(r['actual']['calc.o'], ['include/cfg.h','include/extra.h','src/calc.c'])
+        self.assertEqual(r['declared']['calc.o'], ['include/cfg.h','src/calc.c'])
+        self.assertEqual(r['actual']['io.o'], ['include/io.h','src/io.c'])
+        self.assertEqual(r['findings'],
+                         [{'type':'MISSING','target':'calc.o','dependency':'extra.h'}])
+
+    def test_profile_header_change_refreshes_and_patch_repairs(self):
+        import lab
+        old = scan(self.p)
+        (self.p/'include/cfg.h').write_text('#define CFG 2\n')
+        commit(self.p, 'header change')
+        r = scan(self.p, old)
+        self.assertEqual(r['reused'], [])
+        self.assertEqual(set(r['refreshed']), {'calc.o','io.o'})
+        diff, edits = lab.patch(self.p, r)
+        self.assertIn('+calc.o: src/calc.c include/cfg.h include/extra.h', diff)
+        self.assertNotIn('extra.h', (self.p/'Makefile').read_text())
+
+    def test_default_profile_restored(self):
+        import lab
+        lab.set_profile(None)
+        self.assertTrue(lab.profile_is_default())
+        with tempfile.TemporaryDirectory() as d:
+            q = Path(d)/'sample'; fixture(q)
+            r = scan(q)
+            self.assertEqual(r['actual']['main.o'], ['config.h','main.c'])
+            self.assertEqual({(f['type'],f['dependency']) for f in r['findings']},
+                             {('MISSING','config.h'), ('REDUNDANT','unused.h')})
 if __name__=='__main__':unittest.main()

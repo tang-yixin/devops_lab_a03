@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / 'labs/e8e10'), str(ROOT / 'labs/e11e12/vendor'), '/app']
 from lab import scan, patch, validate
+import lab
 
 class Failure(ValueError):
     def __init__(self, code, message):
@@ -54,9 +55,16 @@ def snapshot(repo, revision, dest, logs):
     command(['git','clone','--no-hardlinks','--no-checkout',str(repo),str(dest)], repo, logs/(dest.name+'-clone.log'))
     command(['git','checkout','--detach',sha], dest, logs/(dest.name+'-checkout.log'))
     # E8-E10 profile; fail early instead of silently ignoring other targets.
-    names = {p.name for p in dest.glob('*.c')}
-    if names != {'main.c','helper.c'} or not (dest/'config.h').is_file():
-        raise Failure('UNSUPPORTED_PROJECT', 'Expected main.c/helper.c/config.h and explicit Make rules')
+    # E11-E12 real-project adaptation: an installed profile carries its own
+    # (target, source) pairs; the default keeps the original teaching check.
+    if lab.profile_is_default():
+        names = {p.name for p in dest.glob('*.c')}
+        if names != {'main.c','helper.c'} or not (dest/'config.h').is_file():
+            raise Failure('UNSUPPORTED_PROJECT', 'Expected main.c/helper.c/config.h and explicit Make rules')
+    else:
+        missing = [s for _, s in lab.current_targets() if not (dest/s).is_file()]
+        if missing or not (dest/'Makefile').is_file():
+            raise Failure('UNSUPPORTED_PROJECT', 'Profile sources missing: '+', '.join(missing))
     return sha
 
 def full(project, folder):
@@ -67,7 +75,7 @@ def full(project, folder):
     return report
 
 def normalized(findings):
-    return sorted((f['type'],f['target'],f['dependency']) for f in findings if f['target'] in ('main.o','helper.o'))
+    return sorted((f['type'],f['target'],f['dependency']) for f in findings if f['target'] in lab.current_targets())
 
 def execute(request, out, job_id=None):
     job_id = job_id or 'job-'+uuid.uuid4().hex
@@ -88,6 +96,7 @@ def execute(request, out, job_id=None):
         mode=request['mode']
         if mode not in ('e11-a','e11-b','e12'):
             raise Failure('INVALID_REQUEST','Unknown mode')
+        lab.set_profile(request.get('profile'))
         repo=Path(request['repo']).resolve()
         if not repo.is_dir():
             raise Failure('INVALID_REQUEST','Repository missing')
@@ -106,7 +115,7 @@ def execute(request, out, job_id=None):
             base_full=full(base,out/'baseline-full')
             old=scan(base)
             edges=json.loads((out/'baseline-full/actual-graph.json').read_text())
-            projected={t:sorted({e['dependency'] for e in edges if e['target']==t}) for t in ('main.o','helper.o')}
+            projected={t:sorted({e['dependency'] for e in edges if e['target']==t}) for t in lab.current_targets()}
             if projected != old['actual']:
                 raise Failure('GRAPH_MISMATCH','BuildChecker baseline differs from GCC observations')
             old['actual']=projected
