@@ -15,3 +15,7 @@
 兼容性与测试：vendor test_contract.py 10 项 + 新增 StudentContract241250061（幂等键长度契约先于请求校验拒收）；CI 工作流 e11e12.yml（契约测试+固定样例三模式）随导入 PR 进 main 后设为必需检查。
 
 验证命令与实际证据：python3 run_e11e12.py test → 全部通过；run --request e11-a/e11-b/e12 三模式 SUCCEEDED（work/e11-a-01、e11-b-02、e12-01）；API 五条契约实测（work/api-jobs/、work/api-client/）。
+
+---
+
+增补（2026-11-26，真实项目接入）：Minicalc 不满足教学接口，选"profile 机制扩展目标映射"而非改写项目或复制 lab.py——默认 profile 行为与原实现逐字节等价（E8-E10 的 21 项测试与三门禁 CI 证明无回归），真实项目走请求内嵌 profile；候选 Dockerfile 加 TUNA 镜像源行属DRAFT 校验允许的 RUN 插入且解决 CN 网络 apt 慢；坑位：Docker COPY 目录进多源列表时只拷内容不保层级（`COPY Makefile src include ./` 平铺导致 make 失败），改 `COPY . ./`保持仓库结构——两份 Dockerfile 的非 RUN 行须保持一致（prepare_candidate 约束）。
