@@ -314,7 +314,7 @@ class StudentRealProfile241250061(unittest.TestCase):
         self.assertEqual(r['declared']['calc.o'], ['include/cfg.h','src/calc.c'])
         self.assertEqual(r['actual']['io.o'], ['include/io.h','src/io.c'])
         self.assertEqual(r['findings'],
-                         [{'type':'MISSING','target':'calc.o','dependency':'extra.h'}])
+                         [{'type':'MISSING','target':'calc.o','dependency':'include/extra.h'}])
 
     def test_profile_header_change_refreshes_and_patch_repairs(self):
         import lab
