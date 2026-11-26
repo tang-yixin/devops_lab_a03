@@ -237,4 +237,32 @@ class StudentE9A241250106(unittest.TestCase):
             f.write_text(f.read_text().replace('CFLAGS = -O1','CFLAGS = -O7'))
             with self.assertRaisesRegex(ValueError,'UNSUPPORTED_FLAGS'):
                 scan(p,r)
+
+class StudentE10A241250061(unittest.TestCase):
+    # E10 自主场景（241250061）：新增 deep.h 并让 config.h 间接包含它（链式第3个头）。
+    # 独立预期（运行前写定）：
+    #  1) 新文件 + config.h 指令行变化 => 缓存 key 必变 => 两目标全部保守刷新（reused=0）；
+    #  2) gcc -MM 观察 main.o 实际图新增 deep.h，声明未含 => added 恰为 MISSING main.o deep.h；
+    #  3) 原有 MD config.h 与 RD unused.h 均保留，resolved 为空；
+    #  4) helper.c 不含任何 include，helper.o 实际图保持 [helper.c]；
+    #  5) 增量结果与全量 scan 在 actual/declared/findings 三集合上完全一致。
+    def test_chained_third_header_refreshes_and_matches_full(self):
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'sample'
+            fixture(p);old=scan(p)
+            (p/'deep.h').write_text('#define DEEP 1'+chr(10))
+            cfg=p/'config.h';cfg.write_text('#include '+chr(34)+'deep.h'+chr(34)+chr(10)+cfg.read_text())
+            commit(p,'student: chained third header via config.h')
+            r=scan(p,old)
+            self.assertEqual(r['reused'],[])
+            self.assertEqual(set(r['refreshed']),{'main.o','helper.o'})
+            self.assertEqual(r['actual']['main.o'],['config.h','deep.h','main.c'])
+            self.assertEqual(r['actual']['helper.o'],['helper.c'])
+            self.assertEqual(r['added'],[['MISSING','main.o','deep.h']])
+            self.assertEqual(r['resolved'],[])
+            self.assertIn({'type':'MISSING','target':'main.o','dependency':'config.h'},r['findings'])
+            self.assertIn({'type':'REDUNDANT','target':'main.o','dependency':'unused.h'},r['findings'])
+            full=scan(p)
+            self.assertEqual((r['actual'],r['declared'],r['findings']),(full['actual'],full['declared'],full['findings']))
+
 if __name__=='__main__':unittest.main()
