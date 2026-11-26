@@ -61,4 +61,48 @@ class StudentContract241250061(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'max 128'):
                 store.submit({'mode':'e12','repo':str(d),'base':'a','target':'b'},'k'*129)
             store.pool.shutdown()
+
+
+class StudentPipelineProfile241250061(unittest.TestCase):
+    # Adaptation contract (241250061): a request may carry a project profile that
+    # widens snapshot/normalization to its own targets. Independent expectations:
+    #  1) execute() installs the profile before snapshot and fails fast with
+    #     UNSUPPORTED_PROJECT (no stage recorded) when profile sources are absent;
+    #  2) set_profile installs tuple targets from JSON lists; None restores default.
+    def test_missing_profile_sources_fail_before_stages(self):
+        import lab
+        self.addCleanup(lab.set_profile, None)
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d); repo = root/'repo'; repo.mkdir()
+            lab.run(['git','init','-b','main'], repo)
+            lab.run(['git','config','user.name','T'], repo)
+            lab.run(['git','config','user.email','t@t'], repo)
+            (repo/'README.md').write_text('x\n')
+            lab.commit(repo, 'c0')
+            sha = lab.run(['git','rev-parse','HEAD'], repo).strip()
+            profile = {'targets': [['main.o','src/main.c']],
+                       'flags_whitelist': ['-std.c11'], 'key_globs': ['src/*.c'],
+                       'ignore': ['.git','*.o','app'], 'build': ['make'], 'run': ['./app'],
+                       'expected': '1', 'header': 'include/config.h', 'header_to': 'x',
+                       'expected_after': '1'}
+            request = {'mode':'e12','repo':str(repo),'base':sha,'target':sha,
+                       'candidate':str(root/'candidate.Dockerfile'),'expected_output':'1',
+                       'build_timeout':60,'profile':profile}
+            result = pipeline.execute(request, root/'out')
+            self.assertEqual(result['status'], 'FAILED')
+            self.assertEqual(result['error']['code'], 'UNSUPPORTED_PROJECT')
+            self.assertEqual(result['stages'], [])
+
+    def test_set_profile_tuples_and_default_restore(self):
+        import lab
+        self.addCleanup(lab.set_profile, None)
+        got = lab.set_profile({'targets': [['a.o','src/a.c']],
+                               'flags_whitelist': ['-x'], 'key_globs': ['src/*.c'],
+                               'ignore': ['.git','*.o','a'], 'build': ['make'],
+                               'run': ['./a'], 'expected': '1', 'header': 'h.h',
+                               'header_to': 'x', 'expected_after': '1'})
+        self.assertEqual(got, ['a.o'])
+        self.assertFalse(lab.profile_is_default())
+        self.assertEqual(lab.set_profile(None), ['main.o','helper.o'])
+        self.assertTrue(lab.profile_is_default())
 if __name__=='__main__':unittest.main()

@@ -31,11 +31,46 @@ def commit(p, msg):
     run(['git','add','.'],p); run(['git','commit','-m',msg],p)
     return run(['git','rev-parse','HEAD'],p).strip()
 
+_DEFAULT_PROFILE={'targets':[('main.o','main.c'),('helper.o','helper.c')],
+                  'flags_whitelist':['-O0','-O1','-O0 -DMODE=1'],
+                  'key_globs':['*'],'ignore':['.git','*.o','app'],
+                  'build':['make','app'],'run':['./app'],'expected':'1','fail_expected':'99',
+                  'header':'config.h','header_to':'#define VALUE 2\n','expected_after':'2',
+                  'full_build':'make app','full_clean':'make clean'}
+_PROFILE=dict(_DEFAULT_PROFILE)
+_PROFILE_IS_DEFAULT=True
+
+def set_profile(profile=None):
+    """E11-E12 real-project adaptation: install a project profile; None restores the default."""
+    global _PROFILE,_PROFILE_IS_DEFAULT
+    if profile is None:
+        _PROFILE=dict(_DEFAULT_PROFILE); _PROFILE_IS_DEFAULT=True
+    else:
+        normalized=dict(profile)
+        normalized['targets']=[(t,s) for t,s in normalized['targets']]
+        for key in ('flags_whitelist','key_globs','ignore','build','run'):
+            normalized[key]=list(normalized[key])
+        _PROFILE=normalized; _PROFILE_IS_DEFAULT=False
+    return current_targets()
+
+def current_targets():
+    return [t for t,_ in _PROFILE['targets']]
+
+def current_target_pairs():
+    return list(_PROFILE['targets'])
+
+def current_full_commands():
+    """BuildChecker full_check shell commands for the installed profile."""
+    return _PROFILE.get('full_build','make app'), _PROFILE.get('full_clean','make clean')
+
+def profile_is_default():
+    return _PROFILE_IS_DEFAULT
+
 def declarations(p):
     text=(p/'Makefile').read_text()
-    variables=dict(re.findall(r'^(\w+)\s*=\s*(.*)$',text,re.M))
+    variables=dict(re.findall(r'^(\w+)\s*:?=\s*(.*)$',text,re.M))
     graph={}
-    for target in ['main.o','helper.o']:
+    for target in current_targets():
         m=re.search(r'^'+re.escape(target)+r': ([^\n]*)$',text,re.M)
         if not m: raise ValueError('UNSUPPORTED_RULE '+target)
         dep=m[1]
@@ -47,14 +82,14 @@ def declarations(p):
 
 def scan(p, old=None):
     start=time.perf_counter(); declared,flags=declarations(p)
-    if flags not in ['-O0','-O1','-O0 -DMODE=1']: raise ValueError('UNSUPPORTED_FLAGS')
+    if flags not in _PROFILE['flags_whitelist']: raise ValueError('UNSUPPORTED_FLAGS')
     # Conservative invalidation: all local preprocessor lines, source set and recipes.
-    files={x.name:x.read_text() for x in sorted(p.glob('*')) if x.suffix in ['.c','.h']}
+    files={x.name:x.read_text() for g in _PROFILE['key_globs'] for x in sorted(p.glob(g)) if x.suffix in ['.c','.h']}
     key={'directives':{n:[l for l in t.splitlines() if l.lstrip().startswith('#')] for n,t in files.items()},
          'recipes':[l for l in (p/'Makefile').read_text().splitlines() if l.startswith('\t')],
          'flags':flags,'compiler':run(['gcc','--version'],p).splitlines()[0]}
     actual={}; refreshed=[]; reused=[]
-    for target,source in [('main.o','main.c'),('helper.o','helper.c')]:
+    for target,source in _PROFILE['targets']:
         if old and old['key']==key and target in old['actual']:
             actual[target]=old['actual'][target]; reused.append(target)
         else:
@@ -96,7 +131,7 @@ def patch(p,report):
 
 def validate(p, patchfile, evidence, fail_test=False):
     evidence.mkdir(parents=True); before=(p/'Makefile').read_bytes()
-    sandbox=evidence/'sandbox'; shutil.copytree(p,sandbox,ignore=shutil.ignore_patterns('.git','*.o','app'))
+    sandbox=evidence/'sandbox'; shutil.copytree(p,sandbox,ignore=shutil.ignore_patterns(*_PROFILE['ignore']))
     run(['git','init','-b','main'],sandbox)
     run(['git','config','user.name','ValidationSandbox'],sandbox)
     run(['git','config','user.email','fixture@localhost'],sandbox)
@@ -105,12 +140,16 @@ def validate(p, patchfile, evidence, fail_test=False):
     try:
         run(['git','apply','--check',str(patchfile.resolve())],sandbox); checks['patch_applies']=True
         run(['git','apply',str(patchfile.resolve())],sandbox)
-        log=run(['make','clean'],sandbox)+run(['make','app'],sandbox);(evidence/'build.log').write_text(log);checks['build']=True
-        output=run(['./app'],sandbox).strip(); checks['test']=output==('99' if fail_test else '1')
+        log=run(['make','clean'],sandbox)+run(_PROFILE['build'],sandbox);(evidence/'build.log').write_text(log);checks['build']=True
+        output=run(_PROFILE['run'],sandbox).strip(); checks['test']=output==(_PROFILE['fail_expected'] if fail_test else _PROFILE['expected'])
         # Real header-change build checks the originally broken incremental behavior.
-        time.sleep(1.05); (sandbox/'config.h').write_text('#define VALUE 2\n')
-        (evidence/'incremental.log').write_text(run(['make','app'],sandbox))
-        checks['header_change']=run(['./app'],sandbox).strip()=='2'
+        time.sleep(1.05); header=sandbox/_PROFILE['header']
+        if 'header_search' in _PROFILE:
+            header.write_text(header.read_text().replace(_PROFILE['header_search'],_PROFILE['header_repl']))
+        else:
+            header.write_text(_PROFILE['header_to'])
+        (evidence/'incremental.log').write_text(run(_PROFILE['build'],sandbox))
+        checks['header_change']=run(_PROFILE['run'],sandbox).strip()==_PROFILE['expected_after']
         recheck=scan(sandbox); save(evidence/'recheck.json',recheck)
         checks['no_missing']=not any(f['type']=='MISSING' for f in recheck['findings'])
     except (ValueError,subprocess.TimeoutExpired) as ex: error=str(ex)
