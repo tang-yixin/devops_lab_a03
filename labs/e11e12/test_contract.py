@@ -48,4 +48,17 @@ class Contracts(unittest.TestCase):
             with self.assertRaises(ValueError):store.submit({'mode':'e11-a','repo':str(Path(d)),'base':'a','target':'b'},'k')
             store.pool.shutdown()
 
+
+
+class StudentContract241250061(unittest.TestCase):
+    # Personal contract test (241250061). Independent expectation written first:
+    # the idempotency-key contract (non-empty, max 128 characters) is enforced before
+    # any request validation, so an over-long key can never reach the path/mode
+    # checks or occupy job storage.
+    def test_overlong_idempotency_key_rejected_before_request_checks(self):
+        with tempfile.TemporaryDirectory() as d:
+            store=server.Store(Path(d)/'jobs')
+            with self.assertRaisesRegex(ValueError,'max 128'):
+                store.submit({'mode':'e12','repo':str(d),'base':'a','target':'b'},'k'*129)
+            store.pool.shutdown()
 if __name__=='__main__':unittest.main()
