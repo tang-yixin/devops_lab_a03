@@ -62,7 +62,7 @@ def snapshot(repo, revision, dest, logs):
         if names != {'main.c','helper.c'} or not (dest/'config.h').is_file():
             raise Failure('UNSUPPORTED_PROJECT', 'Expected main.c/helper.c/config.h and explicit Make rules')
     else:
-        missing = [s for _, s in lab.current_targets() if not (dest/s).is_file()]
+        missing = [s for _, s in lab.current_target_pairs() if not (dest/s).is_file()]
         if missing or not (dest/'Makefile').is_file():
             raise Failure('UNSUPPORTED_PROJECT', 'Profile sources missing: '+', '.join(missing))
     return sha

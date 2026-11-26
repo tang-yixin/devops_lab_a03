@@ -55,6 +55,9 @@ def set_profile(profile=None):
 def current_targets():
     return [t for t,_ in _PROFILE['targets']]
 
+def current_target_pairs():
+    return list(_PROFILE['targets'])
+
 def profile_is_default():
     return _PROFILE_IS_DEFAULT
 
