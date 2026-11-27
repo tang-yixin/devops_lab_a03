@@ -105,4 +105,41 @@ class StudentPipelineProfile241250061(unittest.TestCase):
         self.assertFalse(lab.profile_is_default())
         self.assertEqual(lab.set_profile(None), ['main.o','helper.o'])
         self.assertTrue(lab.profile_is_default())
+class StudentContract241250093(unittest.TestCase):
+    # E11-E12 自有契约测试（093 方向）：幂等键空串 / 非字符串输入的拒收分支。
+    # 独立预期（运行前写定）：
+    #  1) Store.submit 在 mode / repo 路径校验之前先校验键类型与长度，
+    #     所以 ''、None、int、list、dict 都抛 ValueError('idempotency_key required, ...')；
+    #  2) 拒绝发生在写入 keys/jobs 之前，因此不产生任何 job-* 目录（不占存储）；
+    #  3) 被拒的空键不占用命名空间：随后用同一个合法键提交仍可成功并正确幂等；
+    #  4) HTTP 层把这类 ValueError 映射为 400（实测见 work/api-client/联调记录.json）。
+    def test_empty_and_non_string_keys_rejected_before_job_creation(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d); store = server.Store(root/'jobs')
+            request = {'mode':'e11-a','repo':str(pipeline.ROOT/'data/p'),'base':'a','target':'b'}
+            for key in ['', None, 7, [], {}]:
+                with self.assertRaisesRegex(ValueError, 'idempotency_key required'):
+                    store.submit(request, key)
+            self.assertEqual(store.keys, {})
+            self.assertEqual(store.jobs, {})
+            self.assertEqual(list((root/'jobs').glob('job-*')), [])
+            with patch.object(store.pool, 'submit'):
+                ok = store.submit(request, 'e12-241250093-valid')
+                self.assertTrue(ok['job_id'].startswith('job-'))
+            store.pool.shutdown()
+
+    def test_empty_key_does_not_occupy_the_namespace(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d); store = server.Store(root/'jobs')
+            request = {'mode':'e12','repo':str(pipeline.ROOT/'data/p'),'base':'a','target':'b'}
+            with self.assertRaisesRegex(ValueError, 'idempotency_key required'):
+                store.submit(request, '')
+            self.assertEqual(store.keys, {})
+            with patch.object(store.pool, 'submit'):
+                one = store.submit(request, 'e12-241250093-valid')
+                two = store.submit(request, 'e12-241250093-valid')
+                self.assertEqual(one['job_id'], two['job_id'])
+            self.assertEqual(len(store.keys), 1)
+            store.pool.shutdown()
+
 if __name__=='__main__':unittest.main()
