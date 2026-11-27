@@ -338,4 +338,57 @@ class StudentRealProfile241250061(unittest.TestCase):
             self.assertEqual(r['actual']['main.o'], ['config.h','main.c'])
             self.assertEqual({(f['type'],f['dependency']) for f in r['findings']},
                              {('MISSING','config.h'), ('REDUNDANT','unused.h')})
+class StudentE10A241250093(unittest.TestCase):
+    # E10 自主场景（241250093）：删除「被 Makefile 声明、但从未被任何源文件 include」的头文件。
+    # 独立预期（运行前写定）：
+    #  1) key.directives 按文件名收录所有 .c/.h，删除 unused.h 会改变 key ->
+    #     两个对象目标全部保守刷新，reused=[]，refreshed={main.o, helper.o}；
+    #  2) gcc -MM 从不读取 unused.h，Makefile 文本也没改，故 actual/declared/findings
+    #     全部不变；REDUNDANT(main.o, unused.h) 依然保留（声明图基于文本，不检查文件存在）；
+    #  3) added/resolved 均为空，增量结果与同状态全量 scan 三集合完全一致；
+    #  4) 对照组：不删除文件时，同一历史图应被完整复用（reused 两个目标）。
+    # 与 241250106 已占的「删除完全未声明的 extra.h」不同：本场景额外验证
+    # 「声明引用已删除文件仍算 RD」这一分支。
+    def test_delete_declared_but_unincluded_header_refreshes_and_keeps_rd(self):
+        with tempfile.TemporaryDirectory() as directory:
+            p = Path(directory)/'sample'
+            fixture(p); old = scan(p)
+            control = scan(p, old)
+            self.assertEqual(control['reused'], ['main.o','helper.o'])
+            self.assertEqual(control['refreshed'], [])
+            (p/'unused.h').unlink()
+            commit(p, 'student: delete unincluded unused.h')
+            r = scan(p, old)
+            self.assertNotEqual(r['key'], old['key'])
+            self.assertNotIn('unused.h', r['key']['directives'])
+            self.assertIn('unused.h', old['key']['directives'])
+            self.assertEqual(r['reused'], [])
+            self.assertEqual(set(r['refreshed']), {'main.o','helper.o'})
+            self.assertEqual(r['actual'], old['actual'])
+            self.assertEqual(r['declared'], old['declared'])
+            self.assertEqual(r['findings'], old['findings'])
+            self.assertEqual(r['added'], [])
+            self.assertEqual(r['resolved'], [])
+            self.assertIn({'type':'REDUNDANT','target':'main.o','dependency':'unused.h'}, r['findings'])
+            full = scan(p)
+            self.assertEqual((r['actual'], r['declared'], r['findings']),
+                             (full['actual'], full['declared'], full['findings']))
+
+    def test_five_repeats_after_deletion_all_match_full(self):
+        # E10 的五次一致性：每次都从同一个旧历史图出发，结果必须与全量完全一致。
+        with tempfile.TemporaryDirectory() as directory:
+            p = Path(directory)/'sample'
+            fixture(p); old = scan(p)
+            (p/'unused.h').unlink()
+            commit(p, 'student: delete unincluded unused.h')
+            for repeat in range(5):
+                inc = scan(p, old); full = scan(p)
+                self.assertEqual(inc['actual'], full['actual'], repeat)
+                self.assertEqual(inc['declared'], full['declared'], repeat)
+                self.assertEqual(inc['findings'], full['findings'], repeat)
+                self.assertEqual(inc['reused'], [], repeat)
+                self.assertEqual(set(inc['refreshed']), {'main.o','helper.o'}, repeat)
+                self.assertEqual(inc['added'], [], repeat)
+                self.assertEqual(inc['resolved'], [], repeat)
+
 if __name__=='__main__':unittest.main()
